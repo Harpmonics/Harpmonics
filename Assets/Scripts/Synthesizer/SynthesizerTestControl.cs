@@ -2,7 +2,9 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class SynthesizerTestControl : MonoBehaviour {
+public class SynthesizerTestControl : MonoBehaviour
+{
+    public MIDITimingJudger[] judgers;
 
     TrackSynthesizer synthesizer;
 
@@ -10,7 +12,7 @@ public class SynthesizerTestControl : MonoBehaviour {
 	void Start ()
     {
         synthesizer = GetComponent<TrackSynthesizer>();
-	}
+    }
 	
 	// Update is called once per frame
 	void Update ()
@@ -18,11 +20,13 @@ public class SynthesizerTestControl : MonoBehaviour {
         int currBeat = Mathf.RoundToInt(BeatTime.beat);
         if (Input.GetKeyDown(KeyCode.F))
         {
-            synthesizer.PlayNow(0, currBeat, currBeat + 1);
+            var note = judgers[0].GetNoteOnBeat(BeatTime.beat, 0.125f);
+            if (note.noteNum != -1) synthesizer.PlayNow(0, note.beginBeat, note.audioEndBeat);
         }
         if (Input.GetKeyDown(KeyCode.J))
         {
-            synthesizer.PlayNow(1, currBeat, currBeat + 1);
+            var note = judgers[1].GetNoteOnBeat(BeatTime.beat, 0.125f);
+            if (note.noteNum != -1) synthesizer.PlayNow(1, note.beginBeat, note.audioEndBeat);
         }
     }
 

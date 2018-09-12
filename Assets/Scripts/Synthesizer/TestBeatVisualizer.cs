@@ -7,7 +7,7 @@ public class TestBeatVisualizer : MonoBehaviour {
 	// Update is called once per frame
 	void Update () {
         float subBeat = BeatTime.subBeat;
-        transform.localScale = Vector3.one * (BeatTime.beat > 0 ? Mathf.Exp(-subBeat * 10) + 1 : 1);
+        transform.localScale = Vector3.one * (BeatTime.beat > 0 ? Mathf.Exp(-subBeat * 10) * 0.5f + 1 : 1);
 	}
 
 }

@@ -16,8 +16,6 @@ public class TrackSynthesizer : MonoBehaviour {
         double endTime = BeatTime.timeOnBeat(endBeat);
         double length = endTime - beginTime;
 
-        Debug.Log(BeatTime.dspTime + length);
-
         AudioSource track = playableTracks[trackNum];
         
         track.SetScheduledEndTime(0);

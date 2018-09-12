@@ -143,6 +143,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4849baea977ecf140aef11686ef1fe3c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  judgers:
+  - {fileID: 1960693132}
+  - {fileID: 1782537974}
 --- !u!4 &268738870
 Transform:
   m_ObjectHideFlags: 0
@@ -482,6 +485,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1782537972}
   - component: {fileID: 1782537973}
+  - component: {fileID: 1782537974}
   m_Layer: 0
   m_Name: Track 2
   m_TagString: Untagged
@@ -598,6 +602,19 @@ AudioSource:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
+--- !u!114 &1782537974
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1782537971}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 037dd1af712c0004b811b4a47c0d01be, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  chart: {fileID: 11400000, guid: 0b8b7d8909a81854fbe1d63c760906e2, type: 3}
+  trackNumber: 1
 --- !u!1 &1843461821
 GameObject:
   m_ObjectHideFlags: 0
@@ -691,6 +708,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1960693130}
   - component: {fileID: 1960693131}
+  - component: {fileID: 1960693132}
   m_Layer: 0
   m_Name: Track 1
   m_TagString: Untagged
@@ -807,3 +825,16 @@ AudioSource:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
+--- !u!114 &1960693132
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1960693129}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 037dd1af712c0004b811b4a47c0d01be, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  chart: {fileID: 11400000, guid: 0b8b7d8909a81854fbe1d63c760906e2, type: 3}
+  trackNumber: 2

@@ -21,28 +21,44 @@ public class MIDIImporter : ScriptedImporter
 
         foreach (var chunk in midi.Chunks)
         {
-            var track = chunk as TrackChunk;
-            if (track == null)
+            var trackChunk = chunk as TrackChunk;
+            if (trackChunk == null)
                 continue;
 
             var noteList = new List<MIDIChart.Note>();
 
-            var notesManager = new NotesManager(track.Events);
+            var notesManager = new NotesManager(trackChunk.Events);
             foreach (var midiNote in notesManager.Notes)
             {
-                var note = ScriptableObject.CreateInstance<MIDIChart.Note>();
-                note.noteNum = midiNote.NoteNumber;
-                note.beginBeat = midiNote.Time / beatTicks;
-                note.endBeat = midiNote.Length / beatTicks;
-                noteList.Add(note);
+                float noteBeginBeat = midiNote.Time / beatTicks;
+                float noteEndBeat = noteBeginBeat + midiNote.Length / beatTicks;
+                noteList.Add(new MIDIChart.Note
+                {
+                    noteNum = midiNote.NoteNumber,
+                    beginBeat = noteBeginBeat,
+                    endBeat = noteEndBeat,
+                    audioEndBeat = float.PositiveInfinity
+                });
             }
 
-            var trackData = ScriptableObject.CreateInstance<MIDIChart.Track>();
-            trackData.notes = noteList.ToArray();
-            trackList.Add(trackData);
+            noteList.Sort((MIDIChart.Note x, MIDIChart.Note y) => x.beginBeat.CompareTo(y.beginBeat));
+            
+            for (int i = 0; i < noteList.Count; ++i)
+            {
+                for (int j = i + 1; j < noteList.Count; ++j)
+                {
+                    if (noteList[j].beginBeat >= noteList[i].endBeat)
+                    {
+                        noteList[i].audioEndBeat = noteList[j].beginBeat;
+                        break;
+                    }
+                }
+            }
+            
+            trackList.Add(new MIDIChart.Track{ notes = noteList });
         }
 
-        chart.tracks = trackList.ToArray();
+        chart.tracks = trackList;
 
         ctx.AddObjectToAsset("chart", chart);
         ctx.SetMainObject(chart);
