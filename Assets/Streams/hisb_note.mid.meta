@@ -1,7 +1,10 @@
 fileFormatVersion: 2
-guid: a127fca008e838f4b81cc5c04aaa90a4
-DefaultImporter:
+guid: 0b8b7d8909a81854fbe1d63c760906e2
+ScriptedImporter:
+  fileIDToRecycleName:
+    11400000: chart
   externalObjects: {}
-  userData: 
+  userData: 0
   assetBundleName: 
   assetBundleVariant: 
+  script: {fileID: 11500000, guid: fd84365f385b5524abc38435ab997731, type: 3}
