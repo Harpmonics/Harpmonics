@@ -35,7 +35,7 @@ public class ControllerTouchDetection : MonoBehaviour
 
         if (controller != null)
         {
-            controller.JudgeTrack(handle);
+            controller.TriggerWithHandle(handle);
         }
     }
 

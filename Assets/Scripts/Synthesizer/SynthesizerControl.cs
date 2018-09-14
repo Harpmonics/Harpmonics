@@ -34,4 +34,9 @@ public class SynthesizerControl : MonoBehaviour
         if (note.noteNum != -1) synthesizer.PlayNow(trackNumber, note.beginBeat, note.audioEndBeat);
     }
 
+    public void TriggerWithHandle(int handleNumber)
+    {
+        JudgeTrack(handleNumber);
+    }
+
 }
