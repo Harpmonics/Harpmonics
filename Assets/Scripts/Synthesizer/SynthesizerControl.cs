@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class SynthesizerTestControl : MonoBehaviour
+public class SynthesizerControl : MonoBehaviour
 {
     public MIDITimingJudger[] judgers;
     public float judgeToleranceBeat = 0.125f;
@@ -23,6 +23,12 @@ public class SynthesizerTestControl : MonoBehaviour
     }
 
     public void JudgeTrack(int trackNumber)
+    {
+        var note = judgers[trackNumber].GetNoteOnBeat(BeatTime.beat, judgeToleranceBeat);
+        if (note.noteNum != -1) synthesizer.PlayNow(trackNumber, note.beginBeat, note.audioEndBeat);
+    }
+
+    public void JudgeKey(int trackNumber, int keyNumber)
     {
         var note = judgers[trackNumber].GetNoteOnBeat(BeatTime.beat, judgeToleranceBeat);
         if (note.noteNum != -1) synthesizer.PlayNow(trackNumber, note.beginBeat, note.audioEndBeat);
