@@ -18,8 +18,8 @@ public class SynthesizerTestControl : MonoBehaviour
 	// Update is called once per frame
 	void Update ()
     {
-        if (Input.GetKeyDown(KeyCode.F)) JudgeTrack(0);
-        if (Input.GetKeyDown(KeyCode.J)) JudgeTrack(1);
+        if (Input.GetKeyDown(KeyCode.J)) JudgeTrack(0);
+        if (Input.GetKeyDown(KeyCode.F)) JudgeTrack(1);
     }
 
     public void JudgeTrack(int trackNumber)
