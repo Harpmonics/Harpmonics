@@ -5,6 +5,7 @@ using UnityEngine;
 public class SynthesizerTestControl : MonoBehaviour
 {
     public MIDITimingJudger[] judgers;
+    public float judgeToleranceBeat = 0.125f;
 
     TrackSynthesizer synthesizer;
 
@@ -17,17 +18,14 @@ public class SynthesizerTestControl : MonoBehaviour
 	// Update is called once per frame
 	void Update ()
     {
-        int currBeat = Mathf.RoundToInt(BeatTime.beat);
-        if (Input.GetKeyDown(KeyCode.F))
-        {
-            var note = judgers[0].GetNoteOnBeat(BeatTime.beat, 0.125f);
-            if (note.noteNum != -1) synthesizer.PlayNow(0, note.beginBeat, note.audioEndBeat);
-        }
-        if (Input.GetKeyDown(KeyCode.J))
-        {
-            var note = judgers[1].GetNoteOnBeat(BeatTime.beat, 0.125f);
-            if (note.noteNum != -1) synthesizer.PlayNow(1, note.beginBeat, note.audioEndBeat);
-        }
+        if (Input.GetKeyDown(KeyCode.F)) JudgeTrack(0);
+        if (Input.GetKeyDown(KeyCode.J)) JudgeTrack(1);
+    }
+
+    public void JudgeTrack(int trackNumber)
+    {
+        var note = judgers[trackNumber].GetNoteOnBeat(BeatTime.beat, judgeToleranceBeat);
+        if (note.noteNum != -1) synthesizer.PlayNow(trackNumber, note.beginBeat, note.audioEndBeat);
     }
 
 }
