@@ -14,14 +14,16 @@ public class NoteFactory : MonoBehaviour
         if (recycleList.Count == 0)
         {
             note = Instantiate(assetNote, transform);
+            note.Factory = this;
+            note.NoteData = noteData;
         }
         else
         {
             note = recycleList.Dequeue();
+            note.Factory = this;
+            note.NoteData = noteData;
             note.gameObject.SetActive(true);
         }
-        note.NoteData = noteData;
-        note.Factory = this;
         return note;
     }
 

@@ -2,10 +2,10 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class NoteBehaviour : MonoBehaviour {
-    
-    public MIDIChart.Note NoteData { get; set; }
+public class NoteBehaviour : MonoBehaviour
+{
     public NoteFactory Factory { get; set; }
+    public MIDIChart.Note NoteData { get; set; }
 
     public void Recycle()
     {
