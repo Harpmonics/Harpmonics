@@ -6,7 +6,7 @@ using UnityEngine;
 public class SimpleNoteVisualizer : MonoBehaviour
 {
     public MIDIChart chart;
-    public int[] tracksToVisualize;
+    public int trackToVisualize;
 
     public float noteShowOffsetBeat = 4;
 
@@ -17,13 +17,8 @@ public class SimpleNoteVisualizer : MonoBehaviour
     void Start()
     {
         factory = GetComponent<NoteFactory>();
-
-        var noteList = new List<MIDIChart.Note>();
-        foreach (int trackNumber in tracksToVisualize)
-            foreach (var note in chart.tracks[trackNumber].notes)
-                noteList.Add(note);
-        noteList.Sort((MIDIChart.Note x, MIDIChart.Note y) => x.beginBeat.CompareTo(y.beginBeat));
-        foreach (var note in noteList)
+        
+        foreach (var note in chart.tracks[trackToVisualize].notes)
             pendingNotes.Enqueue(note);
     }
 

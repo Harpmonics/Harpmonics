@@ -14,11 +14,19 @@ public class SimpleNote : MonoBehaviour
     {
         behaviour = GetComponent<NoteBehaviour>();
     }
-	
-	void Update ()
+
+    void OnEnable()
+    {
+        behaviour = GetComponent<NoteBehaviour>();
+        Update();
+    }
+
+    void Update ()
     {
         MIDIChart.Note noteData = behaviour.NoteData;
         transform.localScale = new Vector3(1, (noteData.endBeat - noteData.beginBeat) * offsetPerBeat.magnitude, 1);
         transform.localPosition = judgePosition + (noteData.beginBeat - BeatTime.beat) * offsetPerBeat;
+        if (noteData.endBeat < BeatTime.beat)
+            behaviour.Recycle();
     }
 }
