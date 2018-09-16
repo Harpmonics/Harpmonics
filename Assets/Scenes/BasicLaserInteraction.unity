@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.44657844, g: 0.49641222, b: 0.57481694, a: 1}
+  m_IndirectSpecularColor: {r: 0.44657898, g: 0.4964133, b: 0.5748178, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -113,159 +113,6 @@ NavMeshSettings:
     debug:
       m_Flags: 0
   m_NavMeshData: {fileID: 0}
---- !u!1001 &195187391
-Prefab:
-  m_ObjectHideFlags: 0
-  serializedVersion: 2
-  m_Modification:
-    m_TransformParent: {fileID: 0}
-    m_Modifications:
-    - target: {fileID: 4958944793233770, guid: b494464771ffaf24da161440cafa0eeb, type: 2}
-      propertyPath: m_LocalPosition.x
-      value: 0.33
-      objectReference: {fileID: 0}
-    - target: {fileID: 4958944793233770, guid: b494464771ffaf24da161440cafa0eeb, type: 2}
-      propertyPath: m_LocalPosition.y
-      value: 3.25
-      objectReference: {fileID: 0}
-    - target: {fileID: 4958944793233770, guid: b494464771ffaf24da161440cafa0eeb, type: 2}
-      propertyPath: m_LocalPosition.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 4958944793233770, guid: b494464771ffaf24da161440cafa0eeb, type: 2}
-      propertyPath: m_LocalRotation.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 4958944793233770, guid: b494464771ffaf24da161440cafa0eeb, type: 2}
-      propertyPath: m_LocalRotation.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 4958944793233770, guid: b494464771ffaf24da161440cafa0eeb, type: 2}
-      propertyPath: m_LocalRotation.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 4958944793233770, guid: b494464771ffaf24da161440cafa0eeb, type: 2}
-      propertyPath: m_LocalRotation.w
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 4958944793233770, guid: b494464771ffaf24da161440cafa0eeb, type: 2}
-      propertyPath: m_RootOrder
-      value: 5
-      objectReference: {fileID: 0}
-    - target: {fileID: 1531523049803442, guid: b494464771ffaf24da161440cafa0eeb, type: 2}
-      propertyPath: m_Name
-      value: Laser Beam (2)
-      objectReference: {fileID: 0}
-    - target: {fileID: 114157169924425720, guid: b494464771ffaf24da161440cafa0eeb,
-        type: 2}
-      propertyPath: laserSound
-      value: 
-      objectReference: {fileID: 8300000, guid: a0b9eb6c4148383428063895388c024d, type: 3}
-    m_RemovedComponents: []
-  m_SourcePrefab: {fileID: 100100000, guid: b494464771ffaf24da161440cafa0eeb, type: 2}
-  m_IsPrefabAsset: 0
---- !u!1001 &282466146
-Prefab:
-  m_ObjectHideFlags: 0
-  serializedVersion: 2
-  m_Modification:
-    m_TransformParent: {fileID: 0}
-    m_Modifications:
-    - target: {fileID: 4958944793233770, guid: b494464771ffaf24da161440cafa0eeb, type: 2}
-      propertyPath: m_LocalPosition.x
-      value: 2.73
-      objectReference: {fileID: 0}
-    - target: {fileID: 4958944793233770, guid: b494464771ffaf24da161440cafa0eeb, type: 2}
-      propertyPath: m_LocalPosition.y
-      value: 3.25
-      objectReference: {fileID: 0}
-    - target: {fileID: 4958944793233770, guid: b494464771ffaf24da161440cafa0eeb, type: 2}
-      propertyPath: m_LocalPosition.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 4958944793233770, guid: b494464771ffaf24da161440cafa0eeb, type: 2}
-      propertyPath: m_LocalRotation.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 4958944793233770, guid: b494464771ffaf24da161440cafa0eeb, type: 2}
-      propertyPath: m_LocalRotation.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 4958944793233770, guid: b494464771ffaf24da161440cafa0eeb, type: 2}
-      propertyPath: m_LocalRotation.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 4958944793233770, guid: b494464771ffaf24da161440cafa0eeb, type: 2}
-      propertyPath: m_LocalRotation.w
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 4958944793233770, guid: b494464771ffaf24da161440cafa0eeb, type: 2}
-      propertyPath: m_RootOrder
-      value: 6
-      objectReference: {fileID: 0}
-    - target: {fileID: 1531523049803442, guid: b494464771ffaf24da161440cafa0eeb, type: 2}
-      propertyPath: m_Name
-      value: Laser Beam (3)
-      objectReference: {fileID: 0}
-    - target: {fileID: 114157169924425720, guid: b494464771ffaf24da161440cafa0eeb,
-        type: 2}
-      propertyPath: laserSound
-      value: 
-      objectReference: {fileID: 8300000, guid: 80431873c9373684cbdf1b98c55ac358, type: 3}
-    m_RemovedComponents: []
-  m_SourcePrefab: {fileID: 100100000, guid: b494464771ffaf24da161440cafa0eeb, type: 2}
-  m_IsPrefabAsset: 0
---- !u!1001 &547165637
-Prefab:
-  m_ObjectHideFlags: 0
-  serializedVersion: 2
-  m_Modification:
-    m_TransformParent: {fileID: 0}
-    m_Modifications:
-    - target: {fileID: 4958944793233770, guid: b494464771ffaf24da161440cafa0eeb, type: 2}
-      propertyPath: m_LocalPosition.x
-      value: -1.88
-      objectReference: {fileID: 0}
-    - target: {fileID: 4958944793233770, guid: b494464771ffaf24da161440cafa0eeb, type: 2}
-      propertyPath: m_LocalPosition.y
-      value: 3.25
-      objectReference: {fileID: 0}
-    - target: {fileID: 4958944793233770, guid: b494464771ffaf24da161440cafa0eeb, type: 2}
-      propertyPath: m_LocalPosition.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 4958944793233770, guid: b494464771ffaf24da161440cafa0eeb, type: 2}
-      propertyPath: m_LocalRotation.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 4958944793233770, guid: b494464771ffaf24da161440cafa0eeb, type: 2}
-      propertyPath: m_LocalRotation.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 4958944793233770, guid: b494464771ffaf24da161440cafa0eeb, type: 2}
-      propertyPath: m_LocalRotation.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 4958944793233770, guid: b494464771ffaf24da161440cafa0eeb, type: 2}
-      propertyPath: m_LocalRotation.w
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 4958944793233770, guid: b494464771ffaf24da161440cafa0eeb, type: 2}
-      propertyPath: m_RootOrder
-      value: 4
-      objectReference: {fileID: 0}
-    - target: {fileID: 1531523049803442, guid: b494464771ffaf24da161440cafa0eeb, type: 2}
-      propertyPath: m_Name
-      value: Laser Beam (1)
-      objectReference: {fileID: 0}
-    - target: {fileID: 114157169924425720, guid: b494464771ffaf24da161440cafa0eeb,
-        type: 2}
-      propertyPath: laserSound
-      value: 
-      objectReference: {fileID: 8300000, guid: 031172f4508fbc14ab5595fdea018f77, type: 3}
-    m_RemovedComponents: []
-  m_SourcePrefab: {fileID: 100100000, guid: b494464771ffaf24da161440cafa0eeb, type: 2}
-  m_IsPrefabAsset: 0
 --- !u!1 &798908983
 GameObject:
   m_ObjectHideFlags: 0
@@ -436,6 +283,104 @@ MeshFilter:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 817064625}
   m_Mesh: {fileID: 10207, guid: 0000000000000000e000000000000000, type: 0}
+--- !u!1001 &1018017720
+Prefab:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: 4958944793233770, guid: 9f18321ba3388134db30d5b0df752739, type: 2}
+      propertyPath: m_LocalPosition.x
+      value: 0.57
+      objectReference: {fileID: 0}
+    - target: {fileID: 4958944793233770, guid: 9f18321ba3388134db30d5b0df752739, type: 2}
+      propertyPath: m_LocalPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4958944793233770, guid: 9f18321ba3388134db30d5b0df752739, type: 2}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4958944793233770, guid: 9f18321ba3388134db30d5b0df752739, type: 2}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4958944793233770, guid: 9f18321ba3388134db30d5b0df752739, type: 2}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4958944793233770, guid: 9f18321ba3388134db30d5b0df752739, type: 2}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4958944793233770, guid: 9f18321ba3388134db30d5b0df752739, type: 2}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4958944793233770, guid: 9f18321ba3388134db30d5b0df752739, type: 2}
+      propertyPath: m_RootOrder
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 1531523049803442, guid: 9f18321ba3388134db30d5b0df752739, type: 2}
+      propertyPath: m_Name
+      value: Laser Beam (2)
+      objectReference: {fileID: 0}
+    - target: {fileID: 114157169924425720, guid: 9f18321ba3388134db30d5b0df752739,
+        type: 2}
+      propertyPath: laserSound
+      value: 
+      objectReference: {fileID: 8300000, guid: 5c4c6bf90a04544408ae0762d77e9617, type: 3}
+    m_RemovedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: 9f18321ba3388134db30d5b0df752739, type: 2}
+  m_IsPrefabAsset: 0
+--- !u!1001 &1282659944
+Prefab:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: 4958944793233770, guid: 9f18321ba3388134db30d5b0df752739, type: 2}
+      propertyPath: m_LocalPosition.x
+      value: -3.1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4958944793233770, guid: 9f18321ba3388134db30d5b0df752739, type: 2}
+      propertyPath: m_LocalPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4958944793233770, guid: 9f18321ba3388134db30d5b0df752739, type: 2}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4958944793233770, guid: 9f18321ba3388134db30d5b0df752739, type: 2}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4958944793233770, guid: 9f18321ba3388134db30d5b0df752739, type: 2}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4958944793233770, guid: 9f18321ba3388134db30d5b0df752739, type: 2}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4958944793233770, guid: 9f18321ba3388134db30d5b0df752739, type: 2}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4958944793233770, guid: 9f18321ba3388134db30d5b0df752739, type: 2}
+      propertyPath: m_RootOrder
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 114157169924425720, guid: 9f18321ba3388134db30d5b0df752739,
+        type: 2}
+      propertyPath: laserSound
+      value: 
+      objectReference: {fileID: 8300000, guid: cddb1ebed399bd542ba0e768776383ed, type: 3}
+    m_RemovedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: 9f18321ba3388134db30d5b0df752739, type: 2}
+  m_IsPrefabAsset: 0
 --- !u!1 &1423606614
 GameObject:
   m_ObjectHideFlags: 0
@@ -502,52 +447,107 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 50, y: -30, z: 0}
---- !u!1001 &1575915813
+--- !u!1001 &1543207436
 Prefab:
   m_ObjectHideFlags: 0
   serializedVersion: 2
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: 4958944793233770, guid: b494464771ffaf24da161440cafa0eeb, type: 2}
+    - target: {fileID: 4958944793233770, guid: 9f18321ba3388134db30d5b0df752739, type: 2}
       propertyPath: m_LocalPosition.x
-      value: -4
+      value: -1.39
       objectReference: {fileID: 0}
-    - target: {fileID: 4958944793233770, guid: b494464771ffaf24da161440cafa0eeb, type: 2}
+    - target: {fileID: 4958944793233770, guid: 9f18321ba3388134db30d5b0df752739, type: 2}
       propertyPath: m_LocalPosition.y
-      value: 3.25
+      value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 4958944793233770, guid: b494464771ffaf24da161440cafa0eeb, type: 2}
+    - target: {fileID: 4958944793233770, guid: 9f18321ba3388134db30d5b0df752739, type: 2}
       propertyPath: m_LocalPosition.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 4958944793233770, guid: b494464771ffaf24da161440cafa0eeb, type: 2}
+    - target: {fileID: 4958944793233770, guid: 9f18321ba3388134db30d5b0df752739, type: 2}
       propertyPath: m_LocalRotation.x
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 4958944793233770, guid: b494464771ffaf24da161440cafa0eeb, type: 2}
+    - target: {fileID: 4958944793233770, guid: 9f18321ba3388134db30d5b0df752739, type: 2}
       propertyPath: m_LocalRotation.y
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 4958944793233770, guid: b494464771ffaf24da161440cafa0eeb, type: 2}
+    - target: {fileID: 4958944793233770, guid: 9f18321ba3388134db30d5b0df752739, type: 2}
       propertyPath: m_LocalRotation.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 4958944793233770, guid: b494464771ffaf24da161440cafa0eeb, type: 2}
+    - target: {fileID: 4958944793233770, guid: 9f18321ba3388134db30d5b0df752739, type: 2}
       propertyPath: m_LocalRotation.w
       value: 1
       objectReference: {fileID: 0}
-    - target: {fileID: 4958944793233770, guid: b494464771ffaf24da161440cafa0eeb, type: 2}
+    - target: {fileID: 4958944793233770, guid: 9f18321ba3388134db30d5b0df752739, type: 2}
       propertyPath: m_RootOrder
-      value: 3
+      value: 4
       objectReference: {fileID: 0}
-    - target: {fileID: 114157169924425720, guid: b494464771ffaf24da161440cafa0eeb,
+    - target: {fileID: 1531523049803442, guid: 9f18321ba3388134db30d5b0df752739, type: 2}
+      propertyPath: m_Name
+      value: Laser Beam (1)
+      objectReference: {fileID: 0}
+    - target: {fileID: 114157169924425720, guid: 9f18321ba3388134db30d5b0df752739,
         type: 2}
       propertyPath: laserSound
       value: 
-      objectReference: {fileID: 8300000, guid: 414b8c2d109e2814db3a8e7084ea796f, type: 3}
+      objectReference: {fileID: 8300000, guid: 59343f6a1e49df349b7f969795f5d8ad, type: 3}
     m_RemovedComponents: []
-  m_SourcePrefab: {fileID: 100100000, guid: b494464771ffaf24da161440cafa0eeb, type: 2}
+  m_SourcePrefab: {fileID: 100100000, guid: 9f18321ba3388134db30d5b0df752739, type: 2}
+  m_IsPrefabAsset: 0
+--- !u!1001 &1756511719
+Prefab:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: 4958944793233770, guid: 9f18321ba3388134db30d5b0df752739, type: 2}
+      propertyPath: m_LocalPosition.x
+      value: 2.91
+      objectReference: {fileID: 0}
+    - target: {fileID: 4958944793233770, guid: 9f18321ba3388134db30d5b0df752739, type: 2}
+      propertyPath: m_LocalPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4958944793233770, guid: 9f18321ba3388134db30d5b0df752739, type: 2}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4958944793233770, guid: 9f18321ba3388134db30d5b0df752739, type: 2}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4958944793233770, guid: 9f18321ba3388134db30d5b0df752739, type: 2}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4958944793233770, guid: 9f18321ba3388134db30d5b0df752739, type: 2}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4958944793233770, guid: 9f18321ba3388134db30d5b0df752739, type: 2}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4958944793233770, guid: 9f18321ba3388134db30d5b0df752739, type: 2}
+      propertyPath: m_RootOrder
+      value: 6
+      objectReference: {fileID: 0}
+    - target: {fileID: 1531523049803442, guid: 9f18321ba3388134db30d5b0df752739, type: 2}
+      propertyPath: m_Name
+      value: Laser Beam (3)
+      objectReference: {fileID: 0}
+    - target: {fileID: 114157169924425720, guid: 9f18321ba3388134db30d5b0df752739,
+        type: 2}
+      propertyPath: laserSound
+      value: 
+      objectReference: {fileID: 8300000, guid: 878e63a13fd4ed143b2e3f1b470cc14f, type: 3}
+    m_RemovedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: 9f18321ba3388134db30d5b0df752739, type: 2}
   m_IsPrefabAsset: 0
 --- !u!1 &2063589762
 GameObject:
@@ -666,7 +666,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 2067325919}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 4d3596646d108524c91cb76eb83e6ad5, type: 3}
+  m_Script: {fileID: 11500000, guid: 2c2019fabae8a80458daf787beb4e273, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   leftTouchTrigger: {fileID: 798908983}
@@ -679,7 +679,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 2067325919}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 4ec23f3d31f88704992e8e2ed1d6ad72, type: 3}
+  m_Script: {fileID: 11500000, guid: 2058032855551444ba7a12eeec230bda, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   cam: {fileID: 2063589764}
