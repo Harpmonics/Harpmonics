@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class SynthesizerControl : MonoBehaviour
+public class SynthesizerControl : ATouchCallee
 {
     public MIDITimingJudger[] judgers;
     public float judgeToleranceBeat = 0.125f;
@@ -34,9 +34,17 @@ public class SynthesizerControl : MonoBehaviour
         if (note.noteNum != -1) synthesizer.PlayNow(trackNumber, note.beginBeat, note.audioEndBeat);
     }
 
-    public void TriggerWithHandle(int handleNumber)
+    public override void Callback(GameObject caller, GameObject activator, bool touching)
     {
-        JudgeTrack(handleNumber);
-    }
+        if (touching && caller.tag.StartsWith("Track"))
+        {
+            int track = -1;
 
+            // Extract track from callback
+            int.TryParse(caller.tag.Substring(6), out track);
+
+            if (track != -1)
+                JudgeTrack(track);
+        }
+    }
 }
