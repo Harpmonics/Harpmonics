@@ -14,6 +14,9 @@ public class SimpleNote : MonoBehaviour
     void Start ()
     {
         behaviour = GetComponent<NoteBehaviour>();
+
+        // Ensure that the note only appears at its required position rather than wherever it may have been when instantiated.
+        Update();
     }
 
     void OnEnable()
