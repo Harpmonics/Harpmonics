@@ -16,6 +16,9 @@ public class ControllerRumble : ATouchCallee
     public override void Callback(GameObject caller, GameObject activator, bool touching)
     {
         if (touching)
+        {
             VRTK_ControllerHaptics.TriggerHapticPulse(VRTK_ControllerReference.GetControllerReference(activator), rumbleStrength, rumbleDuration, rumbleInterval);
+
+        }
     }
 }
