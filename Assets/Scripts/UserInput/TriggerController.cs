@@ -7,6 +7,8 @@ public class TriggerController : MonoBehaviour {
     public GameObject leftTouchTrigger;
     public GameObject rightTouchTrigger;
 
+    public float zPosition = 0;
+
     private IUserInputSource inputSource;
 
 	// Use this for initialization
@@ -18,12 +20,16 @@ public class TriggerController : MonoBehaviour {
 	void Update () {
         if (inputSource.isProvidingLeftTouch())
         {
-            leftTouchTrigger.transform.position = inputSource.getLeftTouchWorldPosition();
+            var worldPosition = inputSource.getLeftTouchWorldPosition();
+            worldPosition.z = zPosition;
+            leftTouchTrigger.transform.position = worldPosition;
         }
 
         if (inputSource.isProvidingRightTouch())
         {
-            rightTouchTrigger.transform.position = inputSource.getRightTouchWorldPosition();
+            var worldPosition = inputSource.getRightTouchWorldPosition();
+            worldPosition.z = zPosition;
+            rightTouchTrigger.transform.position = worldPosition;
         }
     }
 }
