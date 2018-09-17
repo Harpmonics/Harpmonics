@@ -19,8 +19,7 @@ public class Effect_controller : ATouchCallee
     {
         if (ps.isPlaying)
         {
-            // Only enable if particle system is detached from laser (otherwise this moves the laser)!
-            //ps.transform.position = laserObj.GetComponent<Collider>().ClosestPoint(touchObj.transform.position);
+            ps.transform.position = laserObj.GetComponent<Collider>().ClosestPoint(touchObj.transform.position);
         }
     }
 
