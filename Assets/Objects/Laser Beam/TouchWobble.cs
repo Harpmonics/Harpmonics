@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class TouchWobble : MonoBehaviour {
+    public Transform model;
     public float wobbleMagnitude = 1.0f;
     public float wobbleDuration = 1.0f;
     private float wobbleStopTime;
@@ -12,7 +13,11 @@ public class TouchWobble : MonoBehaviour {
 
 	// Use this for initialization
 	void Start () {
-        initialScale = transform.localScale;
+        if (model == null)
+        {
+            model = transform;
+        }
+        initialScale = model.localScale;
         wobbleStopTime = 0.0f;
 	}
 	
@@ -23,11 +28,11 @@ public class TouchWobble : MonoBehaviour {
             float remainingTime = Time.time - wobbleStopTime;
             Vector3 ls = initialScale;
             float magn = wobbleMagnitude * (remainingTime / wobbleDuration);
-            transform.localScale = new Vector3(ls.x + magn * Mathf.Sin(phase), ls.y, ls.z + magn * Mathf.Cos(phase));
+            model.localScale = new Vector3(ls.x + magn * Mathf.Sin(phase), ls.y, ls.z + magn * Mathf.Cos(phase));
         }
         else
         {
-            transform.localScale = initialScale;
+            model.localScale = initialScale;
         }
 
         phase += wobbleSpeed;

@@ -2,13 +2,14 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-[RequireComponent(typeof(AudioSource))]
 public class LaserBeamController : MonoBehaviour {
     public AudioClip laserSound;
     private AudioSource audioSource;
+    public SynthesizerControl sequencer;
+    public int handleNumber;
 
-	// Use this for initialization
-	void Start () {
+    // Use this for initialization
+    void Start () {
         audioSource = GetComponent<AudioSource>();
     }
 	
@@ -19,11 +20,17 @@ public class LaserBeamController : MonoBehaviour {
 
     private void OnTriggerEnter(Collider other)
     {
-        if (other.CompareTag("TouchTrigger")) // just as exploration of how we could detect different types of triggers
+        if (!other.CompareTag("TouchTrigger")) // just as exploration of how we could detect different types of triggers
+            return;
+        if (audioSource != null && laserSound != null) 
         {
             audioSource.Stop();
             audioSource.clip = laserSound;
             audioSource.Play();
+        }
+        if (sequencer != null)
+        {
+            sequencer.TriggerWithHandle(handleNumber);
         }
     }
 }
