@@ -13,12 +13,23 @@ public class ControllerRumble : ATouchCallee
     [Tooltip("Interval to wait before triggering next rumble in succession."), Range(0, 10)]
     public float rumbleInterval = 0.1f;
 
+    protected bool isRumbling = false;
+
+    protected List<GameObject> rumblingControllers = new List<GameObject>();
+
     public override void Callback(GameObject caller, GameObject activator, bool touching)
     {
-        if (touching)
-        {
-            VRTK_ControllerHaptics.TriggerHapticPulse(VRTK_ControllerReference.GetControllerReference(activator), rumbleStrength, rumbleDuration, rumbleInterval);
+        isRumbling = touching;
 
-        }
+        if (touching)
+            rumblingControllers.Add(activator);
+        else
+            rumblingControllers.Remove(activator);
+    }
+
+    public void Update()
+    {
+        foreach (GameObject activator in rumblingControllers)
+            SteamVR_Controller.Input((int)activator.GetComponent<SteamVR_RenderModel>().index).TriggerHapticPulse(500);
     }
 }
