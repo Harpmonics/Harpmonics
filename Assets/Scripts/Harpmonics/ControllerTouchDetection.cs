@@ -4,41 +4,18 @@ using UnityEngine;
 
 public class ControllerTouchDetection : MonoBehaviour
 {
-
-    /// <summary>
-    /// Material to use when controller touches the trigger object.
-    /// </summary>
-    public Material touchActive;
-    /// <summary>
-    /// Material to use when the controller stops touching the trigger object.
-    /// </summary>
-    public Material touchDisabled;
-
-    private GameObject m_triggerObj;
-
-	// Use this for initialization
-	void Start ()
-    {
-        m_triggerObj = this.gameObject;
-	}
-	
-	// Update is called once per frame
-	void Update ()
-    {
-		
-	}
+    [Tooltip("GameObjects that should be receiving input triggers.")]
+    public ATouchCallee[] callees;
 
     private void OnTriggerEnter(Collider other)
     {
-        Renderer renderer = this.gameObject.GetComponent<Renderer>();
-
-        renderer.material = touchActive;
+        foreach(ATouchCallee callee in callees)
+            callee.Callback(this.gameObject, other.gameObject, true);
     }
 
     private void OnTriggerExit(Collider other)
     {
-        Renderer renderer = this.gameObject.GetComponent<Renderer>();
-
-        renderer.material = touchDisabled;
+        foreach (ATouchCallee callee in callees)
+            callee.Callback(this.gameObject, other.gameObject, false);
     }
 }
