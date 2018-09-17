@@ -30,7 +30,8 @@ public class LaserBeamController : MonoBehaviour {
         }
         if (sequencer != null)
         {
-            sequencer.TriggerWithHandle(handleNumber);
+            // Handled by ControllerTouchDetection
+            //sequencer.TriggerWithHandle(handleNumber);
         }
     }
 }
