@@ -6,12 +6,8 @@ public class Effect_controller : ATouchCallee
 {
 
     ParticleSystem ps;
-    bool play = false;
 
-    /*public override void Callback(GameObject caller, GameObject activator, bool touching)
-    {
-        throw new System.NotImplementedException();
-    }*/
+    GameObject laserObj, touchObj;
 
     void Start ()
     {
@@ -21,19 +17,25 @@ public class Effect_controller : ATouchCallee
 
 	void Update ()
     {
-        
+        if (ps.isPlaying)
+        {
+            // Only enable if particle system is detached from laser (otherwise this moves the laser)!
+            //ps.transform.position = laserObj.GetComponent<Collider>().ClosestPoint(touchObj.transform.position);
+        }
     }
 
     public override void Callback(GameObject caller, GameObject activator, bool touching)
     {
-        if (touching && !play)
+        if (touching)
         {
-            play = true;
+            laserObj = caller;
+            touchObj = activator;
+
             ps.Play();
         }
         else
         {
-            play = false;
+            ps.Stop(true, ParticleSystemStopBehavior.StopEmitting);
         }
     }
 }
