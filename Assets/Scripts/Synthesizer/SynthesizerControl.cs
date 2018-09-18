@@ -30,7 +30,7 @@ public class SynthesizerControl : ATouchCallee
 
     public void JudgeKey(int trackNumber, int keyNumber)
     {
-        var note = judgers[trackNumber].GetNoteOnBeat(BeatTime.beat, judgeToleranceBeat);
+        var note = judgers[trackNumber].GetNoteOnBeatKey(keyNumber, BeatTime.beat, judgeToleranceBeat);
         if (note.noteNum != -1) synthesizer.PlayNow(trackNumber, note.beginBeat, note.audioEndBeat);
     }
 

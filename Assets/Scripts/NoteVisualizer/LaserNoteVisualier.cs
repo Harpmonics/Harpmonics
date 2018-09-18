@@ -3,11 +3,12 @@ using System.Collections.Generic;
 using UnityEngine;
 
 [RequireComponent(typeof(NoteFactory))]
-public class SimpleNoteVisualizer : MonoBehaviour
+public class LaserNoteVisualier : MonoBehaviour
 {
-    public MIDIChart chart;
-    public int trackToVisualize;
-    public int[] keysToVisualize;
+    public LaserBehaviour laser;
+    MIDIChart chart;
+    int trackToVisualize;
+    int[] keysToVisualize;
 
     public float noteShowOffsetBeat = 4;
 
@@ -17,6 +18,10 @@ public class SimpleNoteVisualizer : MonoBehaviour
 
     void Start()
     {
+        chart = laser.chart;
+        trackToVisualize = laser.trackIndex;
+        keysToVisualize = laser.assignedPitches;
+
         factory = GetComponent<NoteFactory>();
         
         if (keysToVisualize == null || keysToVisualize.Length == 0)
@@ -44,3 +49,4 @@ public class SimpleNoteVisualizer : MonoBehaviour
 
 
 }
+
