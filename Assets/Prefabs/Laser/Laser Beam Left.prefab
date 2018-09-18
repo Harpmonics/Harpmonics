@@ -387,7 +387,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   model: {fileID: 4771809421562872}
-  wobbleMagnitude: 0.05
+  wobbleMagnitude: 0.02
   wobbleDuration: 0.2
   wobbleSpeed: 0.5
 --- !u!136 &136003237727808948
