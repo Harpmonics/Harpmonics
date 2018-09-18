@@ -74,10 +74,11 @@ GameObject:
   - component: {fileID: 136373957238968820}
   - component: {fileID: 54881902733878394}
   - component: {fileID: 114964091450713268}
-  - component: {fileID: 114858437575596472}
   - component: {fileID: 114864897288080590}
   - component: {fileID: 114550163500151182}
   - component: {fileID: 114524770941724880}
+  - component: {fileID: 114142593091631720}
+  - component: {fileID: 114858437575596472}
   m_Layer: 0
   m_Name: Laser Beam Right
   m_TagString: Track 0
@@ -197,6 +198,18 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 0
   m_CollisionDetection: 0
+--- !u!114 &114142593091631720
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1891745694232520}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a343f2c5d3522fe40ae9973f43aef160, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  toleranceBeat: 0.25
 --- !u!114 &114225686637108522
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -312,10 +325,10 @@ CapsuleCollider:
   m_Material: {fileID: 0}
   m_IsTrigger: 1
   m_Enabled: 1
-  m_Radius: 0.1
-  m_Height: 10
+  m_Radius: 0.025
+  m_Height: 4
   m_Direction: 1
-  m_Center: {x: 0.000000059604645, y: 0, z: -0.00000008940697}
+  m_Center: {x: 0.000000059604645, y: 2, z: -0.00000008940697}
 --- !u!198 &198885979801133156
 ParticleSystem:
   m_ObjectHideFlags: 1

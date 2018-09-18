@@ -28,12 +28,6 @@ public class SynthesizerControl : ATouchCallee
         if (note.noteNum != -1) synthesizer.PlayNow(trackNumber, note.beginBeat, note.audioEndBeat);
     }
 
-    public void JudgeKey(int trackNumber, int keyNumber)
-    {
-        var note = judgers[trackNumber].GetNoteOnBeatKey(keyNumber, BeatTime.beat, judgeToleranceBeat);
-        if (note.noteNum != -1) synthesizer.PlayNow(trackNumber, note.beginBeat, note.audioEndBeat);
-    }
-
     public override void Callback(GameObject caller, GameObject activator, bool touching)
     {
         if (touching && caller.tag.StartsWith("Track"))
