@@ -204,6 +204,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   chart: {fileID: 11400000, guid: 0b8b7d8909a81854fbe1d63c760906e2, type: 3}
   trackToVisualize: 1
+  keysToVisualize: 
   noteShowOffsetBeat: 4
 --- !u!114 &114885255222769258
 MonoBehaviour:

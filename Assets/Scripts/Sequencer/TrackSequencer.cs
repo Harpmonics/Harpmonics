@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 
 [RequireComponent(typeof(AudioBeatProvider))]
-public class TrackSynthesizer : MonoBehaviour {
+public class TrackSequencer : MonoBehaviour {
     
     public AudioSource[] playableTracks;
 

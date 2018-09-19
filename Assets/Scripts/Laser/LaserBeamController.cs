@@ -5,7 +5,7 @@ using UnityEngine;
 public class LaserBeamController : MonoBehaviour {
     public AudioClip laserSound;
     private AudioSource audioSource;
-    public SynthesizerControl sequencer;
+    public SequencerControl sequencer;
     public int handleNumber;
 
     // Use this for initialization

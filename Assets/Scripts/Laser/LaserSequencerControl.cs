@@ -7,7 +7,7 @@ using UnityEngine;
 public class LaserSequencerControl : ATouchCallee
 {
     LaserBehaviour laser;
-    TrackSynthesizer sequencer;
+    TrackSequencer sequencer;
     LaserMIDITimingJudge judger;
 
     public override void Callback(GameObject caller, GameObject activator, bool touching)
@@ -21,7 +21,7 @@ public class LaserSequencerControl : ATouchCallee
 
     void Start () {
         laser = GetComponent<LaserBehaviour>();
-        sequencer = GameObject.FindGameObjectWithTag("Sequencer").GetComponent<TrackSynthesizer>();
+        sequencer = GameObject.FindGameObjectWithTag("Sequencer").GetComponent<TrackSequencer>();
         judger = GetComponent<LaserMIDITimingJudge>();
 	}
 

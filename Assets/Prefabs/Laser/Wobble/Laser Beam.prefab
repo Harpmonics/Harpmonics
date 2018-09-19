@@ -209,6 +209,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   laserSound: {fileID: 0}
+  sequencer: {fileID: 0}
+  handleNumber: 0
 --- !u!136 &136817333566899110
 CapsuleCollider:
   m_ObjectHideFlags: 1

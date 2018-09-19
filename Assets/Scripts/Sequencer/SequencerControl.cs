@@ -2,17 +2,17 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class SynthesizerControl : ATouchCallee
+public class SequencerControl : ATouchCallee
 {
     public MIDITimingJudger[] judgers;
     public float judgeToleranceBeat = 0.125f;
 
-    TrackSynthesizer synthesizer;
+    TrackSequencer sequencer;
 
 	// Use this for initialization
 	void Start ()
     {
-        synthesizer = GetComponent<TrackSynthesizer>();
+        sequencer = GetComponent<TrackSequencer>();
     }
 	
 	// Update is called once per frame
@@ -25,7 +25,7 @@ public class SynthesizerControl : ATouchCallee
     public void JudgeTrack(int trackNumber)
     {
         var note = judgers[trackNumber].GetNoteOnBeat(BeatTime.beat, judgeToleranceBeat);
-        if (note.noteNum != -1) synthesizer.PlayNow(trackNumber, note.beginBeat, note.audioEndBeat);
+        if (note.noteNum != -1) sequencer.PlayNow(trackNumber, note.beginBeat, note.audioEndBeat);
     }
 
     public override void Callback(GameObject caller, GameObject activator, bool touching)

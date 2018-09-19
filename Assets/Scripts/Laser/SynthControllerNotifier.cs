@@ -7,12 +7,12 @@ public class SynthControllerNotifier : MonoBehaviour
     public string triggerTag;
     public GameObject synth;
     public int track;
-    private SynthesizerControl_alt synthControl;
+    private SequencerControl_alt synthControl;
 
 	// Use this for initialization
 	void Start ()
     {
-        synthControl = synth.GetComponent<SynthesizerControl_alt>();
+        synthControl = synth.GetComponent<SequencerControl_alt>();
 	}
 
     public void OnTriggerEnter(Collider other)
