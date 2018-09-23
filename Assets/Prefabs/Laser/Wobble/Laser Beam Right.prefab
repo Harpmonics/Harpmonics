@@ -55,7 +55,6 @@ GameObject:
   - component: {fileID: 4447054159890278}
   - component: {fileID: 199753219211617622}
   - component: {fileID: 198809896126479246}
-  - component: {fileID: 114738776753879232}
   m_Layer: 0
   m_Name: Particles
   m_TagString: Untagged
@@ -74,11 +73,11 @@ GameObject:
   - component: {fileID: 136373957238968820}
   - component: {fileID: 54881902733878394}
   - component: {fileID: 114964091450713268}
-  - component: {fileID: 114864897288080590}
   - component: {fileID: 114550163500151182}
   - component: {fileID: 114524770941724880}
   - component: {fileID: 114142593091631720}
   - component: {fileID: 114858437575596472}
+  - component: {fileID: 114992822777281972}
   m_Layer: 0
   m_Name: Laser Beam Right
   m_TagString: Track 0
@@ -338,17 +337,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   assetNote: {fileID: 114197555168267164, guid: 0e6829301eb1a15459b99885a22149db,
     type: 2}
---- !u!114 &114738776753879232
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1548506952346826}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 33f5c48bac3054e46bf1b8ed0c508e8d, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!114 &114858437575596472
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -360,21 +348,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 629f52986c010a7468eb7c4be010d650, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!114 &114864897288080590
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1891745694232520}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 3812b06dcbb6b66498e01c3be780b8c0, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  callees:
-  - {fileID: 114858437575596472}
-  - {fileID: 114964091450713268}
-  - {fileID: 114738776753879232}
 --- !u!114 &114964091450713268
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -390,6 +363,18 @@ MonoBehaviour:
   wobbleMagnitude: 0.02
   wobbleDuration: 0.2
   wobbleSpeed: 0.5
+--- !u!114 &114992822777281972
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1891745694232520}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 33f5c48bac3054e46bf1b8ed0c508e8d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  particleObject: {fileID: 1548506952346826}
 --- !u!136 &136373957238968820
 CapsuleCollider:
   m_ObjectHideFlags: 1

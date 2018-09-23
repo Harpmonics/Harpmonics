@@ -2,7 +2,9 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class TouchWobble : ATouchCallee {
+[RequireComponent(typeof(Collider))]
+public class TouchWobble : MonoBehaviour
+{
     public Transform model;
     public float wobbleMagnitude = 1.0f;
     public float wobbleDuration = 1.0f;
@@ -38,9 +40,9 @@ public class TouchWobble : ATouchCallee {
         phase += wobbleSpeed;
     }
 
-    public override void Callback(GameObject caller, GameObject activator, bool touching)
+    public void OnTriggerEnter(Collider other)
     {
-        if (touching)
+        if (InputManager.IsUserInput(other))
         {
             phase = 0.0f;
             wobbleStopTime = Time.time + wobbleDuration;

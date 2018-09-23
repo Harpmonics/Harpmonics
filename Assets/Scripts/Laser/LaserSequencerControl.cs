@@ -4,17 +4,19 @@ using UnityEngine;
 
 [RequireComponent(typeof(LaserMIDITimingJudge))]
 [RequireComponent(typeof(LaserBehaviour))]
-public class LaserSequencerControl : ATouchCallee
+[RequireComponent(typeof(Collider))]
+public class LaserSequencerControl : MonoBehaviour
 {
     LaserBehaviour laser;
     TrackSequencer sequencer;
     LaserMIDITimingJudge judger;
 
-    public override void Callback(GameObject caller, GameObject activator, bool touching)
+    public void OnTriggerEnter(Collider other)
     {
-        if (touching && judger != null)
+        if (InputManager.IsUserInput(other) && judger != null)
         {
             var note = judger.GetNoteOnBeat(BeatTime.beat);
+
             if (note.noteNum != -1) sequencer.PlayNow(laser.trackIndex, note.beginBeat, note.audioEndBeat);
         }
     }

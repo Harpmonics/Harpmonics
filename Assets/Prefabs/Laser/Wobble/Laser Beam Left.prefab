@@ -22,11 +22,11 @@ GameObject:
   - component: {fileID: 136003237727808948}
   - component: {fileID: 54807711511588874}
   - component: {fileID: 114893683319987086}
-  - component: {fileID: 114348139911826494}
   - component: {fileID: 114641465369755308}
   - component: {fileID: 114788613859202842}
   - component: {fileID: 114288768884635906}
   - component: {fileID: 114528756779891718}
+  - component: {fileID: 114672304534403646}
   m_Layer: 0
   m_Name: Laser Beam Left
   m_TagString: Track 1
@@ -44,7 +44,6 @@ GameObject:
   - component: {fileID: 4266411840205130}
   - component: {fileID: 199935179809859118}
   - component: {fileID: 198459684098650618}
-  - component: {fileID: 114089335494469984}
   m_Layer: 0
   m_Name: Particles
   m_TagString: Untagged
@@ -272,17 +271,6 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 0
   m_CollisionDetection: 0
---- !u!114 &114089335494469984
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1383958967931702}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 33f5c48bac3054e46bf1b8ed0c508e8d, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!114 &114288768884635906
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -295,21 +283,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   toleranceBeat: 0.25
---- !u!114 &114348139911826494
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1013298039091256}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 3812b06dcbb6b66498e01c3be780b8c0, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  callees:
-  - {fileID: 114528756779891718}
-  - {fileID: 114893683319987086}
-  - {fileID: 114089335494469984}
 --- !u!114 &114465463976085534
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -347,6 +320,18 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   firstPosition: {x: 0, y: 0, z: 0}
   offsetPositionPerLaser: {x: -0.12, y: 0, z: 0}
+--- !u!114 &114672304534403646
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1013298039091256}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 33f5c48bac3054e46bf1b8ed0c508e8d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  particleObject: {fileID: 1383958967931702}
 --- !u!114 &114694737751694940
 MonoBehaviour:
   m_ObjectHideFlags: 1
