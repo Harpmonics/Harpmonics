@@ -10,6 +10,8 @@ public class LaserNoteVisualier : MonoBehaviour
     int trackToVisualize;
     int[] keysToVisualize;
 
+    float lastTrackHeight;
+
     public float noteShowOffsetBeat = 4;
 
     NoteFactory factory;
@@ -44,6 +46,14 @@ public class LaserNoteVisualier : MonoBehaviour
         {
             var note = pendingNotes.Dequeue();
             factory.CreateNote(note);
+        }
+        float trackHeight = LaserParameters.TrackHeight;
+        if (trackHeight != lastTrackHeight)
+        {
+            lastTrackHeight = trackHeight;
+            Vector3 position = transform.localPosition;
+            position.y = trackHeight;
+            transform.localPosition = position;
         }
     }
 
