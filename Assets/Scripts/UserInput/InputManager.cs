@@ -32,6 +32,8 @@ public class InputManager : MonoBehaviour
             SequencePlayback3   = 1 << 4,
 
             SequencePlaybacks   = SequencePlayback0 | SequencePlayback1 | SequencePlayback2 | SequencePlayback3,
+
+            OpenMenu            = 1 << 5,
         }
 
         /// <summary>
