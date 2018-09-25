@@ -124,6 +124,7 @@ public class ControllerPlayback : MonoBehaviour
 
                     controller.transform.parent = null;
 
+                    // Update() may not be called directly after cloning, to avoid odd starting positions, we place the controller at the first frame
                     controller.transform.position = recording.First.Value.position;
                     controller.transform.rotation = recording.First.Value.rotation;
 

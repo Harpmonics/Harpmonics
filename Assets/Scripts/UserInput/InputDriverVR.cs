@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -9,15 +10,22 @@ public class InputDriverVR : AInputDriver
     public VRTK_ControllerEvents leftControllerEvent;
     public VRTK_ControllerEvents rightControllerEvent;
 
-    protected VRTK_ControllerReference leftController;
-    protected VRTK_ControllerReference rightController;
+    protected GameObject leftController;
+    protected GameObject rightController;
 
     public override void BindInputs()
     {
-        VRTK_SDKSetup setup = VRTK_SDKManager.GetLoadedSDKSetup();
+        // SteamVR isn't loaded by the time this method is called, so we use this callback instead
+        VRTK_SDKManager.SubscribeLoadedSetupChanged(SDK_Loaded);
+    }
 
-        leftController = VRTK_ControllerReference.GetControllerReference(setup.actualLeftController);
-        rightController = VRTK_ControllerReference.GetControllerReference(setup.actualLeftController);
+    private void SDK_Loaded(VRTK_SDKManager sender, VRTK_SDKManager.LoadedSetupChangeEventArgs e)
+    {
+        VRTK_SDKSetup setup = e.currentSetup;
+
+        // TODO: Obtain actual controller references somehow (VRTK_ControllerReference.GetControllerReference does not get the actual reference)
+        leftController = setup.modelAliasLeftController;
+        rightController = setup.modelAliasRightController;
 
         InputManager.AddUserController(setup.modelAliasLeftController);
         InputManager.AddUserController(setup.modelAliasRightController);
@@ -38,10 +46,11 @@ public class InputDriverVR : AInputDriver
 
     private GameObject GetInputManagerController(ControllerInteractionEventArgs e)
     {
-        if (e.controllerReference == leftController)
-            return leftController.model;
+        // Could technically use controllerReference.model directly, but we may refer something else in the future
+        if (e.controllerReference.model == leftController)
+            return leftController;
 
-        return rightController.model;
+        return rightController;
     }
 
     private InputManager.InputState GetInputState(ControllerInteractionEventArgs e)
