@@ -9,12 +9,15 @@ public class LaserTrackHeightControl : MonoBehaviour {
     public Transform headsetObject;
 
     public float headsetFreezeYThreshold = 0.1f;
+    public float headsetFreezeTime = 1f;
     public float offsetFromHeadset = 0.5f;
     public float trackFollowDamping = 0.8f;
 
     Vector3 lastLeftHandPosition;
     Vector3 lastRightHandPosition;
     Vector3 lastHeadsetPosition;
+
+    float timeHeadsetMoved = 0;
 
     // Use this for initialization
     void Start () {
@@ -23,7 +26,7 @@ public class LaserTrackHeightControl : MonoBehaviour {
 	// Update is called once per frame
 	void Update () {
         Vector3 leftHandPosition = leftHandObject.position;
-        Vector3 rightHandPosition = leftHandObject.position;
+        Vector3 rightHandPosition = rightHandObject.position;
         Vector3 headsetPosition = headsetObject.position;
 
         if (Input.GetAxis("SqueezeLeft") > 0.5)
@@ -35,9 +38,10 @@ public class LaserTrackHeightControl : MonoBehaviour {
             offsetFromHeadset += rightHandPosition.y - lastRightHandPosition.y;
         }
 
-        if (Mathf.Abs(headsetPosition.y - lastHeadsetPosition.y) > headsetFreezeYThreshold)
+        if (Mathf.Abs(headsetPosition.y - lastHeadsetPosition.y) > headsetFreezeYThreshold * Mathf.Min(1, (Time.time - timeHeadsetMoved) / headsetFreezeTime))
         {
             lastHeadsetPosition = headsetPosition;
+            timeHeadsetMoved = Time.time;
         }
 
         LaserParameters.TrackHeight += ((lastHeadsetPosition.y + offsetFromHeadset) - LaserParameters.TrackHeight) * Mathf.Exp(-trackFollowDamping * Time.deltaTime);

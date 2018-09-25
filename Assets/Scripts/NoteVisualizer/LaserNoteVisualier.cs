@@ -55,7 +55,7 @@ public class LaserNoteVisualier : MonoBehaviour
         {
             lastTrackHeight = trackHeight;
             Vector3 position = transform.localPosition;
-            position.y = trackHeight / Mathf.Cos(tiltAngle);
+            position.y = trackHeight / Mathf.Cos(Mathf.Deg2Rad * tiltAngle);
             transform.localPosition = position;
         }
     }
