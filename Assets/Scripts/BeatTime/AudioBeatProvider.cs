@@ -47,7 +47,7 @@ public class AudioBeatProvider : MonoBehaviour, IBeatProvider
 
     public double GetAudioTime()
     {
-        if (!audioSource.isPlaying && !audioSourceCopy.isPlaying)
+        if (!audioSource.isPlaying && (audioSourceCopy == null || !audioSourceCopy.isPlaying))
             return -offsetBeforePlay;
         if (BeatTime.dspTime < scheduledStartTime)
             return BeatTime.dspTime - scheduledStartTime;
