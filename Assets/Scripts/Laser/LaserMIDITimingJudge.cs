@@ -26,7 +26,11 @@ public class LaserMIDITimingJudge : MonoBehaviour {
         laser = GetComponent<LaserBehaviour>();
         var pitchSet = new HashSet<int>(laser.assignedPitches);
         var rawNotes = new List<MIDIChart.Note>(laser.chart.tracks[laser.trackIndex].notes);
-        rawNotes.RemoveAll((MIDIChart.Note note) => !pitchSet.Contains(note.noteNum));
+
+        // If there is no pitch distribution, then keep all notes for this track
+        if (pitchSet.Count > 0)
+            rawNotes.RemoveAll((MIDIChart.Note note) => !pitchSet.Contains(note.noteNum));
+
         notes = rawNotes.ToArray();
     }
 
