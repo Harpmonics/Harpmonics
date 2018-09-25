@@ -11,6 +11,7 @@ public class LaserNoteVisualier : MonoBehaviour
     int[] keysToVisualize;
 
     float lastTrackHeight;
+    float tiltAngle;
 
     public float noteShowOffsetBeat = 4;
 
@@ -23,6 +24,8 @@ public class LaserNoteVisualier : MonoBehaviour
         chart = laser.chart;
         trackToVisualize = laser.trackIndex;
         keysToVisualize = laser.assignedPitches;
+
+        tiltAngle = Vector3.Angle(transform.rotation * Vector3.up, Vector3.up);
 
         factory = GetComponent<NoteFactory>();
         
@@ -52,7 +55,7 @@ public class LaserNoteVisualier : MonoBehaviour
         {
             lastTrackHeight = trackHeight;
             Vector3 position = transform.localPosition;
-            position.y = trackHeight;
+            position.y = trackHeight / Mathf.Cos(tiltAngle);
             transform.localPosition = position;
         }
     }
