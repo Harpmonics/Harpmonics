@@ -14,7 +14,7 @@ public class GlowingFloor : MonoBehaviour
     
     float[] ripplePositions = new float[maxRippleCount];
     int nextRippleIndex = 0;
-    int lastBeat = 0;
+    int lastBeat = -1;
 
     public void AddRipple(float timeOffset = 0)
     {
@@ -39,7 +39,7 @@ public class GlowingFloor : MonoBehaviour
         for (int i = 0; i < maxRippleCount; ++i)
             ripplePositions[i] += deltaTime * rippleSpeed;
 
-        int currBeat = BeatTime.subBeat < 0 ? BeatTime.numBeat - 1 : BeatTime.numBeat;
+        int currBeat = BeatTime.numBeat;
         if (currBeat >= 0 && currBeat != lastBeat)
         {
             if (currBeat == lastBeat + 1 && currBeat % beatPerRipple == 0)
