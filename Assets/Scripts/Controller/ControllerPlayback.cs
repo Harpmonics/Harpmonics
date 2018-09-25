@@ -7,6 +7,8 @@ using UnityEngine;
 /// </summary>
 public class ControllerPlayback : MonoBehaviour
 {
+    [Tooltip("Controller model to use for all playback clones.")]
+    public GameObject controllerTemplate;
 
     private struct PlaybackState
     {
@@ -109,6 +111,7 @@ public class ControllerPlayback : MonoBehaviour
                 recStruct.recording.AddLast(new PlaybackState(Vector3.zero, Quaternion.identity));
 
 
+                recordedPlaybacks.Remove(offset * NUM_SEQUENCES + playbackIndex);
                 recordedPlaybacks.Add(offset * NUM_SEQUENCES + playbackIndex, recStruct.recording);
 
                 recordingControllers.Remove(recStruct);
@@ -119,8 +122,9 @@ public class ControllerPlayback : MonoBehaviour
 
                 if (recordedPlaybacks.TryGetValue(offset * NUM_SEQUENCES + playbackIndex, out recording))
                 {
+                    GameObject controller = Instantiate(controllerTemplate);
 
-                    GameObject controller = Instantiate(inputState.Controller);
+                    controller.SetActive(true);
 
                     controller.transform.parent = null;
 
