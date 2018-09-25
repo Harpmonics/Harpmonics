@@ -22,6 +22,14 @@ public class Effect_controller : MonoBehaviour
     {
         if (ps.isPlaying)
         {
+            // Playback objects may be destroyed while still touching the laser
+            if (!touchObj.activeSelf)
+            {
+                ps.Stop(true, ParticleSystemStopBehavior.StopEmitting);
+
+                return;
+            }
+
             ps.transform.position = laserObj.GetComponent<Collider>().ClosestPoint(touchObj.transform.position);
         }
     }
