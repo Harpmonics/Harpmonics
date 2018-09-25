@@ -13,6 +13,11 @@ public class InputDriverVR : AInputDriver
     protected GameObject leftController;
     protected GameObject rightController;
 
+    /// <summary>
+    /// Used to trigger the menu button only when both controllers are gripped.
+    /// </summary>
+    protected int numControllersGripping = 0;
+
     public override void BindInputs()
     {
         // SteamVR isn't loaded by the time this method is called, so we use this callback instead
@@ -39,6 +44,9 @@ public class InputDriverVR : AInputDriver
 
             controllerEvents.TouchpadPressed += OnTouchpadPress;
             controllerEvents.TouchpadReleased += OnTouchpadRelease;
+
+            controllerEvents.GripPressed += OnGripPress;
+            controllerEvents.GripReleased += OnGripRelease;
 
             controllerEvents.TriggerAxisChanged += OnTriggerChange;
         }
@@ -91,5 +99,22 @@ public class InputDriverVR : AInputDriver
     private void OnTriggerChange(object sender, ControllerInteractionEventArgs e)
     {
         GetInputState(e).TriggerActuation = e.buttonPressure;
+    }
+
+    private void OnGripPress(object sender, ControllerInteractionEventArgs e)
+    {
+        numControllersGripping++;
+
+        if (numControllersGripping >= 2)
+        {
+            GetInputState(e).AddButton(InputManager.InputState.ActiveFunction.OpenMenu);
+        }
+    }
+
+    private void OnGripRelease(object sender, ControllerInteractionEventArgs e)
+    {
+        numControllersGripping--;
+
+        GetInputState(e).RemoveButton(InputManager.InputState.ActiveFunction.OpenMenu);
     }
 }
