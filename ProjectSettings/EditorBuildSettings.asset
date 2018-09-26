@@ -6,6 +6,9 @@ EditorBuildSettings:
   serializedVersion: 2
   m_Scenes:
   - enabled: 1
-    path: Assets/Scenes/SampleScene.unity
-    guid: 99c9720ab356a0642a771bea13969a05
+    path: Assets/Scenes/Menu.unity
+    guid: 4cb450183fd1252409c530b8c71ae23d
+  - enabled: 1
+    path: Assets/Scenes/LaserStage_MultiPitch_PlaybackSequence.unity
+    guid: eb732240cd155cb4a8562b4fa3fad862
   m_configObjects: {}
