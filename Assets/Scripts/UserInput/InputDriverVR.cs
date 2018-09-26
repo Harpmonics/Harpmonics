@@ -45,8 +45,8 @@ public class InputDriverVR : AInputDriver
             controllerEvents.TouchpadPressed += OnTouchpadPress;
             controllerEvents.TouchpadReleased += OnTouchpadRelease;
 
-            controllerEvents.GripPressed += OnGripPress;
-            controllerEvents.GripReleased += OnGripRelease;
+            controllerEvents.GripClicked += OnGripPress;
+            controllerEvents.GripUnclicked += OnGripRelease;
 
             controllerEvents.TriggerAxisChanged += OnTriggerChange;
         }
