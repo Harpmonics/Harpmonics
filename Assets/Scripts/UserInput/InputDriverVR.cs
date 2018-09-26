@@ -18,6 +18,19 @@ public class InputDriverVR : AInputDriver
     /// </summary>
     protected int numControllersGripping = 0;
 
+    [Header("Configurable options")]
+
+    /// <summary>
+    /// Time to wait (in seconds) before considering a grip hold to be a call to return to the menu.
+    /// </summary>
+    [Tooltip("Time to wait (in seconds) before considering a grip hold to be a call to return to the menu"), Range(0f, 10f)]
+    public float menuGrippingTime = 2.0f;
+
+    /// <summary>
+    /// Coroutine checking whether the above time has passed since two grip buttons were pressed
+    /// </summary>
+    protected Coroutine cWaitForGrip = null;
+
     public override void BindInputs()
     {
         // SteamVR isn't loaded by the time this method is called, so we use this callback instead
@@ -101,13 +114,37 @@ public class InputDriverVR : AInputDriver
         GetInputState(e).TriggerActuation = e.buttonPressure;
     }
 
+    private IEnumerator WaitForGrip(ControllerInteractionEventArgs e)
+    {
+        float timeStart = Time.time;
+
+        while(numControllersGripping >= 2)
+        {
+            float diff = Time.time - timeStart;
+
+            if (diff >= menuGrippingTime)
+            {
+                GetInputState(e).AddButton(InputManager.InputState.ActiveFunction.OpenMenu);
+                GetInputState(e).RemoveButton(InputManager.InputState.ActiveFunction.OpenMenu);
+                break;
+            }
+
+            if ((menuGrippingTime - diff) > 0.1f)
+                yield return new WaitForSecondsRealtime(menuGrippingTime - diff - 0.1f);
+            else
+                yield return null;
+        }
+
+        cWaitForGrip = null;
+    }
+
     private void OnGripPress(object sender, ControllerInteractionEventArgs e)
     {
         numControllersGripping++;
 
         if (numControllersGripping >= 2)
         {
-            GetInputState(e).AddButton(InputManager.InputState.ActiveFunction.OpenMenu);
+            cWaitForGrip = StartCoroutine(WaitForGrip(e));
         }
     }
 
@@ -115,6 +152,10 @@ public class InputDriverVR : AInputDriver
     {
         numControllersGripping--;
 
-        GetInputState(e).RemoveButton(InputManager.InputState.ActiveFunction.OpenMenu);
+        if (cWaitForGrip != null)
+        {
+            StopCoroutine(cWaitForGrip);
+            cWaitForGrip = null;
+        }
     }
 }
