@@ -44,7 +44,8 @@ public class LaserTrackHeightControl : MonoBehaviour {
             timeHeadsetMoved = Time.time;
         }
 
-        LaserParameters.TrackHeight += ((lastHeadsetPosition.y + offsetFromHeadset) - LaserParameters.TrackHeight) * Mathf.Exp(-trackFollowDamping * Time.deltaTime);
+        if (headsetObject.gameObject.activeInHierarchy)
+            LaserParameters.TrackHeight += ((lastHeadsetPosition.y + offsetFromHeadset) - LaserParameters.TrackHeight) * Mathf.Exp(-trackFollowDamping * Time.deltaTime);
 
         lastLeftHandPosition = leftHandPosition;
         lastRightHandPosition = rightHandPosition;

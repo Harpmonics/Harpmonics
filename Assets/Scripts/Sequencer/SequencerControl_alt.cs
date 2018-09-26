@@ -25,7 +25,7 @@ public class SequencerControl_alt : MonoBehaviour
     public void JudgeTrack(int trackNumber)
     {
         var note = judgers[trackNumber].GetNoteOnBeat(BeatTime.beat, judgeToleranceBeat);
-        if (note.noteNum != -1) sequencer.PlayNow(trackNumber, note.beginBeat, note.audioEndBeat);
+        if (note != null) sequencer.PlayNow(trackNumber, note.beginBeat, note.audioEndBeat);
     }
 
     //public override void Callback(GameObject caller, GameObject activator, bool touching)
