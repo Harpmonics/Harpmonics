@@ -22,7 +22,7 @@ public class MIDITimingJudger : MonoBehaviour {
             (Mathf.Abs(notes[index].beginBeat - beat) <= tolerance ? "Hit" : "Missed") : "Null Missed"));
         if (index < notes.Length && Mathf.Abs(notes[index].beginBeat - beat) <= tolerance)
             return notes[index];
-        return tmpNote;
+        return null;
     }
 
     void Start()

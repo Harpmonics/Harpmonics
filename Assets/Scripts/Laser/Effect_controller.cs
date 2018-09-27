@@ -2,37 +2,53 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Effect_controller : ATouchCallee
+[RequireComponent(typeof(Collider))]
+public class Effect_controller : MonoBehaviour
 {
+    [Tooltip("Object with attached particles to control.")]
+    public GameObject particleObject;
 
     ParticleSystem ps;
 
     GameObject laserObj, touchObj;
 
-    void Start ()
+    void Start()
     {
-        ps = gameObject.GetComponent<ParticleSystem>();
+        if (particleObject == null) particleObject = gameObject;
+        ps = particleObject.GetComponent<ParticleSystem>();
         ps.Stop(true, ParticleSystemStopBehavior.StopEmitting);
 	}
 
-	void Update ()
+	void Update()
     {
         if (ps.isPlaying)
         {
+            // Playback objects may be destroyed while still touching the laser
+            if (touchObj == null)
+            {
+                ps.Stop(true, ParticleSystemStopBehavior.StopEmitting);
+
+                return;
+            }
+
             ps.transform.position = laserObj.GetComponent<Collider>().ClosestPoint(touchObj.transform.position);
         }
     }
 
-    public override void Callback(GameObject caller, GameObject activator, bool touching)
+    public void OnTriggerEnter(Collider other)
     {
-        if (touching)
+        if (InputManager.IsUserInput(other))
         {
-            laserObj = caller;
-            touchObj = activator;
+            laserObj = this.gameObject;
+            touchObj = other.gameObject;
 
             ps.Play();
         }
-        else
+    }
+
+    public void OnTriggerExit(Collider other)
+    {
+        if (InputManager.IsUserInput(other))
         {
             ps.Stop(true, ParticleSystemStopBehavior.StopEmitting);
         }
