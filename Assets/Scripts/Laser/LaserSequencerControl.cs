@@ -9,22 +9,43 @@ public class LaserSequencerControl : MonoBehaviour
 {
     LaserBehaviour laser;
     TrackSequencer sequencer;
+    LaserNoteVisualier visualizer;
     LaserMIDITimingJudge judger;
+
+    MIDIChart.Note lastPlayedNote;
 
     public void OnTriggerEnter(Collider other)
     {
         if (InputManager.IsUserInput(other) && judger != null)
         {
-            var note = judger.GetNoteOnBeat(BeatTime.beat);
-
-            if (note.noteNum != -1) sequencer.PlayNow(laser.trackIndex, note.beginBeat, note.audioEndBeat);
+            var note = judger.HitNoteOnBeat(BeatTime.beat);
+            if (note != null)
+            {
+                sequencer.PlayNow(laser.trackIndex, note.beginBeat, note.audioEndBeat);
+                if (visualizer != null)
+                    visualizer.PlayHitEffect(note.endBeat);
+            }
         }
     }
 
-    void Start () {
+    void Start ()
+    {
         laser = GetComponent<LaserBehaviour>();
         sequencer = GameObject.FindGameObjectWithTag("Sequencer").GetComponent<TrackSequencer>();
         judger = GetComponent<LaserMIDITimingJudge>();
-	}
+        visualizer = GetComponentInChildren<LaserNoteVisualier>();
+
+    }
+
+    void Update ()
+    {
+        var note = judger.NextJudgedNote;
+        if (note != null && note != lastPlayedNote && note.beginBeat < BeatTime.beat)
+        {
+            //Debug.Log("Autoplay note " + note.beginBeat + " beginning at " + note.audioEndBeat);
+            sequencer.PlaySynchronized(laser.trackIndex, note.audioEndBeat);
+            lastPlayedNote = note;
+        }
+    }
 
 }

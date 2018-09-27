@@ -1,4 +1,6 @@
-﻿using Melanchall.DryWetMidi.Smf;
+﻿#if UNITY_EDITOR
+
+using Melanchall.DryWetMidi.Smf;
 using Melanchall.DryWetMidi.Smf.Interaction;
 using System.Collections;
 using System.Collections.Generic;
@@ -65,3 +67,5 @@ public class MIDIImporter : ScriptedImporter
     }
 
 }
+
+#endif
