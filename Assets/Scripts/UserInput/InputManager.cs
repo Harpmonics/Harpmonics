@@ -91,6 +91,9 @@ public class InputManager : MonoBehaviour
             throw new System.Exception("There can only be one InputManager instance! Please remove any duplicates.");
 
         instance = this;
+
+        // Reset callbacks to prevent old scenes from still being called
+        callbacks = null;
     }
 
     public void Start()

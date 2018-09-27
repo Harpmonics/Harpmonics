@@ -54,6 +54,13 @@ public class ControllerPlayback : MonoBehaviour
     {
         if (inputState.Buttons.HasFlag(InputManager.InputState.ActiveFunction.SequenceRecord))
         {
+            // Ensure that only one recording takes place at a time.
+            foreach (RecordStruct s in recordingControllers)
+            {
+                if (s.controller == inputState.Controller)
+                    return;
+            }
+
             recordingControllers.Add(new RecordStruct() { controller = inputState.Controller, recording = new LinkedList<PlaybackState>() });
         }
         else if ((inputState.Buttons & InputManager.InputState.ActiveFunction.SequencePlaybacks) > 0)
