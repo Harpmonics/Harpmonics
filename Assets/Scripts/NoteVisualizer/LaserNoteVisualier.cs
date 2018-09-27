@@ -5,7 +5,7 @@ using UnityEngine;
 [RequireComponent(typeof(NoteFactory))]
 public class LaserNoteVisualier : MonoBehaviour
 {
-    public LaserBehaviour laser;
+    LaserBehaviour laser;
     MIDIChart chart;
     int trackToVisualize;
     int[] keysToVisualize;
@@ -30,6 +30,8 @@ public class LaserNoteVisualier : MonoBehaviour
 
     void Start()
     {
+        laser = GetComponentInParent<LaserBehaviour>();
+
         chart = laser.chart;
         trackToVisualize = laser.trackIndex;
         keysToVisualize = laser.assignedPitches;
@@ -68,7 +70,7 @@ public class LaserNoteVisualier : MonoBehaviour
             position.y = trackHeight / Mathf.Cos(Mathf.Deg2Rad * tiltAngle);
             transform.localPosition = position;
         }
-        if (particles.isEmitting && BeatTime.audioTime > particleStopTime)
+        if (particles != null && particles.isEmitting && BeatTime.audioTime > particleStopTime)
         {
             particles.Stop();
         }
