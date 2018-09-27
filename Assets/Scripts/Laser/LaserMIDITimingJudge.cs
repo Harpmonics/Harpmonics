@@ -44,7 +44,7 @@ public class LaserMIDITimingJudge : MonoBehaviour {
     {
         get
         {
-            return notes != null && nextJudgedNote < notes.Length ? notes[nextJudgedNote] : null;
+            return notes != null && nextJudgedNote < notes.Length && notes[nextJudgedNote].beginBeat < BeatTime.beat + toleranceBeat ? notes[nextJudgedNote] : null;
         }
     }
 

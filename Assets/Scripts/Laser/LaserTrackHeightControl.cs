@@ -43,8 +43,8 @@ public class LaserTrackHeightControl : MonoBehaviour {
             lastHeadsetPosition = headsetPosition;
             timeHeadsetMoved = Time.time;
         }
-
-        if (headsetObject.gameObject.activeInHierarchy)
+        
+        if (SteamVR.active)
             LaserParameters.TrackHeight += ((lastHeadsetPosition.y + offsetFromHeadset) - LaserParameters.TrackHeight) * Mathf.Exp(-trackFollowDamping * Time.deltaTime);
 
         lastLeftHandPosition = leftHandPosition;

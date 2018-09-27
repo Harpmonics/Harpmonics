@@ -14,6 +14,7 @@ public class Effect_controller : MonoBehaviour
 
     void Start()
     {
+        if (particleObject == null) particleObject = gameObject;
         ps = particleObject.GetComponent<ParticleSystem>();
         ps.Stop(true, ParticleSystemStopBehavior.StopEmitting);
 	}

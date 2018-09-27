@@ -24,6 +24,7 @@ public class LaserNoteVisualier : MonoBehaviour
 
     public void PlayHitEffect(float stopBeat)
     {
+        if (particles == null) return;
         particles.Play();
         particleStopTime = BeatTime.timeOnBeat(stopBeat);
     }
