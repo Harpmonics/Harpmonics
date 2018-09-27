@@ -27,7 +27,7 @@
 
 		half _Glossiness;
 		half _Metallic;
-		fixed4 _Color;
+		float4 _Color;
 
 		float _RippleStrength;
 		float _RippleWidth;
@@ -46,9 +46,9 @@
 
 		void surf (Input IN, inout SurfaceOutputStandard o) {
 			// Albedo comes from a texture tinted by color
-			fixed4 c = tex2D (_MainTex, IN.uv_MainTex) * _Color;
+			float4 c = tex2D (_MainTex, IN.uv_MainTex) * _Color;
 			for (int i = 0; i < 10; ++i) {
-				c.rgb = fixed3(1, 1, 1) - (fixed3(1, 1, 1) - c.rgb) * (1 - (ripple_light_value(distance(IN.uv_MainTex, _RippleCenter), _RipplePositions[i]) * _RippleStrength));
+				c.rgb = float3(1, 1, 1) - (float3(1, 1, 1) - c.rgb) * (1 - (ripple_light_value(distance(IN.uv_MainTex, _RippleCenter), _RipplePositions[i]) * _RippleStrength));
 			}
 			o.Albedo = c.rgb;
 			// Metallic and smoothness come from slider variables
