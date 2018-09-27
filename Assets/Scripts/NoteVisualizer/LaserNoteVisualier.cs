@@ -17,7 +17,16 @@ public class LaserNoteVisualier : MonoBehaviour
 
     NoteFactory factory;
 
+    ParticleSystem particles;
+    double particleStopTime = 0;
+
     Queue<MIDIChart.Note> pendingNotes = new Queue<MIDIChart.Note>();
+
+    public void PlayHitEffect(float stopBeat)
+    {
+        particles.Play();
+        particleStopTime = BeatTime.timeOnBeat(stopBeat);
+    }
 
     void Start()
     {
@@ -28,7 +37,8 @@ public class LaserNoteVisualier : MonoBehaviour
         tiltAngle = Vector3.Angle(transform.rotation * Vector3.up, Vector3.up);
 
         factory = GetComponent<NoteFactory>();
-        
+        particles = GetComponentInChildren<ParticleSystem>();
+
         if (keysToVisualize == null || keysToVisualize.Length == 0)
         {
             foreach (var note in chart.tracks[trackToVisualize].notes)
@@ -58,8 +68,11 @@ public class LaserNoteVisualier : MonoBehaviour
             position.y = trackHeight / Mathf.Cos(Mathf.Deg2Rad * tiltAngle);
             transform.localPosition = position;
         }
+        if (particles.isEmitting && BeatTime.audioTime > particleStopTime)
+        {
+            particles.Stop();
+        }
     }
-
 
 }
 

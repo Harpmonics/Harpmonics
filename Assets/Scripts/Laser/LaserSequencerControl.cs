@@ -9,6 +9,7 @@ public class LaserSequencerControl : MonoBehaviour
 {
     LaserBehaviour laser;
     TrackSequencer sequencer;
+    LaserNoteVisualier visualizer;
     LaserMIDITimingJudge judger;
 
     MIDIChart.Note lastPlayedNote;
@@ -18,7 +19,12 @@ public class LaserSequencerControl : MonoBehaviour
         if (InputManager.IsUserInput(other) && judger != null)
         {
             var note = judger.HitNoteOnBeat(BeatTime.beat);
-            if (note != null) sequencer.PlayNow(laser.trackIndex, note.beginBeat, note.audioEndBeat);
+            if (note != null)
+            {
+                sequencer.PlayNow(laser.trackIndex, note.beginBeat, note.audioEndBeat);
+                if (visualizer != null)
+                    visualizer.PlayHitEffect(note.endBeat);
+            }
         }
     }
 
@@ -27,7 +33,9 @@ public class LaserSequencerControl : MonoBehaviour
         laser = GetComponent<LaserBehaviour>();
         sequencer = GameObject.FindGameObjectWithTag("Sequencer").GetComponent<TrackSequencer>();
         judger = GetComponent<LaserMIDITimingJudge>();
-	}
+        visualizer = GetComponentInChildren<LaserNoteVisualier>();
+
+    }
 
     void Update ()
     {
