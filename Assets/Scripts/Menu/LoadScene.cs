@@ -17,17 +17,9 @@ public class LoadScene : MonoBehaviour
     {
         InputManager.AddCallback(OnControllerCallback);
 
-        SceneManager.sceneLoaded += OnSceneLoaded;
-
         loadLevelScript = GetComponent<SteamVR_LoadLevel>();
             
         loadLevelScript.levelName = menuScene;
-    }
-
-    private void OnSceneLoaded(Scene arg0, LoadSceneMode arg1)
-    {
-        // TODO: Check if this is still necessary
-        VRTK_SDKManager.AttemptTryLoadSDKSetupFromList(false);
     }
 
     private void OnControllerCallback(InputManager.InputState inputState)

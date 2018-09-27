@@ -41,6 +41,10 @@ public class InputDriverVR : AInputDriver
     {
         VRTK_SDKSetup setup = e.currentSetup;
 
+        // When switching scenes, we can get a non-existent SDK for some reason
+        if (setup == null)
+            return;
+
         // TODO: Obtain actual controller references somehow (VRTK_ControllerReference.GetControllerReference does not get the actual reference)
         leftController = setup.modelAliasLeftController;
         rightController = setup.modelAliasRightController;
