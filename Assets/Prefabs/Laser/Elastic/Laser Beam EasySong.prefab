@@ -27,6 +27,7 @@ GameObject:
   - component: {fileID: 114783277342889376}
   - component: {fileID: 114486914067385090}
   - component: {fileID: 114891509535338548}
+  - component: {fileID: 114092321883164240}
   m_Layer: 0
   m_Name: Laser Beam EasySong
   m_TagString: Track 1
@@ -95,6 +96,7 @@ GameObject:
   - component: {fileID: 4059523712016578}
   - component: {fileID: 33235421490600706}
   - component: {fileID: 23873974326751958}
+  - component: {fileID: 114100472629570826}
   m_Layer: 0
   m_Name: Model
   m_TagString: Untagged
@@ -126,13 +128,13 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1646547493439904}
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 2, z: 0}
-  m_LocalScale: {x: 0.02, y: 2, z: 0.02}
+  m_LocalRotation: {x: 0.7071068, y: 0, z: 0, w: 0.7071068}
+  m_LocalPosition: {x: 0, y: 1.5, z: 0}
+  m_LocalScale: {x: 6, y: 6, z: 20}
   m_Children: []
   m_Father: {fileID: 4979563148806870}
   m_RootOrder: 1
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 5}
+  m_LocalEulerAnglesHint: {x: 90, y: 0, z: 0}
 --- !u!4 &4220698086430308
 Transform:
   m_ObjectHideFlags: 1
@@ -279,7 +281,7 @@ MeshFilter:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1646547493439904}
-  m_Mesh: {fileID: 10206, guid: 0000000000000000e000000000000000, type: 0}
+  m_Mesh: {fileID: 4300000, guid: f3a1cfd43092b429d8fbd30fd01f123c, type: 3}
 --- !u!33 &33865858071628056
 MeshFilter:
   m_ObjectHideFlags: 1
@@ -302,6 +304,32 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 0
   m_CollisionDetection: 0
+--- !u!114 &114092321883164240
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1173922504650766}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 18209ab9bb0cd4184b5e3a34ba5cc778, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  force: 300
+  offset: 0.1
+--- !u!114 &114100472629570826
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1646547493439904}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2e4304a853de24939a728cf7f155799f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  springForce: 10000
+  damping: 20
 --- !u!114 &114117153457201926
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -321,7 +349,7 @@ MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1173922504650766}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 19c41904689476d4091c82b43242f409, type: 3}
   m_Name: 

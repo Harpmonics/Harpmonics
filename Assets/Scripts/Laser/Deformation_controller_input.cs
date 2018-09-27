@@ -2,23 +2,22 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-[RequireComponent(typeof(Deformation))]
 public class Deformation_controller_input : MonoBehaviour
 {
+    Deformation deform;
 
     public float force = 10f;
     public float offset = 0.1f;
 
-    void Update ()
+    void Start ()
     {
-		
-	}
+        deform = GetComponentInChildren<Deformation>();
+    }
 
     public void OnTriggerEnter(Collider other)
     {
         if (InputManager.IsUserInput(other))
         {
-            Deformation deform = GetComponent<Deformation>();
 
             if (deform)
             {

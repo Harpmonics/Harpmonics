@@ -38,6 +38,7 @@ GameObject:
   - component: {fileID: 4297823689788872}
   - component: {fileID: 33376506975905392}
   - component: {fileID: 23800205341093258}
+  - component: {fileID: 114349963266832208}
   m_Layer: 0
   m_Name: Model
   m_TagString: Untagged
@@ -95,6 +96,7 @@ GameObject:
   - component: {fileID: 114142593091631720}
   - component: {fileID: 114858437575596472}
   - component: {fileID: 114992822777281972}
+  - component: {fileID: 114668834235655154}
   m_Layer: 0
   m_Name: Laser Beam Right
   m_TagString: Track 0
@@ -326,6 +328,19 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   noteShowOffsetBeat: 4
+--- !u!114 &114349963266832208
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1367482874087112}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2e4304a853de24939a728cf7f155799f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  springForce: 10000
+  damping: 20
 --- !u!114 &114524770941724880
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -367,6 +382,19 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   assetNote: {fileID: 114197555168267164, guid: 0e6829301eb1a15459b99885a22149db,
     type: 2}
+--- !u!114 &114668834235655154
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1891745694232520}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 18209ab9bb0cd4184b5e3a34ba5cc778, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  force: 300
+  offset: 0.1
 --- !u!114 &114858437575596472
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -384,7 +412,7 @@ MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1891745694232520}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 19c41904689476d4091c82b43242f409, type: 3}
   m_Name: 
