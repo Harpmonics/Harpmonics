@@ -6,6 +6,8 @@ TagManager:
   tags:
   - Track 0
   - Track 1
+  - TouchTrigger
+  - Sequencer
   layers:
   - Default
   - TransparentFX
