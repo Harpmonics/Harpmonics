@@ -37,6 +37,7 @@ public class Effect_controller : MonoBehaviour
 
     public void OnTriggerEnter(Collider other)
     {
+        Debug.Log("hit laser");
         if (InputManager.IsUserInput(other))
         {
             laserObj = this.gameObject;
