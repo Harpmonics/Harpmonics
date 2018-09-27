@@ -38,6 +38,8 @@ public class LoadScene : MonoBehaviour
 
     public void Load(string scene)
     {
+        loadLevelScript.levelName = scene;
+
         loadLevelScript.Trigger();
     }
 }
