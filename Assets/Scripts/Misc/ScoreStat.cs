@@ -22,7 +22,7 @@ public class ScoreStat : MonoBehaviour {
 		if (lastScore != Score)
         {
             lastScore = Score;
-            text.text = lastScore.ToString();
+            text.text = lastScore.ToString() + "00";
         }
 	}
 

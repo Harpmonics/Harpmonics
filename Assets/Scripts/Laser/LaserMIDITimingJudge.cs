@@ -18,7 +18,7 @@ public class LaserMIDITimingJudge : MonoBehaviour {
         int index = Array.BinarySearch(notes, tmpNote, Comparer<MIDIChart.Note>.Create((note1, note2) => note1.beginBeat.CompareTo(note2.beginBeat)));
         if (index < 0) index = ~index;
         while (index + 1 < notes.Length && Mathf.Abs(notes[index + 1].beginBeat - beat) <= Mathf.Abs(notes[index].beginBeat - beat)) ++index;
-        if (index < notes.Length && index != nextJudgedNote && Mathf.Abs(notes[index].beginBeat - beat) <= toleranceBeat)
+        if (index < notes.Length && index - 1 != nextJudgedNote && Mathf.Abs(notes[index].beginBeat - beat) <= toleranceBeat)
         {
             nextJudgedNote = index + 1;
             ScoreStat.Score += 1;

@@ -21,6 +21,7 @@ GameObject:
   - component: {fileID: 4907657212121510}
   - component: {fileID: 23093037809397238}
   - component: {fileID: 102093964776832580}
+  - component: {fileID: 114645731167119052}
   m_Layer: 0
   m_Name: Score Board
   m_TagString: Untagged
@@ -97,3 +98,14 @@ TextMesh:
   m_Color:
     serializedVersion: 2
     rgba: 4294967295
+--- !u!114 &114645731167119052
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1107098276159390}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 830e3b99526078744bfab1d39a93d8a7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
