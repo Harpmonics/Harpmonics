@@ -39,7 +39,7 @@ public class HighScores : MonoBehaviour
     /// <summary>
     /// Separator for saving high scores to file.
     /// </summary>
-    private const char separator = ',';
+    private const char separator = ';';
 
     /// <summary>
     /// Current song in order to separate different songs' high scores.
