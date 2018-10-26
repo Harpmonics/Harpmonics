@@ -170,7 +170,7 @@ public class ResultDisplay : MonoBehaviour
             tracks[i] = new GameObject("Track " + i);
         }
 
-        float zPos = -((trackWidth + trackSpacing) * tracks.Length) / 2;
+        float zPos = -((trackWidth + trackSpacing) * tracks.Length) / 2 + trackSpacing/2;
 
         foreach (GameObject track in tracks)
         {
