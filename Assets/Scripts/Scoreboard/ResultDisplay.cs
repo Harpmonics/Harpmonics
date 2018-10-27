@@ -25,12 +25,15 @@ public class ResultDisplay : MonoBehaviour
     [Tooltip("Spacing between result tracks."), Range(0, 2)]
     public float trackSpacing = 0.1f;
 
+    [Tooltip("Size of label showing accuracy axis"), Range(0, 200)]
+    public float axisLabelSize = 20f;
+
     /// <summary>
     /// Should the graph meshes be rebuilt?
     /// </summary>
     private bool dirty = false;
     
-    private void BuildMesh(GameObject track)
+    private void BuildMesh(GameObject track, float[] trackAccuracies)
     {
         List<Vector3> vertices = new List<Vector3>(trackAccuracies.Length * 4 * 2);
 
@@ -74,7 +77,7 @@ public class ResultDisplay : MonoBehaviour
         vertices.Add(new Vector3(-trackLengthHalf, 0, trackWidthHalf));
 
 
-        // Intermediary accuracies
+        // Intermediate accuracies
 
         for(int i = 1; i < trackAccuracies.Length; i++)
         {
@@ -145,7 +148,118 @@ public class ResultDisplay : MonoBehaviour
         track.GetComponent<MeshFilter>().mesh = mesh;
     }
 
-    bool calledOnce = false;
+    private void BuildGraphAxis(GameObject track, float zEnd)
+    {
+        List<Vector3> vertices = new List<Vector3>(trackAccuracies.Length * 4 * 2);
+
+        float trackLengthHalf = trackLength / 2;
+        float trackWidthHalf = trackWidth / 2;
+
+        // Start side
+
+
+        vertices.Add(new Vector3(-trackLengthHalf, 0, -trackWidthHalf));
+        vertices.Add(new Vector3(-trackLengthHalf, trackHeight, trackWidthHalf));
+        vertices.Add(new Vector3(-trackLengthHalf, trackHeight, -trackWidthHalf));
+
+        vertices.Add(new Vector3(-trackLengthHalf, 0, -trackWidthHalf));
+        vertices.Add(new Vector3(-trackLengthHalf, 0, trackWidthHalf));
+        vertices.Add(new Vector3(-trackLengthHalf, trackHeight, trackWidthHalf));
+
+
+        // End side
+
+        vertices.Add(new Vector3(trackLengthHalf, 0, -trackWidthHalf));
+        vertices.Add(new Vector3(trackLengthHalf, trackHeight, -trackWidthHalf));
+        vertices.Add(new Vector3(trackLengthHalf, trackHeight, trackWidthHalf));
+
+        vertices.Add(new Vector3(trackLengthHalf, 0, -trackWidthHalf));
+        vertices.Add(new Vector3(trackLengthHalf, trackHeight, trackWidthHalf));
+        vertices.Add(new Vector3(trackLengthHalf, 0, trackWidthHalf));
+
+
+        // Label
+
+        float size = axisLabelSize * 0.002f;
+
+        vertices.Add(new Vector3(trackLengthHalf, trackHeight - size, -trackWidthHalf));
+        vertices.Add(new Vector3(trackLengthHalf, trackHeight, -trackWidthHalf + zEnd - track.transform.localPosition.z));
+        vertices.Add(new Vector3(trackLengthHalf, trackHeight - size, -trackWidthHalf + zEnd - track.transform.localPosition.z));
+
+        vertices.Add(new Vector3(trackLengthHalf, trackHeight, -trackWidthHalf));
+        vertices.Add(new Vector3(trackLengthHalf, trackHeight, -trackWidthHalf + zEnd - track.transform.localPosition.z));
+        vertices.Add(new Vector3(trackLengthHalf, trackHeight - size, -trackWidthHalf));
+
+
+        // Bottom side
+
+        vertices.Add(new Vector3(-trackLengthHalf, 0, -trackWidthHalf));
+        vertices.Add(new Vector3(trackLengthHalf, 0, -trackWidthHalf));
+        vertices.Add(new Vector3(-trackLengthHalf, 0, trackWidthHalf));
+
+        vertices.Add(new Vector3(trackLengthHalf, 0, -trackWidthHalf));
+        vertices.Add(new Vector3(trackLengthHalf, 0, trackWidthHalf));
+        vertices.Add(new Vector3(-trackLengthHalf, 0, trackWidthHalf));
+
+        // Top
+
+        vertices.Add(new Vector3(-trackLengthHalf, trackHeight, -trackWidthHalf));
+        vertices.Add(new Vector3(trackLengthHalf, trackHeight, trackWidthHalf));
+        vertices.Add(new Vector3(trackLengthHalf, trackHeight, -trackWidthHalf));
+
+        vertices.Add(new Vector3(-trackLengthHalf, trackHeight, -trackWidthHalf));
+        vertices.Add(new Vector3(-trackLengthHalf, trackHeight, trackWidthHalf));
+        vertices.Add(new Vector3(trackLengthHalf, trackHeight, trackWidthHalf));
+
+        // Left
+
+        vertices.Add(new Vector3(-trackLengthHalf, 0, -trackWidthHalf));
+        vertices.Add(new Vector3(-trackLengthHalf, trackHeight, -trackWidthHalf));
+        vertices.Add(new Vector3(trackLengthHalf, trackHeight, -trackWidthHalf));
+
+        vertices.Add(new Vector3(-trackLengthHalf, 0, -trackWidthHalf));
+        vertices.Add(new Vector3(trackLengthHalf, trackHeight, -trackWidthHalf));
+        vertices.Add(new Vector3(trackLengthHalf, 0, -trackWidthHalf));
+
+        // Right
+
+        vertices.Add(new Vector3(-trackLengthHalf, 0, trackWidthHalf));
+        vertices.Add(new Vector3(trackLengthHalf, trackHeight, trackWidthHalf));
+        vertices.Add(new Vector3(-trackLengthHalf, trackHeight, trackWidthHalf));
+
+        vertices.Add(new Vector3(-trackLengthHalf, 0, trackWidthHalf));
+        vertices.Add(new Vector3(trackLengthHalf, 0, trackWidthHalf));
+        vertices.Add(new Vector3(trackLengthHalf, trackHeight, trackWidthHalf));
+
+
+        List<int> triangles = new List<int>(vertices.Count);
+        List<Vector2> uvs = new List<Vector2>(vertices.Count);
+
+        for (int i = 0; i < vertices.Count; i++)
+        {
+            triangles.Add(i);
+        }
+
+        for (int i = 0; i < vertices.Count; i += 3)
+        {
+            uvs.Add(new Vector2(0, 0));
+            uvs.Add(new Vector2(1, 0));
+            uvs.Add(new Vector2(1, 1));
+        }
+
+        Mesh mesh = new Mesh();
+
+        mesh.MarkDynamic();
+
+        mesh.SetVertices(vertices);
+        mesh.SetTriangles(triangles, 0, true);
+        mesh.SetUVs(0, uvs);
+
+        mesh.RecalculateNormals();
+        mesh.RecalculateBounds();
+
+        track.GetComponent<MeshFilter>().mesh = mesh;
+    }
 
     private void BuildTracks()
     {
@@ -163,14 +277,19 @@ public class ResultDisplay : MonoBehaviour
             DestroyImmediate(obj);
         }
 
-        tracks = new GameObject[noteTracks];
+        tracks = new GameObject[noteTracks+1];
 
-        for(int i = 0; i < tracks.Length; i++)
+        // The graph scale is added as a track to make it move with the others
+        tracks[0] = new GameObject("Graph Scale");
+
+        for (int i = 1; i < tracks.Length; i++)
         {
             tracks[i] = new GameObject("Track " + i);
         }
 
         float zPos = -((trackWidth + trackSpacing) * tracks.Length) / 2 + trackSpacing/2;
+
+        int randIndex = 0;
 
         foreach (GameObject track in tracks)
         {
@@ -187,8 +306,78 @@ public class ResultDisplay : MonoBehaviour
             // Copy values to each individual mesh
             renderer.sharedMaterial = GetComponent<MeshRenderer>().sharedMaterial;
 
-            BuildMesh(track);
+            // Use second material for the graph scale to differentiate it from the others
+            if (track == tracks[0] && GetComponent<MeshRenderer>().sharedMaterials.Length > 1)
+            {
+                renderer.sharedMaterial = GetComponent<MeshRenderer>().sharedMaterials[1];
+            }
+            else
+            {
+                Random.InitState(randIndex++);
+
+                float[] trackAccuracies = new float[10];
+
+                trackAccuracies[0] = 1;
+
+                for (int i = 1; i < trackAccuracies.Length; i++)
+                {
+                    trackAccuracies[i] = trackAccuracies[i-1] * 0.95f + Random.value*0.05f;
+                }
+
+                BuildMesh(track, trackAccuracies);
+            }
         }
+
+        BuildGraphAxis(tracks[0], zPos);
+
+        BuildGUI(zPos);
+    }
+
+    private void BuildGUI(float graphZ)
+    {
+        GameObject labelAxis = new GameObject("Axis label");
+
+        labelAxis.AddComponent<Canvas>().renderMode = RenderMode.WorldSpace;
+
+        labelAxis.transform.parent = this.transform;
+        labelAxis.transform.localScale = new Vector3(0.01f, 0.01f, 0.01f);
+        labelAxis.transform.localPosition = new Vector3(trackLength / 2, trackHeight - axisLabelSize * 0.002f/2, graphZ);
+
+        UnityEngine.UI.Text axisLabelText = labelAxis.AddComponent<UnityEngine.UI.Text>();
+
+        axisLabelText.resizeTextMinSize = 5;
+        axisLabelText.resizeTextMaxSize = 100;
+        axisLabelText.resizeTextForBestFit = true;
+
+        axisLabelText.alignment = TextAnchor.MiddleLeft;
+
+        axisLabelText.text = "100%";
+
+        axisLabelText.rectTransform.sizeDelta = new Vector2(axisLabelSize, axisLabelSize);
+
+        axisLabelText.rectTransform.pivot = new Vector2(0, 0.5f);
+
+        GameObject labelGraph = new GameObject("Graph label");
+
+        labelGraph.AddComponent<Canvas>().renderMode = RenderMode.WorldSpace;
+
+        labelGraph.transform.parent = this.transform;
+        labelGraph.transform.localScale = new Vector3(0.01f, 0.01f, 0.01f);
+        labelGraph.transform.localPosition = new Vector3(-trackLength / 2, trackHeight + 0.4f, 0);
+
+        UnityEngine.UI.Text graphLabelText = labelGraph.AddComponent<UnityEngine.UI.Text>();
+
+        graphLabelText.resizeTextMinSize = 5;
+        graphLabelText.resizeTextMaxSize = 100;
+        graphLabelText.resizeTextForBestFit = true;
+
+        graphLabelText.alignment = TextAnchor.MiddleCenter;
+
+        graphLabelText.text = "Accuracy over time";
+
+        graphLabelText.rectTransform.sizeDelta = new Vector2(axisLabelSize*1.5f, axisLabelSize*1.5f);
+
+        graphLabelText.rectTransform.pivot = new Vector2(0.5f, 0.5f);
     }
 
 
@@ -217,7 +406,7 @@ public class ResultDisplay : MonoBehaviour
             dirty = false;
             BuildTracks();
         }
-        if (tracks != null && tracks.Length > 0 && tracks[0].GetComponent<MeshRenderer>().sharedMaterial != GetComponent<MeshRenderer>().sharedMaterial)
+        if (tracks != null && tracks.Length > 1 && tracks[1].GetComponent<MeshRenderer>().sharedMaterial != GetComponent<MeshRenderer>().sharedMaterial)
             dirty = true;
 #endif
     }
