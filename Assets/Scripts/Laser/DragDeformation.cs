@@ -66,4 +66,14 @@ public class DragDeformation : MonoBehaviour
         dv[i] += (dist + d2c[i]) * (1f / (1f + df));
         dcv[i] = dv[i];
     }
+
+    void OnDestroy()
+    {
+        mesh.vertices = ov;
+        colliderMesh.vertices = ocv;
+        mesh.RecalculateNormals();
+        mesh.RecalculateBounds();
+        colliderMesh.RecalculateNormals();
+        colliderMesh.RecalculateBounds();
+    }
 }

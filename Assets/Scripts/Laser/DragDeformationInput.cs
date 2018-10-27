@@ -21,10 +21,16 @@ public class DragDeformationInput : MonoBehaviour
     {
         if (grabbed)
         {
-            if (!(point == oldPoint))
+            // (Input.GetButton("SqueezeRight") || Input.GetButton("SqueezeLeft"))
+            if (!(point == oldPoint) && Input.GetButton("Fire1"))
             {
                 deform.Deform(point);
                 oldPoint = point;
+            }
+            else if (Input.GetButtonUp("Fire1"))
+            {
+                grabbed = false;
+                //dragger = null;
             }
             point = dragger.transform.position;
         }
