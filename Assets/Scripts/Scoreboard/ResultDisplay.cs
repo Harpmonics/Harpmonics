@@ -15,6 +15,8 @@ public class ResultDisplay : MonoBehaviour
     private float[] trackAccuracies = new float[] { 1.0f, 0.8f, 0.9f, 0.5f, 0.6f, 0.7f, 0.8f, 0.4f };
 
     private GameObject[] tracks;
+
+    private List<List<int>>[] tracksVertices;
     
     [Tooltip("Result track height."), Range(0, 3)]
     public float trackHeight = 1f;
@@ -32,8 +34,18 @@ public class ResultDisplay : MonoBehaviour
     /// Should the graph meshes be rebuilt?
     /// </summary>
     private bool dirty = false;
+
+    private bool isAnimating = false;
+
+    private GameObject axisLabel;
     
-    private void BuildMesh(GameObject track, float[] trackAccuracies)
+    /// <summary>
+    /// Builds a mesh for a track
+    /// </summary>
+    /// <param name="track">The track to build the mesh for.</param>
+    /// <param name="trackAccuracies">The overall accuracy achieved over time on that track.</param>
+    /// <param name="trackVertices">A multidimensional list where each index corresponds to an accuracy that points to a list of vertices representing that value.</param>
+    private void BuildMesh(GameObject track, float[] trackAccuracies, List<List<int>> trackVertices)
     {
         List<Vector3> vertices = new List<Vector3>(trackAccuracies.Length * 4 * 2);
 
@@ -47,22 +59,22 @@ public class ResultDisplay : MonoBehaviour
 
 
         vertices.Add(new Vector3(-trackLengthHalf, 0, -trackWidthHalf));
-        vertices.Add(new Vector3(-trackLengthHalf, trackHeight * firstAcc, trackWidthHalf));
-        vertices.Add(new Vector3(-trackLengthHalf, trackHeight * firstAcc, -trackWidthHalf));
+        vertices.Add(new Vector3(-trackLengthHalf, trackHeight * firstAcc, trackWidthHalf)); trackVertices[0].Add(vertices.Count);
+        vertices.Add(new Vector3(-trackLengthHalf, trackHeight * firstAcc, -trackWidthHalf)); trackVertices[0].Add(vertices.Count);
 
         vertices.Add(new Vector3(-trackLengthHalf, 0, -trackWidthHalf));
         vertices.Add(new Vector3(-trackLengthHalf, 0, trackWidthHalf));
-        vertices.Add(new Vector3(-trackLengthHalf, trackHeight * firstAcc, trackWidthHalf));
+        vertices.Add(new Vector3(-trackLengthHalf, trackHeight * firstAcc, trackWidthHalf)); trackVertices[0].Add(vertices.Count);
 
 
         // End side
-        
-        vertices.Add(new Vector3(trackLengthHalf, 0, -trackWidthHalf));
-        vertices.Add(new Vector3(trackLengthHalf, trackHeight * lastAcc, -trackWidthHalf));
-        vertices.Add(new Vector3(trackLengthHalf, trackHeight * lastAcc, trackWidthHalf));
 
         vertices.Add(new Vector3(trackLengthHalf, 0, -trackWidthHalf));
-        vertices.Add(new Vector3(trackLengthHalf, trackHeight * lastAcc, trackWidthHalf));
+        vertices.Add(new Vector3(trackLengthHalf, trackHeight * lastAcc, -trackWidthHalf)); trackVertices[trackVertices.Count - 1].Add(vertices.Count);
+        vertices.Add(new Vector3(trackLengthHalf, trackHeight * lastAcc, trackWidthHalf)); trackVertices[trackVertices.Count - 1].Add(vertices.Count);
+
+        vertices.Add(new Vector3(trackLengthHalf, 0, -trackWidthHalf));
+        vertices.Add(new Vector3(trackLengthHalf, trackHeight * lastAcc, trackWidthHalf)); trackVertices[trackVertices.Count - 1].Add(vertices.Count);
         vertices.Add(new Vector3(trackLengthHalf, 0, trackWidthHalf));
 
 
@@ -89,33 +101,33 @@ public class ResultDisplay : MonoBehaviour
 
             // Top
 
-            vertices.Add(new Vector3(prevLength, prevAcc, -trackWidthHalf));
-            vertices.Add(new Vector3(curLength, curAcc, trackWidthHalf));
-            vertices.Add(new Vector3(curLength, curAcc, -trackWidthHalf));
+            vertices.Add(new Vector3(prevLength, prevAcc, -trackWidthHalf)); trackVertices[i - 1].Add(vertices.Count);
+            vertices.Add(new Vector3(curLength, curAcc, trackWidthHalf)); trackVertices[i].Add(vertices.Count);
+            vertices.Add(new Vector3(curLength, curAcc, -trackWidthHalf)); trackVertices[i].Add(vertices.Count);
 
-            vertices.Add(new Vector3(prevLength, prevAcc, -trackWidthHalf));
-            vertices.Add(new Vector3(prevLength, prevAcc, trackWidthHalf));
-            vertices.Add(new Vector3(curLength, curAcc, trackWidthHalf));
+            vertices.Add(new Vector3(prevLength, prevAcc, -trackWidthHalf)); trackVertices[i - 1].Add(vertices.Count);
+            vertices.Add(new Vector3(prevLength, prevAcc, trackWidthHalf)); trackVertices[i - 1].Add(vertices.Count);
+            vertices.Add(new Vector3(curLength, curAcc, trackWidthHalf)); trackVertices[i].Add(vertices.Count);
 
             // Left
 
             vertices.Add(new Vector3(prevLength, 0, -trackWidthHalf));
-            vertices.Add(new Vector3(prevLength, prevAcc, -trackWidthHalf));
-            vertices.Add(new Vector3(curLength, curAcc, -trackWidthHalf));
+            vertices.Add(new Vector3(prevLength, prevAcc, -trackWidthHalf)); trackVertices[i - 1].Add(vertices.Count);
+            vertices.Add(new Vector3(curLength, curAcc, -trackWidthHalf)); trackVertices[i].Add(vertices.Count);
 
             vertices.Add(new Vector3(prevLength, 0, -trackWidthHalf));
-            vertices.Add(new Vector3(curLength, curAcc, -trackWidthHalf));
+            vertices.Add(new Vector3(curLength, curAcc, -trackWidthHalf)); trackVertices[i].Add(vertices.Count);
             vertices.Add(new Vector3(curLength, 0, -trackWidthHalf));
 
             // Right
 
             vertices.Add(new Vector3(prevLength, 0, trackWidthHalf));
-            vertices.Add(new Vector3(curLength, curAcc, trackWidthHalf));
-            vertices.Add(new Vector3(prevLength, prevAcc, trackWidthHalf));
+            vertices.Add(new Vector3(curLength, curAcc, trackWidthHalf)); trackVertices[i].Add(vertices.Count);
+            vertices.Add(new Vector3(prevLength, prevAcc, trackWidthHalf)); trackVertices[i - 1].Add(vertices.Count);
 
             vertices.Add(new Vector3(prevLength, 0, trackWidthHalf));
             vertices.Add(new Vector3(curLength, 0, trackWidthHalf));
-            vertices.Add(new Vector3(curLength, curAcc, trackWidthHalf));
+            vertices.Add(new Vector3(curLength, curAcc, trackWidthHalf)); trackVertices[i].Add(vertices.Count);
         }
 
 
@@ -148,6 +160,7 @@ public class ResultDisplay : MonoBehaviour
         track.GetComponent<MeshFilter>().mesh = mesh;
     }
 
+    // Separate function for the graph axis for manipulating the mesh in some way (unused)
     private void BuildGraphAxis(GameObject track, float zEnd)
     {
         List<Vector3> vertices = new List<Vector3>(trackAccuracies.Length * 4 * 2);
@@ -277,22 +290,31 @@ public class ResultDisplay : MonoBehaviour
             DestroyImmediate(obj);
         }
 
+        tracksVertices = new List<List<int>>[noteTracks+1];
+
         tracks = new GameObject[noteTracks+1];
 
         // The graph scale is added as a track to make it move with the others
         tracks[0] = new GameObject("Graph Scale");
+        tracksVertices[0] = new List<List<int>>();
 
         for (int i = 1; i < tracks.Length; i++)
         {
             tracks[i] = new GameObject("Track " + i);
+
+            tracksVertices[i] = new List<List<int>>();
         }
 
         float zPos = -((trackWidth + trackSpacing) * tracks.Length) / 2 + trackSpacing/2;
 
-        int randIndex = 0;
+        float finalAvgAcc = 0;
 
-        foreach (GameObject track in tracks)
+        for(int i = 0; i < tracks.Length; i++)
         {
+            GameObject track = tracks[i];
+
+            List<List<int>> trackVertices = tracksVertices[i];
+
             track.transform.parent = this.transform;
             track.transform.rotation = this.transform.rotation;
 
@@ -310,80 +332,224 @@ public class ResultDisplay : MonoBehaviour
             if (track == tracks[0] && GetComponent<MeshRenderer>().sharedMaterials.Length > 1)
             {
                 renderer.sharedMaterial = GetComponent<MeshRenderer>().sharedMaterials[1];
+
+                trackVertices.Add(new List<int>());
+                trackVertices.Add(new List<int>());
+
+                BuildMesh(track, new float[] { 1f, 1f }, trackVertices);
             }
             else
             {
-                Random.InitState(randIndex++);
+                // Placeholder: This should be read from the actual songs somewhere
+                Random.InitState(42 + i);
 
                 float[] trackAccuracies = new float[10];
 
                 trackAccuracies[0] = 1;
 
-                for (int i = 1; i < trackAccuracies.Length; i++)
+                trackVertices.Add(new List<int>());
+
+                for (int i2 = 1; i2 < trackAccuracies.Length; i2++)
                 {
-                    trackAccuracies[i] = trackAccuracies[i-1] * 0.95f + Random.value*0.05f;
+                    trackAccuracies[i2] = trackAccuracies[i2-1] * 0.95f + Random.value*0.05f;
+
+                    trackVertices.Add(new List<int>());
                 }
 
-                BuildMesh(track, trackAccuracies);
+                finalAvgAcc += trackAccuracies[trackAccuracies.Length - 1];
+
+                BuildMesh(track, trackAccuracies, trackVertices);
             }
         }
 
-        BuildGraphAxis(tracks[0], zPos);
+        //BuildGraphAxis(tracks[0], zPos);
 
-        BuildGUI(zPos);
+        float graphCenterZ = -((trackWidth + trackSpacing) * tracks.Length) / 2 + trackSpacing / 2 + trackWidth + ((trackWidth + trackSpacing) * (tracks.Length-1)) / 2;
+
+        finalAvgAcc /= tracks.Length - 1;
+
+        BuildGUI(finalAvgAcc, graphCenterZ);
     }
 
-    private void BuildGUI(float graphZ)
+    private void BuildGUI(float finalAvgAcc, float centerZ)
     {
         GameObject labelAxis = new GameObject("Axis label");
 
         labelAxis.AddComponent<Canvas>().renderMode = RenderMode.WorldSpace;
 
         labelAxis.transform.parent = this.transform;
-        labelAxis.transform.localScale = new Vector3(0.01f, 0.01f, 0.01f);
-        labelAxis.transform.localPosition = new Vector3(trackLength / 2, trackHeight - axisLabelSize * 0.002f/2, graphZ);
+        labelAxis.transform.localScale = new Vector3(0.001f, 0.001f, 0.001f);
+        labelAxis.transform.localPosition = new Vector3(trackLength / 2 + 0.02f, trackHeight * finalAvgAcc - axisLabelSize * 0.002f/2, centerZ);
 
         UnityEngine.UI.Text axisLabelText = labelAxis.AddComponent<UnityEngine.UI.Text>();
 
-        axisLabelText.resizeTextMinSize = 5;
-        axisLabelText.resizeTextMaxSize = 100;
+        axisLabelText.resizeTextMinSize = 50;
+        axisLabelText.resizeTextMaxSize = 1000;
         axisLabelText.resizeTextForBestFit = true;
 
-        axisLabelText.alignment = TextAnchor.MiddleLeft;
+        axisLabelText.alignment = TextAnchor.MiddleCenter;
 
-        axisLabelText.text = "100%";
+        axisLabelText.text = string.Format("{0:f0}%", finalAvgAcc*100 + 0.5f);
 
-        axisLabelText.rectTransform.sizeDelta = new Vector2(axisLabelSize, axisLabelSize);
+        axisLabelText.font = Font.CreateDynamicFontFromOSFont("Arial", 16);
 
-        axisLabelText.rectTransform.pivot = new Vector2(0, 0.5f);
+        axisLabelText.rectTransform.sizeDelta = new Vector2(axisLabelSize*10f, axisLabelSize*10f);
+
+        axisLabelText.rectTransform.pivot = new Vector2(0.5f, 0.5f);
+
+        axisLabel = labelAxis;
 
         GameObject labelGraph = new GameObject("Graph label");
 
         labelGraph.AddComponent<Canvas>().renderMode = RenderMode.WorldSpace;
 
         labelGraph.transform.parent = this.transform;
-        labelGraph.transform.localScale = new Vector3(0.01f, 0.01f, 0.01f);
+        labelGraph.transform.localScale = new Vector3(0.001f, 0.001f, 0.001f);
         labelGraph.transform.localPosition = new Vector3(-trackLength / 2, trackHeight + 0.4f, 0);
 
         UnityEngine.UI.Text graphLabelText = labelGraph.AddComponent<UnityEngine.UI.Text>();
 
-        graphLabelText.resizeTextMinSize = 5;
-        graphLabelText.resizeTextMaxSize = 100;
+        graphLabelText.resizeTextMinSize = 50;
+        graphLabelText.resizeTextMaxSize = 1000;
         graphLabelText.resizeTextForBestFit = true;
 
         graphLabelText.alignment = TextAnchor.MiddleCenter;
 
         graphLabelText.text = "Accuracy over time";
 
-        graphLabelText.rectTransform.sizeDelta = new Vector2(axisLabelSize*1.5f, axisLabelSize*1.5f);
+        graphLabelText.font = Font.CreateDynamicFontFromOSFont("Arial", 16);
+
+        graphLabelText.rectTransform.sizeDelta = new Vector2(axisLabelSize*25f, axisLabelSize*25f);
 
         graphLabelText.rectTransform.pivot = new Vector2(0.5f, 0.5f);
     }
 
+    /// <summary>
+    /// Flattens the graph so that only the axis is seen
+    /// </summary>
+    public void Flatten()
+    {
+        for(int i = 1; i < tracks.Length; i++)
+        {
+            GameObject track = tracks[i];
+
+            List<List<int>> trackVertices = tracksVertices[i];
+
+            Mesh mesh = track.GetComponent<MeshFilter>().mesh;
+
+            Vector3[] vertices = mesh.vertices;
+
+            // Update every vertex in the tracked list
+            foreach(List<int> trackedVertices in trackVertices)
+            {
+                foreach(int index in trackedVertices)
+                {
+                    Vector3 vertex = vertices[index-1];
+                    vertices[index-1].Set(vertex.x, 0, vertex.z);
+                }
+            }
+
+            mesh.vertices = vertices;
+
+            mesh.RecalculateNormals();
+            mesh.RecalculateBounds();
+        }
+
+        Vector3 curPos = axisLabel.transform.localPosition;
+
+        axisLabel.transform.localPosition = new Vector3(-trackLength/2, trackHeight - axisLabelSize * 0.002f / 2, curPos.z);
+        axisLabel.GetComponent<UnityEngine.UI.Text>().text = "";
+    }
+
+    protected void Animate()
+    {
+        float finalAvgAcc = 0;
+
+        float xPos = -trackLength / 2;
+
+        // Lerp according to how many accuracies we're showing
+        float lerpFactor = Time.deltaTime * 2 * (10/10f);
+
+        for (int i = 1; i < tracks.Length; i++)
+        {
+            GameObject track = tracks[i];
+
+            List<List<int>> trackVertices = tracksVertices[i];
+            
+            // Placeholder: This should be read from the actual songs somewhere
+            Random.InitState(42 + i);
+
+            float[] trackAccuracies = new float[10];
+
+            trackAccuracies[0] = 1;
+
+            for (int i2 = 1; i2 < trackAccuracies.Length; i2++)
+            {
+                trackAccuracies[i2] = trackAccuracies[i2 - 1] * 0.95f + Random.value * 0.05f;
+            }
+
+            Mesh mesh = track.GetComponent<MeshFilter>().mesh;
+
+            Vector3[] vertices = mesh.vertices;
+
+            // Find out how far we've progressed in the animation
+            int maxAcc = 0;
+
+            for(int i2 = 0; i2 < trackVertices.Count; i2++)
+            {
+                Vector3 vertex = vertices[trackVertices[i2][0] - 1];
+
+                maxAcc = i2;
+
+                if (vertex.y / (trackAccuracies[i2] * trackHeight) < 0.5f)
+                    break;
+            }
+
+            finalAvgAcc += trackAccuracies[maxAcc];
+
+            xPos = vertices[trackVertices[maxAcc][0] - 1].x + 0.02f;
+
+            // Update every vertex in the tracked list
+            for(int i2 = 0; i2 <= maxAcc; i2++)
+            {
+                foreach (int index in trackVertices[i2])
+                {
+                    Vector3 vertex = vertices[index - 1];
+                    vertices[index - 1].Set(vertex.x, vertex.y + (trackAccuracies[i2] * trackHeight - vertex.y) * lerpFactor, vertex.z);
+                }
+            }
+
+            mesh.vertices = vertices;
+
+            mesh.RecalculateNormals();
+            mesh.RecalculateBounds();
+        }
+
+        finalAvgAcc /= tracks.Length - 1;
+
+        Vector3 curPos = axisLabel.transform.localPosition;
+
+        axisLabel.GetComponent<UnityEngine.UI.Text>().text = string.Format("{0:f0}%", finalAvgAcc * 100 + 0.5f);
+
+        // We lerp the x-axis more linearly to avoid "stopping" between values
+        axisLabel.transform.localPosition = new Vector3(curPos.x + Mathf.Min((xPos - curPos.x) * lerpFactor * 2, 0.2f * lerpFactor), curPos.y + (trackHeight * finalAvgAcc - axisLabelSize * 0.002f / 2 - curPos.y) * lerpFactor, curPos.z);
+    }
+
+    public void StartAnimation()
+    {
+        isAnimating = true;
+    }
 
 	void Start()
     {
+        if (Application.isPlaying)
+        {
+            // References are lost when playing the scene, so we just rebuild from the same settings
+            BuildTracks();
+            Flatten();
 
+            dirty = false;
+        }
 	}
 
     void Reset()
@@ -398,16 +564,24 @@ public class ResultDisplay : MonoBehaviour
 
     void Update()
     {
+        if (Time.time > 3)
+            StartAnimation();
+
+        if (isAnimating)
+            Animate();
 
         // Only need to build mesh in editor, we only animate in the game
 #if UNITY_EDITOR
-        if (dirty)
+        if (!Application.isPlaying)
         {
-            dirty = false;
-            BuildTracks();
+            if (dirty)
+            {
+                dirty = false;
+                BuildTracks();
+            }
+            if (tracks != null && tracks.Length > 1 && tracks[1].GetComponent<MeshRenderer>().sharedMaterial != GetComponent<MeshRenderer>().sharedMaterial)
+                dirty = true;
         }
-        if (tracks != null && tracks.Length > 1 && tracks[1].GetComponent<MeshRenderer>().sharedMaterial != GetComponent<MeshRenderer>().sharedMaterial)
-            dirty = true;
 #endif
     }
 }
