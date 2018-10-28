@@ -4,7 +4,7 @@ using UnityEngine;
 
 [ExecuteInEditMode]
 [RequireComponent(typeof(MeshRenderer))]
-public class ResultDisplay : MonoBehaviour
+public class AccuracyGraph : MonoBehaviour
 {
 
     // TODO: Populate automatically
