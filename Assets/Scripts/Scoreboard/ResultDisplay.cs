@@ -11,11 +11,14 @@ public class ResultDisplay : MonoBehaviour
     [Tooltip("Number of tracks the player can hit."), Range(0, 20)]
     public int noteTracks = 3;
 
-    // TODO: Placeholder, need some way to read these from the actual results
-    private float[] trackAccuracies = new float[] { 1.0f, 0.8f, 0.9f, 0.5f, 0.6f, 0.7f, 0.8f, 0.4f };
-
+    /// <summary>
+    /// References to graph tracks.
+    /// </summary>
     private GameObject[] tracks;
 
+    /// <summary>
+    /// List of track accuracies' corresponding vertices used to update to set graph height.
+    /// </summary>
     private List<List<int>>[] tracksVertices;
     
     [Tooltip("Result track height."), Range(0, 3)]
@@ -31,13 +34,43 @@ public class ResultDisplay : MonoBehaviour
     public float axisLabelSize = 20f;
 
     /// <summary>
-    /// Should the graph meshes be rebuilt?
+    /// Should the graph meshes be rebuilt? (only used in editor)
     /// </summary>
     private bool dirty = false;
 
+    /// <summary>
+    /// Should the graph start to appear with an animation?
+    /// </summary>
     private bool isAnimating = false;
 
+    /// <summary>
+    /// Set automatically when animating to stop animating when interpolation changes are miniscule
+    /// </summary>
+    private bool shouldStopAnimating = false;
+
     private GameObject axisLabel;
+
+    /// <summary>
+    /// Gets the accumulated track accuracies over time for the given track.
+    /// </summary>
+    /// <param name="track">The desired track (1-indexed)</param>
+    /// <returns></returns>
+    private float[] GetTrackAccuracies(int track)
+    {
+        // Placeholder: This should be read from the actual songs somewhere
+        Random.InitState(42 + track);
+
+        float[] trackAccuracies = new float[10];
+
+        trackAccuracies[0] = 1;
+
+        for (int i2 = 1; i2 < trackAccuracies.Length; i2++)
+        {
+            trackAccuracies[i2] = trackAccuracies[i2 - 1] * 0.95f + Random.value * 0.05f;
+        }
+
+        return trackAccuracies;
+    }
     
     /// <summary>
     /// Builds a mesh for a track
@@ -163,7 +196,7 @@ public class ResultDisplay : MonoBehaviour
     // Separate function for the graph axis for manipulating the mesh in some way (unused)
     private void BuildGraphAxis(GameObject track, float zEnd)
     {
-        List<Vector3> vertices = new List<Vector3>(trackAccuracies.Length * 4 * 2);
+        List<Vector3> vertices = new List<Vector3>(2 * 4 * 2);
 
         float trackLengthHalf = trackLength / 2;
         float trackWidthHalf = trackWidth / 2;
@@ -340,19 +373,10 @@ public class ResultDisplay : MonoBehaviour
             }
             else
             {
-                // Placeholder: This should be read from the actual songs somewhere
-                Random.InitState(42 + i);
+                float[] trackAccuracies = GetTrackAccuracies(i);
 
-                float[] trackAccuracies = new float[10];
-
-                trackAccuracies[0] = 1;
-
-                trackVertices.Add(new List<int>());
-
-                for (int i2 = 1; i2 < trackAccuracies.Length; i2++)
+                for (int i2 = 0; i2 < trackAccuracies.Length; i2++)
                 {
-                    trackAccuracies[i2] = trackAccuracies[i2-1] * 0.95f + Random.value*0.05f;
-
                     trackVertices.Add(new List<int>());
                 }
 
@@ -467,26 +491,26 @@ public class ResultDisplay : MonoBehaviour
 
         float xPos = -trackLength / 2;
 
-        // Lerp according to how many accuracies we're showing
-        float lerpFactor = Time.deltaTime * 2 * (10/10f);
+        // Base lerp speed
+        float labelLerpFactor = Time.deltaTime * 5;
+
+        // If we should stop animating, then we set all values to their final ones before stopping the animation
+        if (shouldStopAnimating)
+            labelLerpFactor = 1;
 
         for (int i = 1; i < tracks.Length; i++)
         {
             GameObject track = tracks[i];
 
             List<List<int>> trackVertices = tracksVertices[i];
-            
-            // Placeholder: This should be read from the actual songs somewhere
-            Random.InitState(42 + i);
 
-            float[] trackAccuracies = new float[10];
+            float[] trackAccuracies = GetTrackAccuracies(i);
 
-            trackAccuracies[0] = 1;
+            // Lerp according to how many accuracies we're showing (using 10 as a base speed)
+            float lerpFactor = labelLerpFactor * (trackAccuracies.Length / 10f);
 
-            for (int i2 = 1; i2 < trackAccuracies.Length; i2++)
-            {
-                trackAccuracies[i2] = trackAccuracies[i2 - 1] * 0.95f + Random.value * 0.05f;
-            }
+            if (shouldStopAnimating)
+                lerpFactor = 1;
 
             Mesh mesh = track.GetComponent<MeshFilter>().mesh;
 
@@ -515,6 +539,7 @@ public class ResultDisplay : MonoBehaviour
                 foreach (int index in trackVertices[i2])
                 {
                     Vector3 vertex = vertices[index - 1];
+
                     vertices[index - 1].Set(vertex.x, vertex.y + (trackAccuracies[i2] * trackHeight - vertex.y) * lerpFactor, vertex.z);
                 }
             }
@@ -532,7 +557,20 @@ public class ResultDisplay : MonoBehaviour
         axisLabel.GetComponent<UnityEngine.UI.Text>().text = string.Format("{0:f0}%", finalAvgAcc * 100 + 0.5f);
 
         // We lerp the x-axis more linearly to avoid "stopping" between values
-        axisLabel.transform.localPosition = new Vector3(curPos.x + Mathf.Min((xPos - curPos.x) * lerpFactor * 2, 0.2f * lerpFactor), curPos.y + (trackHeight * finalAvgAcc - axisLabelSize * 0.002f / 2 - curPos.y) * lerpFactor, curPos.z);
+        axisLabel.transform.localPosition = new Vector3(curPos.x + Mathf.Min((xPos - curPos.x) * labelLerpFactor * 2, 0.2f * labelLerpFactor), curPos.y + (trackHeight * finalAvgAcc - axisLabelSize * 0.002f / 2 - curPos.y) * labelLerpFactor, curPos.z);
+
+        if (shouldStopAnimating)
+        {
+            isAnimating = false;
+            shouldStopAnimating = false;
+        }
+        else
+        {
+            float xPosDiff = (xPos - curPos.x);
+
+            if (xPosDiff < 10e-6)
+                shouldStopAnimating = true;
+        }
     }
 
     public void StartAnimation()
@@ -564,8 +602,11 @@ public class ResultDisplay : MonoBehaviour
 
     void Update()
     {
-        if (Time.time > 3)
-            StartAnimation();
+        if (Application.isPlaying)
+        {
+            if (Time.time > 3)
+                StartAnimation();
+        }
 
         if (isAnimating)
             Animate();
