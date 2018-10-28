@@ -25,7 +25,8 @@ public class LaserMIDITimingJudge : MonoBehaviour {
 			{
 				
 				ScoreStat.Score += 100;
-				print(Mathf.Abs(notes[index].beginBeat - beat) + " should revard 100 points");
+				print(Mathf.Abs(notes[index].beginBeat - beat) + " should reward 100 points");
+				Feedback.fb = "Perfect";
 				
 			}
 			
@@ -33,7 +34,8 @@ public class LaserMIDITimingJudge : MonoBehaviour {
 			{
 				
 				ScoreStat.Score += 70;
-				print(Mathf.Abs(notes[index].beginBeat - beat) + " should revard 70 points");
+				print(Mathf.Abs(notes[index].beginBeat - beat) + " should reward 70 points");
+				Feedback.fb = "Good";
 
 			}
 			
@@ -41,7 +43,8 @@ public class LaserMIDITimingJudge : MonoBehaviour {
 			{
 			
 				ScoreStat.Score += 50;
-				print(Mathf.Abs(notes[index].beginBeat - beat) + " should revard 50 points");
+				print(Mathf.Abs(notes[index].beginBeat - beat) + " should reward 50 points");
+				Feedback.fb = "Ok";
 
 			}
 			
