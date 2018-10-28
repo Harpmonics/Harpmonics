@@ -570,7 +570,7 @@ public class AccuracyGraph : MonoBehaviour
         {
             float xPosDiff = (xPos - curPos.x);
 
-            if (xPosDiff < 10e-6)
+            if (xPosDiff < 10e-5)
                 shouldStopAnimating = true;
         }
     }
