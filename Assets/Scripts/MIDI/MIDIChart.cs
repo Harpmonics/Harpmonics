@@ -14,6 +14,7 @@ public class MIDIChart : ScriptableObject
         public float beginBeat;
         public float endBeat;
         public float audioEndBeat;
+		public bool played;
     }
 
     [Serializable]

@@ -18,11 +18,37 @@ public class LaserMIDITimingJudge : MonoBehaviour {
         int index = Array.BinarySearch(notes, tmpNote, Comparer<MIDIChart.Note>.Create((note1, note2) => note1.beginBeat.CompareTo(note2.beginBeat)));
         if (index < 0) index = ~index;
         while (index + 1 < notes.Length && Mathf.Abs(notes[index + 1].beginBeat - beat) <= Mathf.Abs(notes[index].beginBeat - beat)) ++index;
-        if (index < notes.Length && index - 1 != nextJudgedNote && Mathf.Abs(notes[index].beginBeat - beat) <= toleranceBeat)
+		if (index < notes.Length && index - 1 != nextJudgedNote && Mathf.Abs(notes[index].beginBeat - beat) <= toleranceBeat && !notes[index].played)
         {
-            nextJudgedNote = index + 1;
-            ScoreStat.Score += 1;
-            return notes[index];
+
+			if (Mathf.Abs(notes[index].beginBeat - beat) <= 0.10)
+			{
+				
+				ScoreStat.Score += 100;
+				print(Mathf.Abs(notes[index].beginBeat - beat) + " should revard 100 points");
+				
+			}
+			
+			else if (Mathf.Abs(notes[index].beginBeat - beat) <= 0.17 && Mathf.Abs(notes[index].beginBeat - beat) > 0.10)
+			{
+				
+				ScoreStat.Score += 70;
+				print(Mathf.Abs(notes[index].beginBeat - beat) + " should revard 70 points");
+
+			}
+			
+			else
+			{
+			
+				ScoreStat.Score += 50;
+				print(Mathf.Abs(notes[index].beginBeat - beat) + " should revard 50 points");
+
+			}
+			
+			notes[index].played = true;
+			nextJudgedNote = index + 1;
+			return notes[index];
+			
         }
         return null;
     }
