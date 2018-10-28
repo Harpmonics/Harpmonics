@@ -27,6 +27,16 @@ public class ScoreboardDisplay : MonoBehaviour
     private GameObject[] scoreboardEntries;
     private GameObject userScore;
 
+    /// <summary>
+    /// The user's current score
+    /// </summary>
+    private int currentScore;
+
+    /// <summary>
+    /// Is the scoreboard currently being animated in?
+    /// </summary>
+    private bool isAnimating = false;
+
     private void AddTextComponent(GameObject obj, Font font, string strText, float scale = -1)
     {
         UnityEngine.UI.Text text = obj.AddComponent<UnityEngine.UI.Text>();
@@ -183,7 +193,225 @@ public class ScoreboardDisplay : MonoBehaviour
 
     void SetCurrentScore(int score)
     {
+        currentScore = score;
         userScore.GetComponent<UnityEngine.UI.Text>().text = FormatScore(score, false);
+    }
+
+    /// <summary>
+    /// Animate the user's score moving into the scoreboard.
+    /// </summary>
+    public void StartAnimation()
+    {
+        isAnimating = true;
+
+        StartCoroutine(AnimationCoroutine());
+    }
+
+    private void SetTextAlpha(UnityEngine.UI.Text text, float alpha)
+    {
+        text.color = new Color(text.color.r, text.color.g, text.color.b, alpha);
+    }
+
+    private void LerpTextAlpha(UnityEngine.UI.Text text, float target, float lerpFactor)
+    {
+        // Already reached target
+        if ((target - text.color.a) < 10e-3)
+        {
+            text.color = new Color(text.color.r, text.color.g, text.color.b, target);
+            return;
+        }
+
+        float diff = (target - text.color.a) / Mathf.Abs(target - text.color.a);
+
+        text.color = new Color(text.color.r, text.color.g, text.color.b, Mathf.Clamp(text.color.a + diff * lerpFactor, 0, 1));
+    }
+
+    IEnumerator AnimationCoroutine()
+    {
+        // Assumes the current score is the final score for this user
+        int userIndex = highScores.Add(currentScore, "Anonymous");
+
+        for (int i = 0; i < 10; i++)
+        {
+            GameObject scoreboardEntry = scoreboardEntries[i];
+
+            GameObject index = scoreboardEntry.transform.Find("Index").gameObject;
+
+            GameObject name = scoreboardEntry.transform.Find("Name").gameObject;
+
+            GameObject score = scoreboardEntry.transform.Find("Score").gameObject;
+
+            // If there is no high score, we leave it blank (users will always get a place at this time)
+            if (i < highScores.Scores.Count)
+            {
+                HighScores.HighScore highScore = highScores.Scores[i];
+
+                name.GetComponent<UnityEngine.UI.Text>().text = highScore.Name;
+
+                score.GetComponent<UnityEngine.UI.Text>().text = FormatScore(highScore.Score);
+            }
+            else
+            {
+                index.GetComponent<UnityEngine.UI.Text>().text = "";
+                name.GetComponent<UnityEngine.UI.Text>().text = "";
+                score.GetComponent<UnityEngine.UI.Text>().text = "";
+            }
+        }
+
+        GameObject userEntry;
+
+        if (userIndex >= scoreboardEntries.Length)
+            userEntry = scoreboardEntries[scoreboardEntries.Length - 1];
+        else
+            userEntry = scoreboardEntries[userIndex];
+
+        GameObject scoreboardName = userEntry.transform.Find("Name").gameObject;
+
+        GameObject scoreboardScore = userEntry.transform.Find("Score").gameObject;
+
+        GameObject scoreboardIndex = userEntry.transform.Find("Index").gameObject;
+
+        scoreboardName.GetComponent<UnityEngine.UI.Text>().text = "YOU";
+        scoreboardScore.GetComponent<UnityEngine.UI.Text>().text = FormatScore(currentScore);
+        scoreboardIndex.GetComponent<UnityEngine.UI.Text>().text = "" + highScores.Scores.Count;
+
+        // We will move the header and user from the bottom to their real positions as we animate
+        float headerHeight = scoreboardHeader.transform.localPosition.y;
+        float userHeight = userEntry.transform.localPosition.y;
+
+        // Same as in SetupUI
+        float verticalSpacing = resultScale * 1.1f;
+
+        scoreboardHeader.transform.localPosition = new Vector3(scoreboardHeader.transform.localPosition.x, scoreboardEntries[scoreboardEntries.Length - 1].transform.localPosition.y + verticalSpacing, scoreboardHeader.transform.localPosition.z);
+
+        userEntry.transform.localPosition = new Vector3(userEntry.transform.localPosition.x, scoreboardEntries[scoreboardEntries.Length - 1].transform.localPosition.y, userEntry.transform.localPosition.z);
+
+        // TODO: Fix hard transition from center-formatting to right-aligned
+
+        UnityEngine.UI.Text userText = userScore.GetComponent<UnityEngine.UI.Text>();
+
+        Vector2 targetSize = scoreboardScore.GetComponent<UnityEngine.UI.Text>().rectTransform.sizeDelta;
+
+        userText.text = FormatScore(currentScore);
+
+        float lerpFactor = Time.deltaTime * 2;
+        float lerpFactorIndex = Time.deltaTime * 0.5f;
+
+        // Shrink large score and move it towards the scoreboard
+        while (true)
+        {
+
+            userText.rectTransform.sizeDelta += (targetSize - userText.rectTransform.sizeDelta) * lerpFactor;
+
+            Vector3 diff = (scoreboardScore.transform.position - userScore.transform.position);
+
+            userScore.transform.position += diff * lerpFactor;
+
+            if (Mathf.Abs(diff.y) < 10e-4)
+                break;
+
+            yield return null;
+        }
+
+        userScore.SetActive(false);
+
+        scoreboardHeader.SetActive(true);
+        userEntry.SetActive(true);
+
+        // Replace shrunk score with scoreboard score (identical appearance)
+        SetTextAlpha(scoreboardScore.GetComponent<UnityEngine.UI.Text>(), 1f);
+
+        float shownIndex = highScores.Scores.Count;
+
+        // Slowly move the user's entry as it stands relative the scoreboard
+        while (true)
+        {
+            // Fade in headers and user's entry
+            LerpTextAlpha(scoreboardIndex.GetComponent<UnityEngine.UI.Text>(), 1f, lerpFactor);
+            LerpTextAlpha(scoreboardName.GetComponent<UnityEngine.UI.Text>(), 1f, lerpFactor);
+
+            foreach (UnityEngine.UI.Text text in scoreboardHeader.GetComponentsInChildren<UnityEngine.UI.Text>())
+            {
+                LerpTextAlpha(text, 1f, lerpFactor);
+            }
+
+            SetTextAlpha(scoreboardIndex.GetComponent<UnityEngine.UI.Text>(), 1f);
+
+            float diffHeader = headerHeight - scoreboardHeader.transform.localPosition.y;
+
+            float mixedLerp = Mathf.Min(diffHeader * 5, 100f) * lerpFactorIndex * 2;
+
+            scoreboardHeader.transform.localPosition += new Vector3(0, mixedLerp, 0);
+
+            // TODO: Sound effect every time the number shown changes?
+
+            float posDiff = userHeight - userEntry.transform.localPosition.y;
+
+            if (shownIndex - 0.5f < 10)
+            {
+                shownIndex += Mathf.Max((userIndex - shownIndex), -40f) * lerpFactorIndex;
+
+                if (shownIndex < userIndex)
+                    shownIndex = userIndex;
+
+                userEntry.transform.localPosition += new Vector3(0, Mathf.Min(posDiff * 5, 100f) * lerpFactorIndex, 0);
+            }
+            else
+            {
+                shownIndex += (userIndex - shownIndex) * lerpFactorIndex;
+            }
+
+            scoreboardIndex.GetComponent<UnityEngine.UI.Text>().text = string.Format("{0:f0}", shownIndex + 0.5f);
+
+            if (Mathf.Abs(shownIndex - userIndex) < 0.8 && Mathf.Abs(diffHeader) < 10e-1 && Mathf.Abs(posDiff) < 10e-1)
+            {
+                userEntry.transform.localPosition += new Vector3(0, userHeight - userEntry.transform.localPosition.y, 0);
+                break;
+            }
+
+            yield return null;
+        }
+
+        // Show all other entries now that we know where the user's is
+        for (int i2 = 0; i2 < 10; i2++)
+        {
+            GameObject scoreboardEntry = scoreboardEntries[i2];
+
+            scoreboardEntry.SetActive(true);
+        }
+
+        // Flash continuously for 10 000 frames
+        for (int i = 0; i < 10000; i++)
+        {
+            // Show all other entries now that we know where the user's is
+            for (int i2 = 0; i2 < 10; i2++)
+            {
+                GameObject scoreboardEntry = scoreboardEntries[i2];
+
+                if (scoreboardEntry == userEntry)
+                    continue;
+
+                scoreboardEntry.SetActive(true);
+
+                foreach (UnityEngine.UI.Text text in scoreboardEntry.GetComponentsInChildren<UnityEngine.UI.Text>())
+                {
+                    LerpTextAlpha(text, 1f, lerpFactor);
+                }
+            }
+
+            foreach (UnityEngine.UI.Text text in userEntry.GetComponentsInChildren<UnityEngine.UI.Text>())
+            {
+                text.color = new Color(text.color.r, text.color.g, text.color.b, text.color.a + (((Mathf.Sin(Time.time * 5) + 1) * 0.25f + 0.5f) - text.color.a) * lerpFactor * 5);
+            }
+
+            yield return null;
+        }
+
+        // Set full alpha when stopping the flash
+        foreach (UnityEngine.UI.Text text in userEntry.GetComponentsInChildren<UnityEngine.UI.Text>())
+        {
+            text.color = new Color(text.color.r, text.color.g, text.color.b, 1);
+        }
     }
 
     void Start()
@@ -192,19 +420,21 @@ public class ScoreboardDisplay : MonoBehaviour
         {
             SetupUI();
 
-            for (int i = 0; i < 10; i++)
+            foreach (UnityEngine.UI.Text text in scoreboardHeader.GetComponentsInChildren<UnityEngine.UI.Text>())
             {
-                HighScores.HighScore highScore = highScores.Scores[i];
+                text.color = new Color(text.color.r, text.color.g, text.color.b, 0);
+            }
 
-                GameObject scoreboardEntry = scoreboardEntries[i];
+            scoreboardHeader.SetActive(false);
 
-                GameObject name = scoreboardEntry.transform.Find("Name").gameObject;
+            foreach (GameObject entry in scoreboardEntries)
+            {
+                foreach(UnityEngine.UI.Text text in entry.GetComponentsInChildren<UnityEngine.UI.Text>())
+                {
+                    text.color = new Color(text.color.r, text.color.g, text.color.b, 0);
+                }
 
-                GameObject score = scoreboardEntry.transform.Find("Score").gameObject;
-
-                name.GetComponent<UnityEngine.UI.Text>().text = highScore.Name;
-
-                score.GetComponent<UnityEngine.UI.Text>().text = FormatScore(highScore.Score);
+                entry.SetActive(false);
             }
         }
     }
@@ -221,6 +451,19 @@ public class ScoreboardDisplay : MonoBehaviour
 
     void Update()
     {
+        if (Application.isPlaying)
+        {
+            if (Time.time > 3 && !isAnimating)
+            {
+                // Placeholder: Gives us a random score to see the animation
+                Random.InitState((int)(Time.time*10e5));
+
+                currentScore = (int)Random.Range(0, 999999);
+
+                StartAnimation();
+            }
+        }
+
         // Rebuilding is only done in the editor
 #if UNITY_EDITOR
         if (!Application.isPlaying)
