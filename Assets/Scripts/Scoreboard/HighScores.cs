@@ -36,6 +36,14 @@ public class HighScores : MonoBehaviour
 
     private List<HighScore> scores;
 
+    public List<HighScore> Scores
+    {
+        get
+        {
+            return scores;
+        }
+    }
+
     /// <summary>
     /// Separator for saving high scores to file.
     /// </summary>
@@ -100,11 +108,13 @@ public class HighScores : MonoBehaviour
         scores.Add(obj);
         scores.Sort();
 
+        Save();
+
         return scores.IndexOf(obj);
     }
 
 
-	void Start()
+	void Awake()
     {
         Load();
 
