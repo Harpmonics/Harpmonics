@@ -404,6 +404,7 @@ public class ResultDisplay : MonoBehaviour
         labelAxis.transform.parent = this.transform;
         labelAxis.transform.localScale = new Vector3(0.001f, 0.001f, 0.001f);
         labelAxis.transform.localPosition = new Vector3(trackLength / 2 + 0.02f, trackHeight * finalAvgAcc - axisLabelSize * 0.002f/2, centerZ);
+        labelAxis.transform.localRotation = Quaternion.Euler(0, -90, 0);
 
         UnityEngine.UI.Text axisLabelText = labelAxis.AddComponent<UnityEngine.UI.Text>();
 
@@ -430,6 +431,7 @@ public class ResultDisplay : MonoBehaviour
         labelGraph.transform.parent = this.transform;
         labelGraph.transform.localScale = new Vector3(0.001f, 0.001f, 0.001f);
         labelGraph.transform.localPosition = new Vector3(-trackLength / 2, trackHeight + 0.4f, 0);
+        labelGraph.transform.localRotation = Quaternion.Euler(0, -90, 0);
 
         UnityEngine.UI.Text graphLabelText = labelGraph.AddComponent<UnityEngine.UI.Text>();
 
