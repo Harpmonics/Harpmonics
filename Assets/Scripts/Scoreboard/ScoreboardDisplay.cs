@@ -354,12 +354,11 @@ public class ScoreboardDisplay : MonoBehaviour
 
         userText.text = FormatScore(currentScore);
 
-        float lerpFactor = Time.deltaTime * 2;
-        float lerpFactorIndex = Time.deltaTime * 0.5f;
-
         // Shrink large score and move it towards the scoreboard
         while (true)
         {
+            // lerpFactor is redefined for every lerp as Time.deltaTime might change between yields
+            float lerpFactor = Time.deltaTime * 2;
 
             userText.rectTransform.sizeDelta += (targetSize - userText.rectTransform.sizeDelta) * lerpFactor;
 
@@ -386,6 +385,9 @@ public class ScoreboardDisplay : MonoBehaviour
         // Slowly move the user's entry as it stands relative the scoreboard
         while (true)
         {
+            float lerpFactor = Time.deltaTime * 2;
+            float lerpFactorIndex = Time.deltaTime * 0.5f;
+
             // Fade in headers and user's entry
             LerpTextAlpha(scoreboardIndex.GetComponent<UnityEngine.UI.Text>(), 1f, lerpFactor);
             LerpTextAlpha(scoreboardName.GetComponent<UnityEngine.UI.Text>(), 1f, lerpFactor);
@@ -443,6 +445,8 @@ public class ScoreboardDisplay : MonoBehaviour
         // Flash continuously for 10 000 frames
         for (int i = 0; i < 10000; i++)
         {
+            float lerpFactor = Time.deltaTime * 2;
+
             // Show all other entries now that we know where the user's is
             for (int i2 = 0; i2 < 10; i2++)
             {
