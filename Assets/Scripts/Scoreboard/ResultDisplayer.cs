@@ -100,8 +100,6 @@ public class ResultDisplayer : MonoBehaviour
                 graph.gameObject.transform.GetChild(i).transform.localScale = graphChildScales[i];
             }
 
-            Debug.Log(graph.transform.localScale.y);
-
             if (Mathf.Abs(1 - graph.transform.localScale.y) < 10e-4)
             {
                 for (int i = 0; i < graphChildScales.Length; i++)
