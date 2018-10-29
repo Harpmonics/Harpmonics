@@ -21,7 +21,7 @@ public class ScoreboardDisplay : MonoBehaviour
     /// <summary>
     /// String representing the longest allowed name in the scoreboard (used for preview too).
     /// </summary>
-    private const string LONGEST_ALLOWED_NAME = "A reasonable long name";
+    private const string LONGEST_ALLOWED_NAME = "A reasonably long name";
 
     /// <summary>
     /// Maximum number of digits to expect in the scoreboard (used for formatting).
