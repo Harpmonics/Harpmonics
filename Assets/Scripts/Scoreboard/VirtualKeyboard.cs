@@ -167,7 +167,37 @@ public class VirtualKeyboard : MonoBehaviour
 
     IEnumerator AnimationCoroutine()
     {
-        yield return null;
+        // If the children aren't active, we apparently can't find their components
+        for (int i = 0; i < this.transform.childCount; i++)
+        {
+            GameObject element = this.transform.GetChild(i).gameObject;
+
+            if (element != buttonTemplate)
+                element.SetActive(true);
+        }
+
+        float alpha = 0f;
+
+        while (true)
+        {
+            alpha += Time.deltaTime * 2;
+
+            if (alpha > 1)
+                alpha = 1;
+
+            foreach (CanvasRenderer canvasRenderer in this.transform.GetComponentsInChildren<CanvasRenderer>())
+            {
+                if (canvasRenderer.transform.parent.gameObject == buttonTemplate)
+                    continue;
+
+                canvasRenderer.SetAlpha(alpha);
+            }
+
+            yield return null;
+
+            if (1 - alpha < 10e-5)
+                break;
+        }
     }
 
     void Start()
@@ -176,8 +206,12 @@ public class VirtualKeyboard : MonoBehaviour
         {
             SetupUI();
 
+            // Hide all buttons and disable them for now
             foreach(CanvasRenderer canvasRenderer in this.transform.GetComponentsInChildren<CanvasRenderer>())
             {
+                if (canvasRenderer.transform.parent.gameObject == this.gameObject)
+                    continue;
+
                 canvasRenderer.SetAlpha(0);
                 canvasRenderer.transform.parent.gameObject.SetActive(false);
             }
