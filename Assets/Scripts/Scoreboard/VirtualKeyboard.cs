@@ -233,14 +233,6 @@ public class VirtualKeyboard : MonoBehaviour
 
     void Update()
     {
-        if (Application.isPlaying)
-        {
-            if (Time.time > 3 && !isAnimating)
-            {
-                StartAnimation();
-            }
-        }
-
         // Rebuilding is only done in the editor
 #if UNITY_EDITOR
         if (!Application.isPlaying)

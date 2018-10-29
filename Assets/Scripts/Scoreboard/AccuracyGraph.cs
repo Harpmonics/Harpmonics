@@ -604,12 +604,6 @@ public class AccuracyGraph : MonoBehaviour
 
     void Update()
     {
-        if (Application.isPlaying)
-        {
-            if (Time.time > 3)
-                StartAnimation();
-        }
-
         if (isAnimating)
             Animate();
 

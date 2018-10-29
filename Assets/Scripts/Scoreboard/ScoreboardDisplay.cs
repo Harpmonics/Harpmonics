@@ -67,6 +67,12 @@ public class ScoreboardDisplay : MonoBehaviour
     /// </summary>
     private bool isAnimating = false;
 
+    /// <summary>
+    /// Is the full scoreboard currently displayed?
+    /// </summary>
+    [System.NonSerialized]
+    public bool IsDisplayingScoreboard = false;
+
     private void AddTextComponent(GameObject obj, Font font, string strText, float scale = -1)
     {
         UnityEngine.UI.Text text = obj.AddComponent<UnityEngine.UI.Text>();
@@ -448,18 +454,26 @@ public class ScoreboardDisplay : MonoBehaviour
             float lerpFactor = Time.deltaTime * 2;
 
             // Show all other entries now that we know where the user's is
-            for (int i2 = 0; i2 < 10; i2++)
+            if (!IsDisplayingScoreboard)
             {
-                GameObject scoreboardEntry = scoreboardEntries[i2];
-
-                if (scoreboardEntry == userEntry)
-                    continue;
-
-                scoreboardEntry.SetActive(true);
-
-                foreach (UnityEngine.UI.Text text in scoreboardEntry.GetComponentsInChildren<UnityEngine.UI.Text>())
+                for (int i2 = 0; i2 < 10; i2++)
                 {
-                    LerpTextAlpha(text, 1f, lerpFactor);
+                    GameObject scoreboardEntry = scoreboardEntries[i2];
+
+                    if (scoreboardEntry == userEntry)
+                        continue;
+
+                    scoreboardEntry.SetActive(true);
+
+                    foreach (UnityEngine.UI.Text text in scoreboardEntry.GetComponentsInChildren<UnityEngine.UI.Text>())
+                    {
+                        LerpTextAlpha(text, 1f, lerpFactor);
+
+                        if (Mathf.Abs(1 - text.color.a) < 10e-3)
+                        {
+                            IsDisplayingScoreboard = true;
+                        }
+                    }
                 }
             }
 
@@ -517,19 +531,6 @@ public class ScoreboardDisplay : MonoBehaviour
 
     void Update()
     {
-        if (Application.isPlaying)
-        {
-            if (Time.time > 3 && !isAnimating)
-            {
-                // Placeholder: Gives us a random score to see the animation
-                Random.InitState((int)(Time.time*10e5));
-
-                currentScore = (int)Random.Range(0, 999999);
-
-                StartAnimation();
-            }
-        }
-
         // Rebuilding is only done in the editor
 #if UNITY_EDITOR
         if (!Application.isPlaying)
