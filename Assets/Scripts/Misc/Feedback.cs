@@ -31,7 +31,7 @@ public class Feedback : MonoBehaviour {
 
         if (alpha > 0)
         {
-            alpha -= 0.01f;
+            alpha -= Time.deltaTime;
             test.a = alpha;
             text.color = test;
         }
