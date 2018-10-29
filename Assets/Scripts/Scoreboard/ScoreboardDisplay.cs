@@ -472,6 +472,8 @@ public class ScoreboardDisplay : MonoBehaviour
         {
             text.color = new Color(text.color.r, text.color.g, text.color.b, 1);
         }
+
+        isAnimating = false;
     }
 
     void Start()
