@@ -100,8 +100,11 @@ public class VirtualKeyboard : MonoBehaviour
                 }
 
                 UnityEngine.UI.Button button = objButton.GetComponent<UnityEngine.UI.Button>();
+
+                // Must use local variable for below lambda
+                char c = row[i2];
                 
-                button.onClick.AddListener(() => OnKeyClick(row[i2]));
+                button.onClick.AddListener(() => OnKeyClick(c));
 
                 UnityEngine.UI.Text text = objButton.GetComponentInChildren<UnityEngine.UI.Text>();
 
