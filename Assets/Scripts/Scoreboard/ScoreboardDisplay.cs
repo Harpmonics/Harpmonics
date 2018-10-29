@@ -19,13 +19,43 @@ public class ScoreboardDisplay : MonoBehaviour
     public HighScores highScores;
 
     /// <summary>
+    /// String representing the longest allowed name in the scoreboard (used for preview too).
+    /// </summary>
+    private const string LONGEST_ALLOWED_NAME = "A reasonable long name";
+
+    /// <summary>
+    /// Maximum number of digits to expect in the scoreboard (used for formatting).
+    /// </summary>
+    private const int MAX_SCORE_DIGITS = 6;
+
+    /// <summary>
     /// Should all UI elements be recreated (for editor preview)?
     /// </summary>
     private bool dirty = false;
 
+    /// <summary>
+    /// Scoreboard headers.
+    /// </summary>
     private GameObject scoreboardHeader;
+
+    /// <summary>
+    /// Scoreboard rows.
+    /// </summary>
     private GameObject[] scoreboardEntries;
+
+    /// <summary>
+    /// The current user's current score display, before the scoreboard is shown.
+    /// </summary>
     private GameObject userScore;
+
+    /// <summary>
+    /// The current user's row in the scoreboard, or null if the scoreboard isn't displayed yet.
+    /// </summary>
+    private GameObject userScoreboardEntry;
+    /// <summary>
+    /// The current user's high score reference, or null if the scoreboard isn't displayed yet.
+    /// </summary>
+    private HighScores.HighScore userHighScore;
 
     /// <summary>
     /// The user's current score
@@ -141,7 +171,7 @@ public class ScoreboardDisplay : MonoBehaviour
             entryName.transform.localPosition = new Vector3(0, 0, 0);
             entryName.transform.localScale = new Vector3(1, 1, 1);
 
-            AddTextComponent(entryName, fontName, "A reasonably long name");
+            AddTextComponent(entryName, fontName, LONGEST_ALLOWED_NAME);
 
 
             GameObject entryScore = new GameObject("Score");
@@ -171,7 +201,7 @@ public class ScoreboardDisplay : MonoBehaviour
     {
         string strNumbers = "" + score;
 
-        while(padding && strNumbers.Length < 6)
+        while(padding && strNumbers.Length < MAX_SCORE_DIGITS)
         {
             // This is a unicode "nut" space (U+2002), since the font was otherwise monospaced with exception of blankspace
             strNumbers = " " + strNumbers;
@@ -191,10 +221,36 @@ public class ScoreboardDisplay : MonoBehaviour
         return strScore;
     }
 
-    void SetCurrentScore(int score)
+    /// <summary>
+    /// Sets the user's current score to the given value.
+    /// </summary>
+    /// <param name="score"></param>
+    public void SetCurrentScore(int score)
     {
         currentScore = score;
         userScore.GetComponent<UnityEngine.UI.Text>().text = FormatScore(score, false);
+    }
+
+    /// <summary>
+    /// Sets the user's current name in the scoreboard to the given value.
+    /// </summary>
+    /// <param name="name"></param>
+    public void UpdateUserName(string name)
+    {
+        if (userScoreboardEntry != null)
+        {
+            // Don't allow names longer than this
+            if (name.Length > LONGEST_ALLOWED_NAME.Length)
+                name = name.Substring(0, LONGEST_ALLOWED_NAME.Length);
+
+            UnityEngine.UI.Text text = userScoreboardEntry.transform.Find("Name").gameObject.GetComponent<UnityEngine.UI.Text>();
+
+            text.text = name;
+
+            userHighScore.Name = name;
+
+            highScores.Save();
+        }
     }
 
     /// <summary>
@@ -229,7 +285,7 @@ public class ScoreboardDisplay : MonoBehaviour
     IEnumerator AnimationCoroutine()
     {
         // Assumes the current score is the final score for this user
-        int userIndex = highScores.Add(currentScore, "Anonymous");
+        int userIndex = highScores.Add(currentScore, "Player " + (highScores.Scores.Count + 1));
 
         for (int i = 0; i < 10; i++)
         {
@@ -264,6 +320,10 @@ public class ScoreboardDisplay : MonoBehaviour
             userEntry = scoreboardEntries[scoreboardEntries.Length - 1];
         else
             userEntry = scoreboardEntries[userIndex];
+
+        userScoreboardEntry = userEntry;
+
+        userHighScore = highScores.Scores[userIndex];
 
         GameObject scoreboardName = userEntry.transform.Find("Name").gameObject;
 
