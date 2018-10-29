@@ -7,6 +7,7 @@ public class Feedback : MonoBehaviour {
 
     static public string fb { get; set; }
 	static public float alpha { get; set; }
+
 	
     TextMesh text;
 	// Use this for initialization
@@ -14,18 +15,27 @@ public class Feedback : MonoBehaviour {
         text = GetComponent<TextMesh>();
 		text.fontSize = 30;
 		Color test = text.color;
+		alpha = 1;
 		test.a = alpha;
+		
 		
     }
 	
 	// Update is called once per frame
-	void Update () {
+    void Update()
+    {
         text.text = fb;
-		Color test = text.color;
-		test.a = alpha;
-		text.color = test;
+        Color test = text.color;
+        test.a = alpha;
+        text.color = test;
 
-	}
-	
-	
+        if (alpha > 0)
+        {
+            alpha -= 0.01f;
+            test.a = alpha;
+            text.color = test;
+        }
+    }
+
+
 }

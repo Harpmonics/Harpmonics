@@ -14,8 +14,6 @@ public class LaserMIDITimingJudge : MonoBehaviour {
 
     public MIDIChart.Note HitNoteOnBeat(float beat)
     {
-		Feedback.fb = "TEST";
-		Feedback.alpha = 1f;
         var tmpNote = new MIDIChart.Note { noteNum = -1, beginBeat = beat - toleranceBeat };
         int index = Array.BinarySearch(notes, tmpNote, Comparer<MIDIChart.Note>.Create((note1, note2) => note1.beginBeat.CompareTo(note2.beginBeat)));
         if (index < 0) index = ~index;
@@ -25,27 +23,26 @@ public class LaserMIDITimingJudge : MonoBehaviour {
 
 			if (Mathf.Abs(notes[index].beginBeat - beat) <= 0.10)
 			{
-				
+				Feedback.alpha = 1f;
 				ScoreStat.Score += 100;
-				print(Mathf.Abs(notes[index].beginBeat - beat) + " should reward 100 points");
-				Feedback.alpha = 0.5f;
-				//Feedback.fb = "Perfect";
+				//print(Mathf.Abs(notes[index].beginBeat - beat) + " should reward 100 points");
+				Feedback.fb = "Perfect";
 			}
 			
 			else if (Mathf.Abs(notes[index].beginBeat - beat) <= 0.17 && Mathf.Abs(notes[index].beginBeat - beat) > 0.10)
 			{
-				
+				Feedback.alpha = 1f;
 				ScoreStat.Score += 70;
-				print(Mathf.Abs(notes[index].beginBeat - beat) + " should reward 70 points");
+				//print(Mathf.Abs(notes[index].beginBeat - beat) + " should reward 70 points");
 				Feedback.fb = "Good";
 
 			}
 			
 			else
 			{
-			
+				Feedback.alpha = 1f;
 				ScoreStat.Score += 50;
-				print(Mathf.Abs(notes[index].beginBeat - beat) + " should reward 50 points");
+				//print(Mathf.Abs(notes[index].beginBeat - beat) + " should reward 50 points");
 				Feedback.fb = "Ok";
 			}
 			
