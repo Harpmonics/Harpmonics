@@ -14,6 +14,7 @@
 
 		Pass
 		{
+			Name "MyPassName"
 			CGPROGRAM
 			#pragma vertex vert
 			#pragma fragment frag
@@ -67,4 +68,5 @@
 			ENDCG
 		}
 	}
+	FallBack "Unlit/Color"
 }

@@ -16,9 +16,9 @@ public class LaserArrayAssigner : MonoBehaviour
 
     void DestroyLaser(LaserBehaviour laser)
     {
-        if (Application.isPlaying)
+        /*if (Application.isPlaying)
             Destroy(laser.gameObject);
-        else
+        else*/
             DestroyImmediate(laser.gameObject);
     }
 

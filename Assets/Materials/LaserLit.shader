@@ -11,6 +11,7 @@ Shader "Harpmonics/LaserLit"
 		_MainTex ("Texture", 2D) = "white" {}
 		_Color ("Laser Color", Color) = (1,1,1,0.1)
 		_LitRange ("Lit Range", Float) = 1
+		_Lightness ("Lightness", Float) = 2
 	}
 	SubShader
 	{
@@ -52,6 +53,7 @@ Shader "Harpmonics/LaserLit"
 
 			float4 _Color;
 			float _LitRange;
+			float _Lightness;
 
 			float3 LaserPos;
 			float3 LaserDir;
@@ -74,11 +76,12 @@ Shader "Harpmonics/LaserLit"
 				half3 dist_dir = normalize(cross(i.dirToCamera, LaserDir));
 				half3 dist = abs(dot(i.posOnLaser, dist_dir));
 				half strength = 1.0 / cosh(length(dist) / _LitRange);
-				float4 col = tex2D(_MainTex, i.uv) * lerp(float4(i.col.rgb, 0), float4(_Color.rgb, i.col.a), strength);
+				float4 col = tex2D(_MainTex, i.uv) * lerp(float4(i.col.rgb, 0), float4(_Color.rgb, i.col.a * _Lightness), strength);
 				UNITY_APPLY_FOG(i.fogCoord, col);
 				return col;
 			}
 			ENDCG
 		}
 	}
+	Fallback Off
 }

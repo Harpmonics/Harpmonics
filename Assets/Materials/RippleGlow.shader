@@ -50,7 +50,7 @@
 			for (int i = 0; i < 10; ++i) {
 				c.rgb = float3(1, 1, 1) - (float3(1, 1, 1) - c.rgb) * (1 - (ripple_light_value(distance(IN.uv_MainTex, _RippleCenter), _RipplePositions[i]) * _RippleStrength));
 			}
-			o.Albedo = c.rgb;
+			o.Albedo = c.rgb * 0.5;
 			// Metallic and smoothness come from slider variables
 			o.Metallic = _Metallic;
 			o.Smoothness = _Glossiness;
