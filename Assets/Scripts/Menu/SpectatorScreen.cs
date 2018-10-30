@@ -117,10 +117,22 @@ public class SpectatorScreen : MonoBehaviour
         infoCounter = infoPanel.transform.Find("Counter").GetComponent<Text>();
         infoText = infoPanel.transform.Find("Info").GetComponent<Text>();
 
+        SetAlpha(infoPanel, 0f, 0);
+
+        StartCoroutine(DelayedStart());
+	}
+
+    /// <summary>
+    /// Activate certain features with a delay to compensate for the 0.5 second initial lag when loading a scene
+    /// </summary>
+    /// <returns></returns>
+    IEnumerator DelayedStart()
+    {
+        yield return new WaitForSeconds(0.5f);
+
         // Fade the loading screen back so return from load is smooth
         SetAlpha(loadingDisplay, 0f);
-        SetAlpha(infoPanel, 0f, 0);
-	}
+    }
 	
 	// Update is called once per frame
 	void Update()
