@@ -14,11 +14,17 @@ public class ControllerPlayback : MonoBehaviour
     {
         public Vector3 position;
         public Quaternion rotation;
+        public float triggerActuation;
 
-        public PlaybackState(Vector3 position, Quaternion rotation)
+        public InputManager.InputState.ActiveFunction buttons;
+
+        public PlaybackState(Vector3 position, Quaternion rotation, float triggerActuation, InputManager.InputState.ActiveFunction buttons = InputManager.InputState.ActiveFunction.None)
         {
             this.position = new Vector3(position.x, position.y, position.z);
             this.rotation = new Quaternion(rotation.x, rotation.y, rotation.z, rotation.w);
+            this.triggerActuation = triggerActuation;
+
+            this.buttons = buttons;
         }
     }
 
@@ -115,7 +121,7 @@ public class ControllerPlayback : MonoBehaviour
                 }
 
                 // Last frame is the frame that will destroy the controller clone, so it won't be seen
-                recStruct.recording.AddLast(new PlaybackState(Vector3.zero, Quaternion.identity));
+                recStruct.recording.AddLast(new PlaybackState(Vector3.zero, Quaternion.identity, 0));
 
 
                 recordedPlaybacks.Remove(offset * NUM_SEQUENCES + playbackIndex);
@@ -145,6 +151,22 @@ public class ControllerPlayback : MonoBehaviour
                 }
             }
         }
+        else
+        {
+            // Record changes to input state too.
+            foreach (RecordStruct s in recordingControllers)
+            {
+                if (s.controller == inputState.Controller)
+                {
+                    // Add buttons to last recorded state (good enough approximation)
+                    PlaybackState lastState = s.recording.Last.Value;
+
+                    lastState.buttons = inputState.Buttons;
+
+                    s.recording.Last.Value = lastState;
+                }
+            }
+        }
     }
 	
 	void Update()
@@ -153,7 +175,7 @@ public class ControllerPlayback : MonoBehaviour
 
 		foreach(RecordStruct s in recordingControllers)
         {
-            s.recording.AddLast(new PlaybackState(s.controller.transform.position, s.controller.transform.rotation));
+            s.recording.AddLast(new PlaybackState(s.controller.transform.position, s.controller.transform.rotation, InputManager.GetInputState(s.controller).TriggerActuation));
         }
 
         for(int i = playingControllers.Count-1; i >= 0; i--)
@@ -164,6 +186,15 @@ public class ControllerPlayback : MonoBehaviour
 
             s.controller.transform.position = curState.position;
             s.controller.transform.rotation = curState.rotation;
+
+            // Emulate input state changes
+            InputManager.GetInputState(s.controller).TriggerActuation = curState.triggerActuation;
+
+            if (curState.buttons != InputManager.InputState.ActiveFunction.None)
+            {
+                InputManager.GetInputState(s.controller).AddButton(curState.buttons);
+                InputManager.GetInputState(s.controller).RemoveButton(InputManager.InputState.ActiveFunction.All);
+            }
 
             if (!s.iterator.MoveNext())
             {
