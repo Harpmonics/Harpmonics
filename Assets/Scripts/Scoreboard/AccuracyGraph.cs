@@ -6,10 +6,8 @@ using UnityEngine;
 [RequireComponent(typeof(MeshRenderer))]
 public class AccuracyGraph : MonoBehaviour
 {
-
-    // TODO: Populate automatically
-    [Tooltip("Number of tracks the player can hit."), Range(0, 20)]
-    public int noteTracks = 3;
+    [Tooltip("Root element of the laser harp, containing all individual lasers.")]
+    public GameObject laserHarp;
 
     /// <summary>
     /// References to graph tracks.
@@ -321,6 +319,17 @@ public class AccuracyGraph : MonoBehaviour
         foreach(GameObject obj in oldMeshes)
         {
             DestroyImmediate(obj);
+        }
+
+        // No laser harp to extrapolate tracks from
+        if (laserHarp == null)
+            return;
+
+        int noteTracks = 0;
+
+        foreach(LaserBehaviour laser in laserHarp.GetComponentsInChildren<LaserBehaviour>())
+        {
+            noteTracks++;
         }
 
         tracksVertices = new List<List<int>>[noteTracks+1];
