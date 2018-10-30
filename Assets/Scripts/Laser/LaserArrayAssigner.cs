@@ -54,7 +54,8 @@ public class LaserArrayAssigner : MonoBehaviour
     bool needRebuild = false;
     void OnValidate()
     {
-        needRebuild = true;
+        if (!Application.isPlaying)
+            needRebuild = true;
     }
 
     void Update()
