@@ -374,6 +374,9 @@ public class AccuracyGraph : MonoBehaviour
         {
             LaserMIDITimingJudge judger = laser.gameObject.GetComponent<LaserMIDITimingJudge>();
 
+            // Make sure it is assigned notes
+            judger.Initialize();
+
             List<float> trackAccuracies = new List<float>();
 
             for(int i = 0; i < judger.notes.Length; i++)

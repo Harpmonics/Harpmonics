@@ -12,6 +12,8 @@ public class LaserMIDITimingJudge : MonoBehaviour {
 
     public float toleranceBeat = 0.25f;
 
+    private bool alreadyInitialized = false;
+
     public MIDIChart.Note HitNoteOnBeat(float beat)
     {
         var tmpNote = new MIDIChart.Note { noteNum = -1, beginBeat = beat - toleranceBeat };
@@ -57,8 +59,11 @@ public class LaserMIDITimingJudge : MonoBehaviour {
         return null;
     }
 
-    void Start()
+    public void Initialize()
     {
+        if (alreadyInitialized)
+            return;
+
         laser = GetComponent<LaserBehaviour>();
         var pitchSet = new HashSet<int>(laser.assignedPitches);
         var rawNotes = new List<MIDIChart.Note>(laser.chart.tracks[laser.trackIndex].notes);
@@ -69,6 +74,11 @@ public class LaserMIDITimingJudge : MonoBehaviour {
 
         notes = rawNotes.ToArray();
         nextJudgedNote = 0;
+    }
+
+    void Start()
+    {
+        Initialize();
     }
 
     public MIDIChart.Note NextJudgedNote
