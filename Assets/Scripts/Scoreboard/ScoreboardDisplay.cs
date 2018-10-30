@@ -70,8 +70,7 @@ public class ScoreboardDisplay : MonoBehaviour
     /// <summary>
     /// Is the full scoreboard currently displayed?
     /// </summary>
-    [System.NonSerialized]
-    public bool IsDisplayingScoreboard = false;
+    public bool IsDisplayingScoreboard { get; private set; } = false;
 
     private void AddTextComponent(GameObject obj, Font font, string strText, float scale = -1)
     {
