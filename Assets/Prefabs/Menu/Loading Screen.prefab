@@ -252,7 +252,7 @@ MonoBehaviour:
   loadingDisplay: {fileID: 1153726528986134}
   fadeDuration: 0.5
   demoEndTime:
-    _dateTime: 0001-01-01 00:00:00
+    _dateTime: 2018-11-02 14:00:00
 --- !u!114 &114545338563441020
 MonoBehaviour:
   m_ObjectHideFlags: 1
