@@ -25,6 +25,15 @@ public class ResultDisplayer : MonoBehaviour
     [Tooltip("VRTK UI Pointer to activate when showing the results.")]
     public VRTK.VRTK_UIPointer controllerPointer;
 
+    /// <summary>
+    /// Time at which the song ends.
+    /// </summary>
+    private float endTime = -1f;
+
+    /// <summary>
+    /// Have the results already been displayed?
+    /// </summary>
+    private bool hasDisplayedResults = false;
 
     void Start()
     {
@@ -42,6 +51,23 @@ public class ResultDisplayer : MonoBehaviour
 
             canvasRenderer.gameObject.SetActive(false);
         }
+
+        LaserBehaviour laser = laserHarp.GetComponentInChildren<LaserBehaviour>();
+
+        foreach(MIDIChart.Track track in laser.chart.tracks)
+        {
+            // For some reason, we keep some tracks empty...
+            if (track.notes.Count == 0)
+                continue;
+
+            MIDIChart.Note lastNote = track.notes[track.notes.Count - 1];
+
+            if (endTime < lastNote.endBeat)
+                endTime = lastNote.endBeat;
+        }
+
+        // Wait a little bit more before showing the results
+        endTime += 1f;
     }
 
     IEnumerator AnimationCoroutine()
@@ -168,17 +194,11 @@ public class ResultDisplayer : MonoBehaviour
         }
     }
 
-    bool tempDebug = false;
-
     void Update()
     {
-        if (Time.time > 3 && !tempDebug)
+        if (!hasDisplayedResults && BeatTime.beat > endTime)
         {
-            tempDebug = true;
-            
-            Random.InitState((int)(Time.time * 10e5));
-
-            scoreboard.SetCurrentScore((int)Random.Range(0, 999999));
+            hasDisplayedResults = true;
 
             ShowResults();
         }
