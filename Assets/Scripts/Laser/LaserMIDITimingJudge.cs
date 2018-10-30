@@ -6,7 +6,7 @@ using UnityEngine;
 public class LaserMIDITimingJudge : MonoBehaviour {
 
     LaserBehaviour laser;
-    MIDIChart.Note[] notes;
+    public MIDIChart.Note[] notes;
     
     int nextJudgedNote = 0;
 
@@ -20,8 +20,11 @@ public class LaserMIDITimingJudge : MonoBehaviour {
         while (index + 1 < notes.Length && Mathf.Abs(notes[index + 1].beginBeat - beat) <= Mathf.Abs(notes[index].beginBeat - beat)) ++index;
 		if (index < notes.Length && index - 1 != nextJudgedNote && Mathf.Abs(notes[index].beginBeat - beat) <= toleranceBeat && !notes[index].played)
         {
+            float accuracy = 1 - Mathf.Abs(notes[index].beginBeat - beat) / toleranceBeat;
 
-			if (Mathf.Abs(notes[index].beginBeat - beat) <= 0.10)
+            AccuracyGraph.TrackAccuracy(this.gameObject, accuracy, index);
+
+            if (Mathf.Abs(notes[index].beginBeat - beat) <= 0.10)
 			{
 				Feedback.alpha = 1f;
 				ScoreStat.Score += 100;

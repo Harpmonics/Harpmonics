@@ -2,12 +2,37 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-[RequireComponent(typeof(TextMesh))]
-public class ScoreStat : MonoBehaviour {
+public class ScoreStat : MonoBehaviour
+{
 
-    static public int Score { get; set; }
+    public ScoreboardDisplay scoreboard;
 
+    public static ScoreStat instance;
+
+    private static int m_score;
+
+    public static int Score
+    {
+        get
+        {
+            return m_score;
+        }
+        set
+        {
+            m_score = value;
+
+            instance.scoreboard.SetCurrentScore(m_score);
+        }
+    }
+
+    void Start()
+    {
+        instance = this;
+    }
+
+    /*
     int lastScore;
+
     TextMesh text;
 
 	// Use this for initialization
@@ -25,5 +50,6 @@ public class ScoreStat : MonoBehaviour {
             text.text = lastScore.ToString();
         }
 	}
+    */
 
 }

@@ -48,6 +48,21 @@ public class AccuracyGraph : MonoBehaviour
 
     private GameObject axisLabel;
 
+    private static Dictionary<GameObject, List<float>> accuracies;
+
+    private static Dictionary<int, GameObject> accuracyIndices;
+
+    /// <summary>
+    /// Track unaccumulated track accuracy using the track associated with obj.
+    /// </summary>
+    /// <param name="obj">Track associated with the accuracy.</param>
+    /// <param name="accuracy">Non-accumulated accuracy at this note.</param>
+    /// <param name="index">This note's index in the track.</param>
+    public static void TrackAccuracy(GameObject obj, float accuracy, int index)
+    {
+        accuracies[obj][index] = accuracy;
+    }
+
     /// <summary>
     /// Gets the accumulated track accuracies over time for the given track.
     /// </summary>
@@ -55,16 +70,40 @@ public class AccuracyGraph : MonoBehaviour
     /// <returns></returns>
     private float[] GetTrackAccuracies(int track)
     {
-        // Placeholder: This should be read from the actual songs somewhere
-        Random.InitState(42 + track);
+        float[] trackAccuracies;
 
-        float[] trackAccuracies = new float[10];
-
-        trackAccuracies[0] = 1;
-
-        for (int i2 = 1; i2 < trackAccuracies.Length; i2++)
+        // Use placeholder for editor (since we won't have any accuracies at this point)
+        if (!Application.isPlaying)
         {
-            trackAccuracies[i2] = trackAccuracies[i2 - 1] * 0.95f + Random.value * 0.05f;
+            Random.InitState(42 + track);
+
+            trackAccuracies = new float[10];
+
+            trackAccuracies[0] = 1;
+
+            for (int i2 = 1; i2 < trackAccuracies.Length; i2++)
+            {
+                trackAccuracies[i2] = trackAccuracies[i2 - 1] * 0.95f + Random.value * 0.05f;
+            }
+        }
+        else
+        {
+            GameObject trackObject = accuracyIndices[track-1];
+
+            List<float> rawAccuracies = accuracies[trackObject];
+            
+            trackAccuracies = new float[rawAccuracies.Count];
+
+            // This shouldn't normally happen.
+            if (rawAccuracies.Count == 0)
+                return new float[2] { 1, 0.5f };
+
+            trackAccuracies[0] = rawAccuracies[0];
+
+            for(int i = 1; i < trackAccuracies.Length; i++)
+            {
+                trackAccuracies[i] = (rawAccuracies[i] + rawAccuracies[i-1])/2;
+            }
         }
 
         return trackAccuracies;
@@ -327,8 +366,25 @@ public class AccuracyGraph : MonoBehaviour
 
         int noteTracks = 0;
 
-        foreach(LaserBehaviour laser in laserHarp.GetComponentsInChildren<LaserBehaviour>())
+        accuracies = new Dictionary<GameObject, List<float>>();
+
+        accuracyIndices = new Dictionary<int, GameObject>();
+
+        foreach (LaserBehaviour laser in laserHarp.GetComponentsInChildren<LaserBehaviour>())
         {
+            LaserMIDITimingJudge judger = laser.gameObject.GetComponent<LaserMIDITimingJudge>();
+
+            List<float> trackAccuracies = new List<float>();
+
+            for(int i = 0; i < judger.notes.Length; i++)
+            {
+                trackAccuracies.Add(0f);
+            }
+
+            accuracyIndices.Add(accuracies.Count, laser.gameObject);
+
+            accuracies.Add(laser.gameObject, trackAccuracies);
+
             noteTracks++;
         }
 
