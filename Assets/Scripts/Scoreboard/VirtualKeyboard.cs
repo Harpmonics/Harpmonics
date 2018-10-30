@@ -12,6 +12,9 @@ public class VirtualKeyboard : MonoBehaviour
     [Tooltip("Scoreboard to input strings to.")]
     public ScoreboardDisplay scoreboard;
 
+    [Tooltip("Text to output the virtual keyboard's current value to.")]
+    public UnityEngine.UI.Text rawTextOutput;
+
     /// <summary>
     /// Should all UI elements be recreated (for editor preview)?
     /// </summary>
@@ -44,6 +47,12 @@ public class VirtualKeyboard : MonoBehaviour
                 continue;
 
             DestroyImmediate(obj);
+        }
+
+        // Set output text empty
+        if (rawTextOutput != null && Application.isPlaying)
+        {
+            rawTextOutput.text = "";
         }
 
         Canvas canvas = GetComponent<Canvas>();
@@ -131,6 +140,11 @@ public class VirtualKeyboard : MonoBehaviour
         else
         {
             currentString += key;
+        }
+
+        if (rawTextOutput != null)
+        {
+            rawTextOutput.text = currentString;
         }
 
         if (scoreboard != null)
