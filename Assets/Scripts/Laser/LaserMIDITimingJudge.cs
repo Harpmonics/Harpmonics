@@ -64,6 +64,8 @@ public class LaserMIDITimingJudge : MonoBehaviour {
         if (alreadyInitialized)
             return;
 
+        alreadyInitialized = true;
+
         laser = GetComponent<LaserBehaviour>();
         var pitchSet = new HashSet<int>(laser.assignedPitches);
         var rawNotes = new List<MIDIChart.Note>(laser.chart.tracks[laser.trackIndex].notes);
