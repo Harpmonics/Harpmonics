@@ -9,7 +9,7 @@ public class ScoreStat : MonoBehaviour
 
     public static ScoreStat instance;
 
-    private static int m_score;
+    private static int m_score = 0;
 
     public static int Score
     {
