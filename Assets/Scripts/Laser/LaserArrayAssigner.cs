@@ -47,7 +47,8 @@ public class LaserArrayAssigner : MonoBehaviour
 
     void Start()
     {
-        SetupLasers();
+        if (!Application.isPlaying)
+            SetupLasers();
     }
 
     bool needRebuild = false;
