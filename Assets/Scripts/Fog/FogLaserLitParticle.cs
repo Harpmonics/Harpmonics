@@ -30,9 +30,9 @@ public class FogLaserLitParticle : MonoBehaviour {
         lasers.Clear();
         foreach (GameObject arr in laserArrays)
         {
+            if (arr == null) continue;
             foreach (LaserBehaviour laser in arr.GetComponentsInChildren<LaserBehaviour>())
             {
-
                 lasers.Add(laser.transform);
             }
         }
@@ -67,26 +67,29 @@ public class FogLaserLitParticle : MonoBehaviour {
     // Update is called once per frame
     void Update()
     {
-        bool needFullUpdate = false;
-
-        foreach (Transform laser in lasers)
+        if (!Application.isPlaying)
         {
-            if (laser == null)
+            bool needFullUpdate = false;
+
+            foreach (Transform laser in lasers)
             {
-                needFullUpdate = true;
-                break;
+                if (laser == null)
+                {
+                    needFullUpdate = true;
+                    break;
+                }
             }
-        }
 
-        if (needFullUpdate)
-        {
-            FullUpdate();
-            return;
+            if (needFullUpdate)
+            {
+                FullUpdate();
+                return;
+            }
         }
 
         for (int i = 0; i < lasers.Count; ++i)
         {
-            if (lasers[i].hasChanged)
+            if (lasers[i] != null && lasers[i].hasChanged)
             {
                 Debug.Log("Laser #" + i + " Changed");
                 UpdateMaterial(i);
