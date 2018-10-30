@@ -28,6 +28,8 @@ public class ScoreStat : MonoBehaviour
     void Start()
     {
         instance = this;
+
+        m_score = 0;
     }
 
     /*
