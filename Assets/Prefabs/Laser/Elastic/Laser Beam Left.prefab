@@ -28,6 +28,7 @@ GameObject:
   - component: {fileID: 114528756779891718}
   - component: {fileID: 114672304534403646}
   - component: {fileID: 114992204041466712}
+  - component: {fileID: 114607432890745516}
   m_Layer: 0
   m_Name: Laser Beam Left
   m_TagString: Track 1
@@ -340,6 +341,19 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 629f52986c010a7468eb7c4be010d650, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &114607432890745516
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1013298039091256}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 47f0a1cca7c3369439d6f00c1cc20f1d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  rumbleStrength: 0.1
+  rumbleTime: 0.1
 --- !u!114 &114641465369755308
 MonoBehaviour:
   m_ObjectHideFlags: 1

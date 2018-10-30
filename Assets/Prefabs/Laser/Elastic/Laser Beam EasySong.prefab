@@ -28,6 +28,7 @@ GameObject:
   - component: {fileID: 114486914067385090}
   - component: {fileID: 114891509535338548}
   - component: {fileID: 114092321883164240}
+  - component: {fileID: 114515890577050766}
   m_Layer: 0
   m_Name: Laser Beam EasySong
   m_TagString: Track 1
@@ -369,6 +370,19 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 629f52986c010a7468eb7c4be010d650, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &114515890577050766
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1173922504650766}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 47f0a1cca7c3369439d6f00c1cc20f1d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  rumbleStrength: 0.1
+  rumbleTime: 0.1
 --- !u!114 &114562739675851096
 MonoBehaviour:
   m_ObjectHideFlags: 1
