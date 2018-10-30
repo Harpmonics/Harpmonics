@@ -7,6 +7,9 @@ public class ResultDisplayer : MonoBehaviour
     [Tooltip("Laser harp to hide when showing the results.")]
     public GameObject laserHarp;
 
+    [Tooltip("Laser harp fog to hide when showing the results.")]
+    public GameObject laserFog;
+
     [Tooltip("Scoreboard to show in results.")]
     public ScoreboardDisplay scoreboard;
 
@@ -81,10 +84,12 @@ public class ResultDisplayer : MonoBehaviour
             float lerpFactor = Time.deltaTime * 2;
 
             laserHarp.transform.localScale += (new Vector3(1, 0, 1) - laserHarp.transform.localScale) * lerpFactor;
+            laserFog.transform.localScale += (new Vector3(1, 0, 1) - laserFog.transform.localScale) * lerpFactor;
 
             if (laserHarp.transform.localScale.y < 10e-3)
             {
                 laserHarp.SetActive(false);
+                laserFog.SetActive(false);
                 break;
             }
 
