@@ -52,14 +52,16 @@ public class ResultDisplayer : MonoBehaviour
             canvasRenderer.gameObject.SetActive(false);
         }
 
-        LaserBehaviour laser = laserHarp.GetComponentInChildren<LaserBehaviour>();
+        List<MIDIChart.Track> validTracks = new List<MIDIChart.Track>();
 
-        foreach(MIDIChart.Track track in laser.chart.tracks)
+        foreach(LaserBehaviour laser in laserHarp.GetComponentsInChildren<LaserBehaviour>())
         {
-            // For some reason, we keep some tracks empty...
-            if (track.notes.Count == 0)
-                continue;
+            if (!validTracks.Contains(laser.chart.tracks[laser.trackIndex]))
+                validTracks.Add(laser.chart.tracks[laser.trackIndex]);
+        }
 
+        foreach(MIDIChart.Track track in validTracks)
+        {
             MIDIChart.Note lastNote = track.notes[track.notes.Count - 1];
 
             if (endTime < lastNote.endBeat)
