@@ -645,17 +645,15 @@ public class AccuracyGraph : MonoBehaviour
         isAnimating = true;
     }
 
-	void Start()
+    // Start is not called if the object is deactivated immediately
+    public void Initialize()
     {
-        if (Application.isPlaying)
-        {
-            // References are lost when playing the scene, so we just rebuild from the same settings
-            BuildTracks();
-            Flatten();
+        // References are lost when playing the scene, so we just rebuild from the same settings
+        BuildTracks();
+        Flatten();
 
-            dirty = false;
-        }
-	}
+        dirty = false;
+    }
 
     void Reset()
     {

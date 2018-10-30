@@ -35,6 +35,9 @@ public class ResultDisplayer : MonoBehaviour
     /// </summary>
     private bool hasDisplayedResults = false;
 
+    // Have to initialize graph later, as otherwise references to certain objects may be destroyed
+    private bool initializedGraph = false;
+
     void Start()
     {
         graph.gameObject.SetActive(false);
@@ -198,6 +201,13 @@ public class ResultDisplayer : MonoBehaviour
 
     void Update()
     {
+        if (Time.time > 1 && !initializedGraph)
+        {
+            initializedGraph = true;
+            
+            graph.Initialize();
+        }
+
         if (!hasDisplayedResults && BeatTime.beat > endTime)
         {
             hasDisplayedResults = true;
