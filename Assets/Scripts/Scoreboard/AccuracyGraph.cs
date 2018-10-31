@@ -98,11 +98,13 @@ public class AccuracyGraph : MonoBehaviour
             if (rawAccuracies.Count == 0)
                 return new float[2] { 1, 0.5f };
 
-            trackAccuracies[0] = rawAccuracies[0];
+            float totalAccuracies = 0f;
 
-            for(int i = 1; i < trackAccuracies.Length; i++)
+            for(int i = 0; i < trackAccuracies.Length; i++)
             {
-                trackAccuracies[i] = (rawAccuracies[i] + trackAccuracies[i-1])/2;
+                trackAccuracies[i] = (totalAccuracies + rawAccuracies[i])/(i+1);
+
+                totalAccuracies += trackAccuracies[i];
             }
         }
 
