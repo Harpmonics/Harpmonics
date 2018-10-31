@@ -230,7 +230,7 @@ public class SegmentedLaser : MonoBehaviour
     /// <param name="radius"></param>
     /// <param name="bottom"></param>
     /// <param name="top"></param>
-    private void AddCylinderSides(List<Vector3> vertices, float[] angles, float radius, float bottom, float top, Vector3 bottomCenter, Vector3 topCenter)
+    private void AddCylinderSides(List<Vector3> vertices, List<Vector3> normals, float[] angles, float radius, float bottom, float top, Vector3 bottomCenter, Vector3 topCenter)
     {
         float prevAng = angles[angles.Length - 1];
         float curAng = 0;
@@ -254,6 +254,14 @@ public class SegmentedLaser : MonoBehaviour
             vertices.Add(new Vector3(xPrev, top, yPrev) + topCenter);
             vertices.Add(new Vector3(xCur, top, yCur) + topCenter);
 
+            normals.Add(new Vector3(xPrev, 0, yPrev));
+            normals.Add(new Vector3(xCur, 0, yCur));
+            normals.Add(new Vector3(xCur, 0, yCur));
+
+            normals.Add(new Vector3(xPrev, 0, yPrev));
+            normals.Add(new Vector3(xPrev, 0, yPrev));
+            normals.Add(new Vector3(xCur, 0, yCur));
+
             prevAng = curAng;
         }
     }
@@ -271,6 +279,8 @@ public class SegmentedLaser : MonoBehaviour
         mesh.Clear();
 
         List<Vector3> vertices = new List<Vector3>();
+
+        List<Vector3> normals = new List<Vector3>();
 
         float bottom = -m_height / 2.0f;
         float top = m_height / 2.0f;
@@ -315,13 +325,17 @@ public class SegmentedLaser : MonoBehaviour
             vertices.Add(center);
             vertices.Add(new Vector3(xCur, height, yCur));
 
+            normals.Add(new Vector3(0, 1, 0));
+            normals.Add(new Vector3(0, 1, 0));
+            normals.Add(new Vector3(0, 1, 0));
+
             prevAng = curAng;
         }
         
         // Generate bottom, top and joints
-        AddCylinderSides(vertices, angles, m_radius, jointUpper, top, m_jointPos, Vector3.zero);
-        AddCylinderSides(vertices, angles, m_radius, jointLower, jointUpper, m_jointPos, m_jointPos);
-        AddCylinderSides(vertices, angles, m_radius, bottom, jointLower, Vector3.zero, m_jointPos);
+        AddCylinderSides(vertices, normals, angles, m_radius, jointUpper, top, m_jointPos, Vector3.zero);
+        AddCylinderSides(vertices, normals, angles, m_radius, jointLower, jointUpper, m_jointPos, m_jointPos);
+        AddCylinderSides(vertices, normals, angles, m_radius, bottom, jointLower, Vector3.zero, m_jointPos);
 
 
 
@@ -348,6 +362,10 @@ public class SegmentedLaser : MonoBehaviour
             vertices.Add(new Vector3(xCur, height, yCur));
             vertices.Add(center);
 
+            normals.Add(new Vector3(0, -1, 0));
+            normals.Add(new Vector3(0, -1, 0));
+            normals.Add(new Vector3(0, -1, 0));
+
             prevAng = curAng;
         }
 
@@ -366,7 +384,8 @@ public class SegmentedLaser : MonoBehaviour
         mesh.triangles = triangles;
 
         mesh.RecalculateBounds();
-        mesh.RecalculateNormals();
+
+        mesh.SetNormals(normals);
 
         // not sure if texture coords are necessary
         //mesh.uv = new Vector2[]
