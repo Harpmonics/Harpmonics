@@ -102,7 +102,7 @@ public class AccuracyGraph : MonoBehaviour
 
             for(int i = 0; i < trackAccuracies.Length; i++)
             {
-                trackAccuracies[i] = (totalAccuracies + trackAccuracies[i])/(i+1);
+                trackAccuracies[i] = (totalAccuracies + rawAccuracies[i])/(i+1);
 
                 totalAccuracies += trackAccuracies[i];
             }
