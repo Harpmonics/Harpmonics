@@ -51,6 +51,7 @@ public class LaserTrackHeightControl : MonoBehaviour
         Vector3 rightHandPosition = rightHandObject.position;
         Vector3 headsetPosition = headsetObject.position;
 
+        /*
         if (Input.GetAxis("SqueezeLeft") > 0.5)
         {
             offsetFromHeadset += leftHandPosition.y - lastLeftHandPosition.y;
@@ -59,6 +60,7 @@ public class LaserTrackHeightControl : MonoBehaviour
         {
             offsetFromHeadset += rightHandPosition.y - lastRightHandPosition.y;
         }
+        */
 
         if (Mathf.Abs(headsetPosition.y - lastHeadsetPosition.y) > headsetFreezeYThreshold * Mathf.Min(1, (Time.time - timeHeadsetMoved) / headsetFreezeTime))
         {
