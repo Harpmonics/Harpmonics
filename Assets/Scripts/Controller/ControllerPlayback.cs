@@ -161,7 +161,7 @@ public class ControllerPlayback : MonoBehaviour
                     // Add buttons to last recorded state (good enough approximation)
                     PlaybackState lastState = s.recording.Last.Value;
 
-                    lastState.buttons = inputState.Buttons;
+                    lastState.buttons |= inputState.Buttons;
 
                     s.recording.Last.Value = lastState;
                 }
