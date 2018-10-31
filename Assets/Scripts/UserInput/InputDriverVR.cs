@@ -66,6 +66,9 @@ public class InputDriverVR : AInputDriver
             controllerEvents.GripUnclicked += OnGripRelease;
 
             controllerEvents.TriggerAxisChanged += OnTriggerChange;
+
+            controllerEvents.TriggerPressed += OnTriggerPressed;
+            controllerEvents.TriggerReleased += OnTriggerReleased;
         }
     }
 
@@ -116,6 +119,16 @@ public class InputDriverVR : AInputDriver
     private void OnTriggerChange(object sender, ControllerInteractionEventArgs e)
     {
         GetInputState(e).TriggerActuation = e.buttonPressure;
+    }
+
+    private void OnTriggerPressed(object sender, ControllerInteractionEventArgs e)
+    {
+        GetInputState(e).TriggerActuation = 1.0f;
+    }
+
+    private void OnTriggerReleased(object sender, ControllerInteractionEventArgs e)
+    {
+        GetInputState(e).TriggerActuation = 0.0f;
     }
 
     private IEnumerator WaitForGrip(ControllerInteractionEventArgs e)

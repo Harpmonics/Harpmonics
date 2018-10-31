@@ -57,7 +57,10 @@ public class InputManager : MonoBehaviour
         {
             Buttons |= flag;
 
-            callbacks.Invoke(this);
+            if (callbacks != null)
+            {
+                callbacks.Invoke(this);
+            }
         }
 
         public void RemoveButton(ActiveFunction flag)
