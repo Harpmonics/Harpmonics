@@ -184,28 +184,25 @@ public class SegmentedLaser : MonoBehaviour
     /// </summary>
     void UpdatePlaceholder()
     {
-        if (Application.isEditor)
+        if (m_placeholder == null)
         {
-            if (m_placeholder == null)
+            if (transform.Find("Placeholder") != null)
             {
-                if (transform.Find("Placeholder") != null)
-                {
-                    m_placeholder = transform.Find("Placeholder").gameObject;
-                }
-                else
-                {
-                    m_placeholder = GameObject.CreatePrimitive(PrimitiveType.Cylinder);
-                    m_placeholder.name = "Placeholder";
-                    m_placeholder.transform.parent = this.transform;
-                }
+                m_placeholder = transform.Find("Placeholder").gameObject;
             }
-
-            m_placeholder.transform.position = new Vector3(0, 0, 0);
-            m_placeholder.transform.localPosition = new Vector3(0, 0, 0);
-
-            // primitive cylinder has height 2 and radius 0.5
-            m_placeholder.transform.localScale = new Vector3(m_radius / 0.5f, m_height / 2.0f, m_radius / 0.5f);
+            else
+            {
+                m_placeholder = GameObject.CreatePrimitive(PrimitiveType.Cylinder);
+                m_placeholder.name = "Placeholder";
+                m_placeholder.transform.parent = this.transform;
+            }
         }
+
+        m_placeholder.transform.position = new Vector3(0, 0, 0);
+        m_placeholder.transform.localPosition = new Vector3(0, 0, 0);
+
+        // primitive cylinder has height 2 and radius 0.5
+        m_placeholder.transform.localScale = new Vector3(m_radius / 0.5f, m_height / 2.0f, m_radius / 0.5f);
     }
 
     /// <summary>
@@ -213,7 +210,7 @@ public class SegmentedLaser : MonoBehaviour
     /// </summary>
     void HidePlaceholder()
     {
-        if (Application.isEditor && m_placeholder != null)
+        if (m_placeholder != null)
         {
             m_placeholder.GetComponent<Renderer>().enabled = false;
         }
