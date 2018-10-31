@@ -239,7 +239,7 @@ public class SegmentedLaser : MonoBehaviour
         float jointLower = (m_jointPos.y * m_height) - (jointAbsoluteSize / 2.0f);
         float jointUpper = (m_jointPos.y * m_height) + (jointAbsoluteSize / 2.0f);
 
-        mesh.vertices = new Vector3[]
+        Vector3[] actualVertices = new Vector3[]
         {
             // bottom 4 vertices
             new Vector3(m_radius, bottom, m_radius), // Ab
@@ -284,7 +284,7 @@ public class SegmentedLaser : MonoBehaviour
         int Ct = 14;
         int Dt = 15;
 
-        mesh.triangles = new int[] // clockwise seems to generate correct normals
+        int[] actualTriangles = new int[] // clockwise seems to generate correct normals
         {
             // bottom face
             Ab, Db, Bb,
@@ -350,6 +350,21 @@ public class SegmentedLaser : MonoBehaviour
             Jtd, Dt, Jta,
             Jta, Dt, At,
         };
+
+        Vector3[] vertices = new Vector3[actualTriangles.Length];
+        int[] triangles = new int[actualTriangles.Length];
+
+        for(int i = 0; i < actualTriangles.Length; i++)
+        {
+            int tri = actualTriangles[i];
+
+            vertices[i] = actualVertices[tri];
+
+            triangles[i] = i;
+        }
+
+        mesh.vertices = vertices;
+        mesh.triangles = triangles;
 
         mesh.RecalculateBounds();
         mesh.RecalculateNormals();
