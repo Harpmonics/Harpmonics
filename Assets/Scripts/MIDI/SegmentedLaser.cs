@@ -649,10 +649,10 @@ public class SegmentedLaser : MonoBehaviour
 
         if (m_vibrating)
         {
-            m_jointVel = m_jointVel - (0.05f * m_jointPos);
+            m_jointVel = m_jointVel - (5f * m_jointPos * Time.deltaTime);
             m_jointVel *= 0.95f;
 
-            if (m_jointVel.magnitude < 0.0001f)
+            if (m_jointVel.magnitude < 10e-4 && new Vector2(m_jointPos.x, m_jointPos.z).magnitude < 10e-4)
             {
                 // TODO: add a "returning" state that lerps the beam back to zero
                 // TODO: .. even at this small threshold there is a visible "snap"
