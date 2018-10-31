@@ -9,12 +9,13 @@
 		Tags{ "Queue" = "Transparent" "RenderType" = "Transparent" }
 		LOD 100
 
-		Blend SrcAlpha One
-		ZWrite Off
-
 		Pass
 		{
-			Name "MyPassName"
+			// No depth testing
+			ZWrite Off
+
+			Blend SrcAlpha OneMinusSrcAlpha
+
 			CGPROGRAM
 			#pragma vertex vert
 			#pragma fragment frag
@@ -62,6 +63,10 @@
 							, 2)) // linear position
 						, -2)) * 0.07 // lightness attenuation on inverse proportion of position (pos^-n)
 				); // soft clip on maximum value 1
+
+				// Use set transparency
+				col.a *= _Color.a;
+
 				UNITY_APPLY_FOG(i.fogCoord, col);
 				return col;
 			}
