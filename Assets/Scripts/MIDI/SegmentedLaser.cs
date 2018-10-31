@@ -213,7 +213,10 @@ public class SegmentedLaser : MonoBehaviour
     /// </summary>
     void HidePlaceholder()
     {
-        m_placeholder.GetComponent<Renderer>().enabled = false;
+        if (Application.isEditor && m_placeholder != null)
+        {
+            m_placeholder.GetComponent<Renderer>().enabled = false;
+        }
     }
 
     /// <summary>
