@@ -52,6 +52,8 @@ public class SpectatorScreen : MonoBehaviour
     protected Text infoCounter;
     protected Text infoText;
 
+    protected UnityEngine.Video.VideoPlayer logoVideo;
+
     protected Dictionary<object, float> targetAlpha = new Dictionary<object, float>();
 
     /// <summary>
@@ -99,11 +101,22 @@ public class SpectatorScreen : MonoBehaviour
             fadeDuration = this.fadeDuration;
 
         SetAlpha(loadingDisplay, 1f);
+
+        logoVideo.Play();
     }
 
 	// Use this for initialization
 	void Start()
     {
+        loadingDisplay.transform.Find("Video Player").gameObject.SetActive(true);
+
+        logoVideo = loadingDisplay.GetComponentInChildren<UnityEngine.Video.VideoPlayer>();
+
+        logoVideo.Prepare();
+        
+        // Keep playback speed as it is
+        //logoVideo.playbackSpeed = Mathf.Min(((logoVideo.frameCount - (ulong)logoVideo.frame) / logoVideo.frameRate) / 2f, 10f);
+
         realDemoEndTime = demoEndTime.dateTime;
 
         // Unspecified end time, no need to stop displaying
