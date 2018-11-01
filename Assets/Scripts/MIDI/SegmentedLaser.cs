@@ -35,6 +35,12 @@ public class SegmentedLaser : MonoBehaviour
     public MeshRenderer m_renderer;
 
     /// <summary>
+    /// A MultiGrabManager instance that controls the number of beam the player is
+    /// able to grab with each hand
+    /// </summary>
+    public MultiGrabManager m_multigrab;
+
+    /// <summary>
     /// Material to assign when the beam is not being touched
     /// </summary>
     public Material notouch;
@@ -743,6 +749,7 @@ public class SegmentedLaser : MonoBehaviour
     /// </summary>
     void EndGrab()
     {
+        m_multigrab.RegisterRelease(m_grabber);
         m_notouchframes = 10;
         m_grabber = null;
         m_state = BeamState.Base;
@@ -757,8 +764,9 @@ public class SegmentedLaser : MonoBehaviour
     /// <param name="cd">The collider that is possibly initiating a grab</param>
     void CheckGrab(Collider cd)
     {
-        if (InputManager.GetInputState(cd).TriggerActuation > 0.5)
+        if (InputManager.GetInputState(cd).TriggerActuation > 0.5 && m_multigrab.CanGrab(cd))
         {
+            m_multigrab.RegisterGrab(cd);
             BeginGrab(cd);
         }
     }

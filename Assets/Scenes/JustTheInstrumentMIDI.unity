@@ -220,6 +220,7 @@ MonoBehaviour:
   m_output: {fileID: 22504407}
   m_collider: {fileID: 22504404}
   m_renderer: {fileID: 22504406}
+  m_multigrab: {fileID: 1425577663}
   notouch: {fileID: 2100000, guid: 069aba37cf89a514dbf43ee178c4c247, type: 2}
   touch: {fileID: 2100000, guid: c80b2168cedc0df4ba5c8becb2ef9968, type: 2}
   grab: {fileID: 2100000, guid: c80b2168cedc0df4ba5c8becb2ef9968, type: 2}
@@ -826,6 +827,7 @@ MonoBehaviour:
   m_output: {fileID: 73733762}
   m_collider: {fileID: 73733759}
   m_renderer: {fileID: 73733761}
+  m_multigrab: {fileID: 1425577663}
   notouch: {fileID: 2100000, guid: 069aba37cf89a514dbf43ee178c4c247, type: 2}
   touch: {fileID: 2100000, guid: c80b2168cedc0df4ba5c8becb2ef9968, type: 2}
   grab: {fileID: 2100000, guid: c80b2168cedc0df4ba5c8becb2ef9968, type: 2}
@@ -1377,6 +1379,7 @@ MonoBehaviour:
   m_output: {fileID: 228380598}
   m_collider: {fileID: 228380595}
   m_renderer: {fileID: 228380597}
+  m_multigrab: {fileID: 1425577663}
   notouch: {fileID: 2100000, guid: 1729a27428392f3449385ffb6f062b29, type: 2}
   touch: {fileID: 2100000, guid: fb297f5b5ecc2fd44b404feaadd4c2d7, type: 2}
   grab: {fileID: 2100000, guid: fb297f5b5ecc2fd44b404feaadd4c2d7, type: 2}
@@ -2316,6 +2319,7 @@ MonoBehaviour:
   m_output: {fileID: 422233864}
   m_collider: {fileID: 422233861}
   m_renderer: {fileID: 422233863}
+  m_multigrab: {fileID: 1425577663}
   notouch: {fileID: 2100000, guid: 1729a27428392f3449385ffb6f062b29, type: 2}
   touch: {fileID: 2100000, guid: fb297f5b5ecc2fd44b404feaadd4c2d7, type: 2}
   grab: {fileID: 2100000, guid: fb297f5b5ecc2fd44b404feaadd4c2d7, type: 2}
@@ -2775,6 +2779,7 @@ MonoBehaviour:
   m_output: {fileID: 530868729}
   m_collider: {fileID: 530868726}
   m_renderer: {fileID: 530868728}
+  m_multigrab: {fileID: 1425577663}
   notouch: {fileID: 2100000, guid: 1729a27428392f3449385ffb6f062b29, type: 2}
   touch: {fileID: 2100000, guid: fb297f5b5ecc2fd44b404feaadd4c2d7, type: 2}
   grab: {fileID: 2100000, guid: fb297f5b5ecc2fd44b404feaadd4c2d7, type: 2}
@@ -3402,6 +3407,7 @@ MonoBehaviour:
   m_output: {fileID: 715646740}
   m_collider: {fileID: 715646737}
   m_renderer: {fileID: 715646739}
+  m_multigrab: {fileID: 1425577663}
   notouch: {fileID: 2100000, guid: 069aba37cf89a514dbf43ee178c4c247, type: 2}
   touch: {fileID: 2100000, guid: c80b2168cedc0df4ba5c8becb2ef9968, type: 2}
   grab: {fileID: 2100000, guid: c80b2168cedc0df4ba5c8becb2ef9968, type: 2}
@@ -4570,6 +4576,7 @@ MonoBehaviour:
   m_output: {fileID: 957423361}
   m_collider: {fileID: 957423358}
   m_renderer: {fileID: 957423360}
+  m_multigrab: {fileID: 1425577663}
   notouch: {fileID: 2100000, guid: 1729a27428392f3449385ffb6f062b29, type: 2}
   touch: {fileID: 2100000, guid: fb297f5b5ecc2fd44b404feaadd4c2d7, type: 2}
   grab: {fileID: 2100000, guid: fb297f5b5ecc2fd44b404feaadd4c2d7, type: 2}
@@ -4968,6 +4975,7 @@ MonoBehaviour:
   m_output: {fileID: 1042489855}
   m_collider: {fileID: 1042489852}
   m_renderer: {fileID: 1042489854}
+  m_multigrab: {fileID: 1425577663}
   notouch: {fileID: 2100000, guid: 069aba37cf89a514dbf43ee178c4c247, type: 2}
   touch: {fileID: 2100000, guid: c80b2168cedc0df4ba5c8becb2ef9968, type: 2}
   grab: {fileID: 2100000, guid: c80b2168cedc0df4ba5c8becb2ef9968, type: 2}
@@ -6190,6 +6198,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1425577662}
+  - component: {fileID: 1425577663}
   m_Layer: 0
   m_Name: Laser Harp 2.0
   m_TagString: Untagged
@@ -6223,6 +6232,18 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1425577663
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1425577661}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: cefba1949641ece49937121b73f835c2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_limit: 1
 --- !u!43 &1438977062
 Mesh:
   m_ObjectHideFlags: 0
@@ -6412,6 +6433,7 @@ MonoBehaviour:
   m_output: {fileID: 1450111920}
   m_collider: {fileID: 1450111917}
   m_renderer: {fileID: 1450111919}
+  m_multigrab: {fileID: 1425577663}
   notouch: {fileID: 2100000, guid: 1729a27428392f3449385ffb6f062b29, type: 2}
   touch: {fileID: 2100000, guid: fb297f5b5ecc2fd44b404feaadd4c2d7, type: 2}
   grab: {fileID: 2100000, guid: fb297f5b5ecc2fd44b404feaadd4c2d7, type: 2}
@@ -6829,6 +6851,7 @@ MonoBehaviour:
   m_output: {fileID: 1511977866}
   m_collider: {fileID: 1511977863}
   m_renderer: {fileID: 1511977865}
+  m_multigrab: {fileID: 1425577663}
   notouch: {fileID: 2100000, guid: 069aba37cf89a514dbf43ee178c4c247, type: 2}
   touch: {fileID: 2100000, guid: c80b2168cedc0df4ba5c8becb2ef9968, type: 2}
   grab: {fileID: 2100000, guid: c80b2168cedc0df4ba5c8becb2ef9968, type: 2}
@@ -7503,6 +7526,7 @@ MonoBehaviour:
   m_output: {fileID: 1600347787}
   m_collider: {fileID: 1600347784}
   m_renderer: {fileID: 1600347786}
+  m_multigrab: {fileID: 1425577663}
   notouch: {fileID: 2100000, guid: 1729a27428392f3449385ffb6f062b29, type: 2}
   touch: {fileID: 2100000, guid: fb297f5b5ecc2fd44b404feaadd4c2d7, type: 2}
   grab: {fileID: 2100000, guid: fb297f5b5ecc2fd44b404feaadd4c2d7, type: 2}
@@ -7701,6 +7725,7 @@ MonoBehaviour:
   m_output: {fileID: 1684998847}
   m_collider: {fileID: 1684998844}
   m_renderer: {fileID: 1684998846}
+  m_multigrab: {fileID: 1425577663}
   notouch: {fileID: 2100000, guid: 1729a27428392f3449385ffb6f062b29, type: 2}
   touch: {fileID: 2100000, guid: fb297f5b5ecc2fd44b404feaadd4c2d7, type: 2}
   grab: {fileID: 2100000, guid: fb297f5b5ecc2fd44b404feaadd4c2d7, type: 2}
@@ -8856,6 +8881,7 @@ MonoBehaviour:
   m_output: {fileID: 2042070243}
   m_collider: {fileID: 2042070244}
   m_renderer: {fileID: 2042070242}
+  m_multigrab: {fileID: 1425577663}
   notouch: {fileID: 2100000, guid: 1729a27428392f3449385ffb6f062b29, type: 2}
   touch: {fileID: 2100000, guid: fb297f5b5ecc2fd44b404feaadd4c2d7, type: 2}
   grab: {fileID: 2100000, guid: fb297f5b5ecc2fd44b404feaadd4c2d7, type: 2}
