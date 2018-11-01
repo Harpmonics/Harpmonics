@@ -12,16 +12,16 @@ public class ShowPointerByAngle : MonoBehaviour
     public VRTK_BasePointerRenderer m_renderer;
 
     /// <summary>
-    /// The angle is calculated between the headset forward vector and the reference vector
+    /// The angle is calculated between the headset forward vector and the vector from
+    /// the headset to the reference object
     /// </summary>
-    public Vector3 m_reference;
+    public GameObject m_referenceObject;
 
     /// <summary>
     /// Maximum angle (degrees) within which the pointer will be shown
     /// </summary>
     public float m_angleLimit = 25.0f;
-
-
+    
     private Transform m_headsetObject;
     
     // Use this for initialization
@@ -52,8 +52,8 @@ public class ShowPointerByAngle : MonoBehaviour
             return;
         }
         
-        Vector3 headsetPosition = m_headsetObject.transform.forward;
-        float angle = Vector3.Angle(headsetPosition, m_reference);
+        Vector3 headsetForward = m_headsetObject.transform.forward;
+        float angle = Vector3.Angle(headsetForward, m_referenceObject.transform.position - m_headsetObject.transform.position);
 
         if (angle < m_angleLimit)
         {
