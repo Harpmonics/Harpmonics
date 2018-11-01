@@ -12,6 +12,8 @@ public class LaserSequencerControl : MonoBehaviour
     LaserNoteVisualier visualizer;
     LaserMIDITimingJudge judger;
 
+    ControllerRumble rumble;
+
     MIDIChart.Note lastPlayedNote;
 
     public void OnTriggerEnter(Collider other)
@@ -24,6 +26,11 @@ public class LaserSequencerControl : MonoBehaviour
                 sequencer.PlayNow(laser.trackIndex, note.beginBeat, note.audioEndBeat);
                 if (visualizer != null)
                     visualizer.PlayHitEffect(note.endBeat);
+
+                if (rumble != null)
+                {
+                    rumble.StartRumble(other);
+                }
             }
         }
     }
@@ -35,6 +42,7 @@ public class LaserSequencerControl : MonoBehaviour
         judger = GetComponent<LaserMIDITimingJudge>();
         visualizer = GetComponentInChildren<LaserNoteVisualier>();
 
+        rumble = GetComponent<ControllerRumble>();
     }
 
     void Update ()

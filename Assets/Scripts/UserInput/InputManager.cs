@@ -34,6 +34,8 @@ public class InputManager : MonoBehaviour
             SequencePlaybacks   = SequencePlayback0 | SequencePlayback1 | SequencePlayback2 | SequencePlayback3,
 
             OpenMenu            = 1 << 5,
+
+            All                 = SequenceRecord | SequencePlaybacks | OpenMenu
         }
 
         /// <summary>
@@ -55,7 +57,10 @@ public class InputManager : MonoBehaviour
         {
             Buttons |= flag;
 
-            callbacks.Invoke(this);
+            if (callbacks != null)
+            {
+                callbacks.Invoke(this);
+            }
         }
 
         public void RemoveButton(ActiveFunction flag)

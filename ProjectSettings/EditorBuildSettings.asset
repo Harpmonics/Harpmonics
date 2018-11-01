@@ -14,4 +14,7 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/LaserStage_Hard.unity
     guid: dfa03a67daea951449bb9132f4602270
+  - enabled: 1
+    path: Assets/Scenes/JustTheInstrumentMIDI.unity
+    guid: 00f71ba0e14debb4f9e027644c457454
   m_configObjects: {}

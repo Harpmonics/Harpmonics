@@ -16,9 +16,9 @@ public class LaserArrayAssigner : MonoBehaviour
 
     void DestroyLaser(LaserBehaviour laser)
     {
-        if (Application.isPlaying)
+        /*if (Application.isPlaying)
             Destroy(laser.gameObject);
-        else
+        else*/
             DestroyImmediate(laser.gameObject);
     }
 
@@ -47,13 +47,15 @@ public class LaserArrayAssigner : MonoBehaviour
 
     void Start()
     {
-        SetupLasers();
+        if (!Application.isPlaying)
+            SetupLasers();
     }
 
     bool needRebuild = false;
     void OnValidate()
     {
-        needRebuild = true;
+        if (!Application.isPlaying)
+            needRebuild = true;
     }
 
     void Update()
