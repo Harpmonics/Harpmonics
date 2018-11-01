@@ -331,11 +331,14 @@ public class SegmentedLaser : MonoBehaviour
 
             prevAng = curAng;
         }
-        
+
+        // TODO: stop using m_jointPos in this unintuitive way, keep a separate value for the Y offset
+        Vector3 jointXZOffset = new Vector3(m_jointPos.x, 0, m_jointPos.z);
+
         // Generate bottom, top and joints
-        AddCylinderSides(vertices, normals, angles, m_radius, jointUpper, top, m_jointPos, Vector3.zero);
-        AddCylinderSides(vertices, normals, angles, m_radius, jointLower, jointUpper, m_jointPos, m_jointPos);
-        AddCylinderSides(vertices, normals, angles, m_radius, bottom, jointLower, Vector3.zero, m_jointPos);
+        AddCylinderSides(vertices, normals, angles, m_radius, jointUpper, top, jointXZOffset, Vector3.zero);
+        AddCylinderSides(vertices, normals, angles, m_radius, jointLower, jointUpper, jointXZOffset, jointXZOffset);
+        AddCylinderSides(vertices, normals, angles, m_radius, bottom, jointLower, Vector3.zero, jointXZOffset);
 
 
 
