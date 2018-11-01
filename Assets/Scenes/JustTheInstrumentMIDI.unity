@@ -220,13 +220,13 @@ MonoBehaviour:
   m_output: {fileID: 22504407}
   m_collider: {fileID: 22504404}
   m_renderer: {fileID: 22504406}
-  notouch: {fileID: 2100000, guid: 457ef4f9bd200f94792c1be79a6ff764, type: 2}
-  touch: {fileID: 2100000, guid: bacd2aad5a376834a9a1d474f285f514, type: 2}
-  grab: {fileID: 2100000, guid: db217b22823917a408e9414bb04d0dce, type: 2}
+  notouch: {fileID: 2100000, guid: 069aba37cf89a514dbf43ee178c4c247, type: 2}
+  touch: {fileID: 2100000, guid: c80b2168cedc0df4ba5c8becb2ef9968, type: 2}
+  grab: {fileID: 2100000, guid: c80b2168cedc0df4ba5c8becb2ef9968, type: 2}
   m_radius: 0.02
   m_height: 2.5
   m_detail: 50
-  m_jointRelativeSize: 0.05
+  m_jointRelativeSize: 0.01
   m_midiout: {fileID: 22504405}
   m_volumeCC: 7
   m_controller1CC: 74
@@ -826,13 +826,13 @@ MonoBehaviour:
   m_output: {fileID: 73733762}
   m_collider: {fileID: 73733759}
   m_renderer: {fileID: 73733761}
-  notouch: {fileID: 2100000, guid: 457ef4f9bd200f94792c1be79a6ff764, type: 2}
-  touch: {fileID: 2100000, guid: bacd2aad5a376834a9a1d474f285f514, type: 2}
-  grab: {fileID: 2100000, guid: db217b22823917a408e9414bb04d0dce, type: 2}
+  notouch: {fileID: 2100000, guid: 069aba37cf89a514dbf43ee178c4c247, type: 2}
+  touch: {fileID: 2100000, guid: c80b2168cedc0df4ba5c8becb2ef9968, type: 2}
+  grab: {fileID: 2100000, guid: c80b2168cedc0df4ba5c8becb2ef9968, type: 2}
   m_radius: 0.02
   m_height: 2.5
   m_detail: 50
-  m_jointRelativeSize: 0.05
+  m_jointRelativeSize: 0.01
   m_midiout: {fileID: 73733760}
   m_volumeCC: 7
   m_controller1CC: 74
@@ -1377,13 +1377,13 @@ MonoBehaviour:
   m_output: {fileID: 228380598}
   m_collider: {fileID: 228380595}
   m_renderer: {fileID: 228380597}
-  notouch: {fileID: 2100000, guid: 31b4eaeb5c98fca41adddf5a40abff05, type: 2}
-  touch: {fileID: 2100000, guid: 74a9fafadd80dcc47a1409098c78051c, type: 2}
-  grab: {fileID: 2100000, guid: db217b22823917a408e9414bb04d0dce, type: 2}
+  notouch: {fileID: 2100000, guid: 1729a27428392f3449385ffb6f062b29, type: 2}
+  touch: {fileID: 2100000, guid: fb297f5b5ecc2fd44b404feaadd4c2d7, type: 2}
+  grab: {fileID: 2100000, guid: fb297f5b5ecc2fd44b404feaadd4c2d7, type: 2}
   m_radius: 0.02
   m_height: 2.5
   m_detail: 50
-  m_jointRelativeSize: 0.05
+  m_jointRelativeSize: 0.01
   m_midiout: {fileID: 228380596}
   m_volumeCC: 7
   m_controller1CC: 74
@@ -2316,13 +2316,13 @@ MonoBehaviour:
   m_output: {fileID: 422233864}
   m_collider: {fileID: 422233861}
   m_renderer: {fileID: 422233863}
-  notouch: {fileID: 2100000, guid: 31b4eaeb5c98fca41adddf5a40abff05, type: 2}
-  touch: {fileID: 2100000, guid: 74a9fafadd80dcc47a1409098c78051c, type: 2}
-  grab: {fileID: 2100000, guid: db217b22823917a408e9414bb04d0dce, type: 2}
+  notouch: {fileID: 2100000, guid: 1729a27428392f3449385ffb6f062b29, type: 2}
+  touch: {fileID: 2100000, guid: fb297f5b5ecc2fd44b404feaadd4c2d7, type: 2}
+  grab: {fileID: 2100000, guid: fb297f5b5ecc2fd44b404feaadd4c2d7, type: 2}
   m_radius: 0.02
   m_height: 2.5
   m_detail: 50
-  m_jointRelativeSize: 0.05
+  m_jointRelativeSize: 0.01
   m_midiout: {fileID: 422233862}
   m_volumeCC: 7
   m_controller1CC: 74
@@ -2775,13 +2775,13 @@ MonoBehaviour:
   m_output: {fileID: 530868729}
   m_collider: {fileID: 530868726}
   m_renderer: {fileID: 530868728}
-  notouch: {fileID: 2100000, guid: 31b4eaeb5c98fca41adddf5a40abff05, type: 2}
-  touch: {fileID: 2100000, guid: 74a9fafadd80dcc47a1409098c78051c, type: 2}
-  grab: {fileID: 2100000, guid: db217b22823917a408e9414bb04d0dce, type: 2}
+  notouch: {fileID: 2100000, guid: 1729a27428392f3449385ffb6f062b29, type: 2}
+  touch: {fileID: 2100000, guid: fb297f5b5ecc2fd44b404feaadd4c2d7, type: 2}
+  grab: {fileID: 2100000, guid: fb297f5b5ecc2fd44b404feaadd4c2d7, type: 2}
   m_radius: 0.02
   m_height: 2.5
   m_detail: 50
-  m_jointRelativeSize: 0.05
+  m_jointRelativeSize: 0.01
   m_midiout: {fileID: 530868727}
   m_volumeCC: 7
   m_controller1CC: 74
@@ -3402,13 +3402,13 @@ MonoBehaviour:
   m_output: {fileID: 715646740}
   m_collider: {fileID: 715646737}
   m_renderer: {fileID: 715646739}
-  notouch: {fileID: 2100000, guid: 457ef4f9bd200f94792c1be79a6ff764, type: 2}
-  touch: {fileID: 2100000, guid: bacd2aad5a376834a9a1d474f285f514, type: 2}
-  grab: {fileID: 2100000, guid: db217b22823917a408e9414bb04d0dce, type: 2}
+  notouch: {fileID: 2100000, guid: 069aba37cf89a514dbf43ee178c4c247, type: 2}
+  touch: {fileID: 2100000, guid: c80b2168cedc0df4ba5c8becb2ef9968, type: 2}
+  grab: {fileID: 2100000, guid: c80b2168cedc0df4ba5c8becb2ef9968, type: 2}
   m_radius: 0.02
   m_height: 2.5
   m_detail: 50
-  m_jointRelativeSize: 0.05
+  m_jointRelativeSize: 0.01
   m_midiout: {fileID: 715646738}
   m_volumeCC: 7
   m_controller1CC: 74
@@ -4570,13 +4570,13 @@ MonoBehaviour:
   m_output: {fileID: 957423361}
   m_collider: {fileID: 957423358}
   m_renderer: {fileID: 957423360}
-  notouch: {fileID: 2100000, guid: 31b4eaeb5c98fca41adddf5a40abff05, type: 2}
-  touch: {fileID: 2100000, guid: 74a9fafadd80dcc47a1409098c78051c, type: 2}
-  grab: {fileID: 2100000, guid: db217b22823917a408e9414bb04d0dce, type: 2}
+  notouch: {fileID: 2100000, guid: 1729a27428392f3449385ffb6f062b29, type: 2}
+  touch: {fileID: 2100000, guid: fb297f5b5ecc2fd44b404feaadd4c2d7, type: 2}
+  grab: {fileID: 2100000, guid: fb297f5b5ecc2fd44b404feaadd4c2d7, type: 2}
   m_radius: 0.02
   m_height: 2.5
   m_detail: 50
-  m_jointRelativeSize: 0.05
+  m_jointRelativeSize: 0.01
   m_midiout: {fileID: 957423359}
   m_volumeCC: 7
   m_controller1CC: 74
@@ -4968,13 +4968,13 @@ MonoBehaviour:
   m_output: {fileID: 1042489855}
   m_collider: {fileID: 1042489852}
   m_renderer: {fileID: 1042489854}
-  notouch: {fileID: 2100000, guid: 457ef4f9bd200f94792c1be79a6ff764, type: 2}
-  touch: {fileID: 2100000, guid: bacd2aad5a376834a9a1d474f285f514, type: 2}
-  grab: {fileID: 2100000, guid: db217b22823917a408e9414bb04d0dce, type: 2}
+  notouch: {fileID: 2100000, guid: 069aba37cf89a514dbf43ee178c4c247, type: 2}
+  touch: {fileID: 2100000, guid: c80b2168cedc0df4ba5c8becb2ef9968, type: 2}
+  grab: {fileID: 2100000, guid: c80b2168cedc0df4ba5c8becb2ef9968, type: 2}
   m_radius: 0.02
   m_height: 2.5
   m_detail: 50
-  m_jointRelativeSize: 0.05
+  m_jointRelativeSize: 0.01
   m_midiout: {fileID: 1042489853}
   m_volumeCC: 7
   m_controller1CC: 74
@@ -6412,13 +6412,13 @@ MonoBehaviour:
   m_output: {fileID: 1450111920}
   m_collider: {fileID: 1450111917}
   m_renderer: {fileID: 1450111919}
-  notouch: {fileID: 2100000, guid: 31b4eaeb5c98fca41adddf5a40abff05, type: 2}
-  touch: {fileID: 2100000, guid: 74a9fafadd80dcc47a1409098c78051c, type: 2}
-  grab: {fileID: 2100000, guid: db217b22823917a408e9414bb04d0dce, type: 2}
+  notouch: {fileID: 2100000, guid: 1729a27428392f3449385ffb6f062b29, type: 2}
+  touch: {fileID: 2100000, guid: fb297f5b5ecc2fd44b404feaadd4c2d7, type: 2}
+  grab: {fileID: 2100000, guid: fb297f5b5ecc2fd44b404feaadd4c2d7, type: 2}
   m_radius: 0.02
   m_height: 2.5
   m_detail: 50
-  m_jointRelativeSize: 0.05
+  m_jointRelativeSize: 0.01
   m_midiout: {fileID: 1450111918}
   m_volumeCC: 7
   m_controller1CC: 74
@@ -6829,13 +6829,13 @@ MonoBehaviour:
   m_output: {fileID: 1511977866}
   m_collider: {fileID: 1511977863}
   m_renderer: {fileID: 1511977865}
-  notouch: {fileID: 2100000, guid: 457ef4f9bd200f94792c1be79a6ff764, type: 2}
-  touch: {fileID: 2100000, guid: bacd2aad5a376834a9a1d474f285f514, type: 2}
-  grab: {fileID: 2100000, guid: db217b22823917a408e9414bb04d0dce, type: 2}
+  notouch: {fileID: 2100000, guid: 069aba37cf89a514dbf43ee178c4c247, type: 2}
+  touch: {fileID: 2100000, guid: c80b2168cedc0df4ba5c8becb2ef9968, type: 2}
+  grab: {fileID: 2100000, guid: c80b2168cedc0df4ba5c8becb2ef9968, type: 2}
   m_radius: 0.02
   m_height: 2.5
   m_detail: 50
-  m_jointRelativeSize: 0.05
+  m_jointRelativeSize: 0.01
   m_midiout: {fileID: 1511977864}
   m_volumeCC: 7
   m_controller1CC: 74
@@ -7503,13 +7503,13 @@ MonoBehaviour:
   m_output: {fileID: 1600347787}
   m_collider: {fileID: 1600347784}
   m_renderer: {fileID: 1600347786}
-  notouch: {fileID: 2100000, guid: 31b4eaeb5c98fca41adddf5a40abff05, type: 2}
-  touch: {fileID: 2100000, guid: 74a9fafadd80dcc47a1409098c78051c, type: 2}
-  grab: {fileID: 2100000, guid: db217b22823917a408e9414bb04d0dce, type: 2}
+  notouch: {fileID: 2100000, guid: 1729a27428392f3449385ffb6f062b29, type: 2}
+  touch: {fileID: 2100000, guid: fb297f5b5ecc2fd44b404feaadd4c2d7, type: 2}
+  grab: {fileID: 2100000, guid: fb297f5b5ecc2fd44b404feaadd4c2d7, type: 2}
   m_radius: 0.02
   m_height: 2.5
   m_detail: 50
-  m_jointRelativeSize: 0.05
+  m_jointRelativeSize: 0.01
   m_midiout: {fileID: 1600347785}
   m_volumeCC: 7
   m_controller1CC: 74
@@ -7701,13 +7701,13 @@ MonoBehaviour:
   m_output: {fileID: 1684998847}
   m_collider: {fileID: 1684998844}
   m_renderer: {fileID: 1684998846}
-  notouch: {fileID: 2100000, guid: 31b4eaeb5c98fca41adddf5a40abff05, type: 2}
-  touch: {fileID: 2100000, guid: 74a9fafadd80dcc47a1409098c78051c, type: 2}
-  grab: {fileID: 2100000, guid: db217b22823917a408e9414bb04d0dce, type: 2}
+  notouch: {fileID: 2100000, guid: 1729a27428392f3449385ffb6f062b29, type: 2}
+  touch: {fileID: 2100000, guid: fb297f5b5ecc2fd44b404feaadd4c2d7, type: 2}
+  grab: {fileID: 2100000, guid: fb297f5b5ecc2fd44b404feaadd4c2d7, type: 2}
   m_radius: 0.02
   m_height: 2.5
   m_detail: 50
-  m_jointRelativeSize: 0.05
+  m_jointRelativeSize: 0.01
   m_midiout: {fileID: 1684998845}
   m_volumeCC: 7
   m_controller1CC: 74
@@ -8166,6 +8166,7 @@ MonoBehaviour:
   midiOutputDeviceId: 1
   availableMidiDevices:
   - Microsoft GS Wavetable Synth
+  - loopMIDI Port
 --- !u!4 &1797560046
 Transform:
   m_ObjectHideFlags: 0
@@ -8855,13 +8856,13 @@ MonoBehaviour:
   m_output: {fileID: 2042070243}
   m_collider: {fileID: 2042070244}
   m_renderer: {fileID: 2042070242}
-  notouch: {fileID: 2100000, guid: 31b4eaeb5c98fca41adddf5a40abff05, type: 2}
-  touch: {fileID: 2100000, guid: 74a9fafadd80dcc47a1409098c78051c, type: 2}
-  grab: {fileID: 2100000, guid: db217b22823917a408e9414bb04d0dce, type: 2}
+  notouch: {fileID: 2100000, guid: 1729a27428392f3449385ffb6f062b29, type: 2}
+  touch: {fileID: 2100000, guid: fb297f5b5ecc2fd44b404feaadd4c2d7, type: 2}
+  grab: {fileID: 2100000, guid: fb297f5b5ecc2fd44b404feaadd4c2d7, type: 2}
   m_radius: 0.02
   m_height: 2.5
   m_detail: 50
-  m_jointRelativeSize: 0.05
+  m_jointRelativeSize: 0.01
   m_midiout: {fileID: 2042070245}
   m_volumeCC: 7
   m_controller1CC: 74
