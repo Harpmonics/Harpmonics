@@ -146,10 +146,14 @@ public class SpectatorScreen : MonoBehaviour
     /// <returns></returns>
     IEnumerator DelayedStart()
     {
-        yield return new WaitForSeconds(0.5f);
+        // If the demo is over, then the screen shouldn't fade away
+        if ((realDemoEndTime - DateTime.Now).TotalSeconds > 0)
+        {
+            yield return new WaitForSeconds(0.5f);
 
-        // Fade the loading screen back so return from load is smooth
-        SetAlpha(loadingDisplay, 0f);
+            // Fade the loading screen back so return from load is smooth
+            SetAlpha(loadingDisplay, 0f);
+        }
     }
 	
 	// Update is called once per frame
