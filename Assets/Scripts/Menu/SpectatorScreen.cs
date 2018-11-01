@@ -54,6 +54,11 @@ public class SpectatorScreen : MonoBehaviour
 
     protected UnityEngine.Video.VideoPlayer logoVideo;
 
+    /// <summary>
+    /// Used for demo end time, to avoid replaying the video
+    /// </summary>
+    protected bool hasShownVideo = false;
+
     protected Dictionary<object, float> targetAlpha = new Dictionary<object, float>();
 
     /// <summary>
@@ -170,6 +175,14 @@ public class SpectatorScreen : MonoBehaviour
                     SetAlpha(infoCounter.gameObject, 0f, 0f);
 
                     SetAlpha(loadingDisplay, 1f, 2f);
+
+                    if (!hasShownVideo)
+                    {
+                        hasShownVideo = true;
+
+                        logoVideo.playbackSpeed = 1f;
+                        logoVideo.Play();
+                    }
                 }
             }
             else
