@@ -105,9 +105,9 @@ public class SpectatorScreen : MonoBehaviour
         if (fadeDuration < 0)
             fadeDuration = this.fadeDuration;
 
-        SetAlpha(loadingDisplay, 1f);
-
         logoVideo.Play();
+
+        SetAlpha(loadingDisplay, 1f);
     }
 
 	// Use this for initialization
@@ -174,8 +174,6 @@ public class SpectatorScreen : MonoBehaviour
                 {
                     SetAlpha(infoCounter.gameObject, 0f, 0f);
 
-                    SetAlpha(loadingDisplay, 1f, 2f);
-
                     if (!hasShownVideo)
                     {
                         hasShownVideo = true;
@@ -183,6 +181,8 @@ public class SpectatorScreen : MonoBehaviour
                         logoVideo.playbackSpeed = 1f;
                         logoVideo.Play();
                     }
+
+                    SetAlpha(loadingDisplay, 1f, 2f);
                 }
             }
             else
