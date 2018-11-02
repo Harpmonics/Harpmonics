@@ -103,56 +103,7 @@ public class ResultDisplayer : MonoBehaviour
         }
 
         // Wait for scoreboard to have shown for a while before showing other things
-        yield return new WaitForSeconds(1);
-
-        Vector3[] graphChildScales = new Vector3[graph.gameObject.transform.childCount];
-
-        for(int i = 0; i < graphChildScales.Length; i++)
-        {
-            graphChildScales[i] = graph.gameObject.transform.GetChild(i).transform.localScale;
-
-            graph.gameObject.transform.GetChild(i).transform.localScale = Vector3.zero;
-        }
-
-        // Avoids a weird pop-up of the graph before it scales in
-        yield return new WaitForEndOfFrame();
-        
-        graph.gameObject.SetActive(true);
-
-        graph.transform.localScale = new Vector3(0, 0, 0);
-
-        // Make graph pop out
-        while (true)
-        {
-            float lerpFactor = Time.deltaTime * 3;
-
-            graph.transform.localScale += (Vector3.one - graph.transform.localScale) * lerpFactor;
-
-            // Due to some Unity oddity, the immediate children to the scaled parent are also scaled (but wrongly so), so we reset them to their original scale while lerping the graph object
-            for (int i = 0; i < graphChildScales.Length; i++)
-            {
-                graph.gameObject.transform.GetChild(i).transform.localScale = graphChildScales[i];
-            }
-
-            if (Mathf.Abs(1 - graph.transform.localScale.y) < 10e-4)
-            {
-                for (int i = 0; i < graphChildScales.Length; i++)
-                {
-                    graph.gameObject.transform.GetChild(i).transform.localScale = graphChildScales[i];
-                }
-
-                graph.transform.localScale = Vector3.one;
-                break;
-            }
-
-            yield return null;
-        }
-
-        // Display accuracy animation
-        graph.StartAnimation();
-
-        // Wait for graph animation
-        yield return new WaitForSeconds(3);
+        yield return new WaitForSeconds(0.1f);
 
         // Display keyboard
         keyboard.StartAnimation();
@@ -200,6 +151,52 @@ public class ResultDisplayer : MonoBehaviour
 
             yield return null;
         }
+        
+        Vector3[] graphChildScales = new Vector3[graph.gameObject.transform.childCount];
+
+        for (int i = 0; i < graphChildScales.Length; i++)
+        {
+            graphChildScales[i] = graph.gameObject.transform.GetChild(i).transform.localScale;
+
+            graph.gameObject.transform.GetChild(i).transform.localScale = Vector3.zero;
+        }
+
+        // Avoids a weird pop-up of the graph before it scales in
+        yield return new WaitForEndOfFrame();
+
+        graph.gameObject.SetActive(true);
+
+        graph.transform.localScale = new Vector3(0, 0, 0);
+
+        // Make graph pop out
+        while (true)
+        {
+            float lerpFactor = Time.deltaTime * 3;
+
+            graph.transform.localScale += (Vector3.one - graph.transform.localScale) * lerpFactor;
+
+            // Due to some Unity oddity, the immediate children to the scaled parent are also scaled (but wrongly so), so we reset them to their original scale while lerping the graph object
+            for (int i = 0; i < graphChildScales.Length; i++)
+            {
+                graph.gameObject.transform.GetChild(i).transform.localScale = graphChildScales[i];
+            }
+
+            if (Mathf.Abs(1 - graph.transform.localScale.y) < 10e-4)
+            {
+                for (int i = 0; i < graphChildScales.Length; i++)
+                {
+                    graph.gameObject.transform.GetChild(i).transform.localScale = graphChildScales[i];
+                }
+
+                graph.transform.localScale = Vector3.one;
+                break;
+            }
+
+            yield return null;
+        }
+
+        // Display accuracy animation
+        graph.StartAnimation();
     }
 
     void Update()
