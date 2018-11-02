@@ -12,6 +12,12 @@ public class Effect_controller : MonoBehaviour
 
     GameObject laserObj, touchObj;
 
+    // How many seconds is too long to hold the laser for?
+    public float holdTolerance = 3.0f;
+
+    private float startHoldTime = 0f;
+    private bool isHolding = false;
+
     void Start()
     {
         if (particleObject == null) particleObject = gameObject;
@@ -24,7 +30,7 @@ public class Effect_controller : MonoBehaviour
         if (ps.isPlaying)
         {
             // Playback objects may be destroyed while still touching the laser
-            if (touchObj == null)
+            if (touchObj == null || (isHolding & (startHoldTime + holdTolerance - Time.time) < 0))
             {
                 ps.Stop(true, ParticleSystemStopBehavior.StopEmitting);
 
@@ -37,9 +43,12 @@ public class Effect_controller : MonoBehaviour
 
     public void OnTriggerEnter(Collider other)
     {
-        //Debug.Log("hit laser");
         if (InputManager.IsUserInput(other))
         {
+            isHolding = true;
+
+            startHoldTime = Time.time;
+
             laserObj = this.gameObject;
             touchObj = other.gameObject;
 
@@ -51,6 +60,8 @@ public class Effect_controller : MonoBehaviour
     {
         if (InputManager.IsUserInput(other))
         {
+            isHolding = false;
+
             ps.Stop(true, ParticleSystemStopBehavior.StopEmitting);
         }
     }
