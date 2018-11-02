@@ -234,6 +234,8 @@ public class ScoreboardDisplay : MonoBehaviour
     {
         currentScore = score;
         userScore.GetComponent<UnityEngine.UI.Text>().text = FormatScore(score, false);
+
+        userScore.transform.localScale = Vector3.one * 2f;
     }
 
     /// <summary>
@@ -530,6 +532,12 @@ public class ScoreboardDisplay : MonoBehaviour
 
     void Update()
     {
+        if (Application.isPlaying)
+        {
+            // Return score to normal size after it has been enlarged by score updates
+            userScore.transform.localScale += (Vector3.one - userScore.transform.localScale) * Time.deltaTime * 10;
+        }
+
         // Rebuilding is only done in the editor
 #if UNITY_EDITOR
         if (!Application.isPlaying)
