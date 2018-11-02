@@ -18,6 +18,8 @@ public class LaserMIDITimingJudge : MonoBehaviour {
     public int scoreGood = 50;
     public int scorePerfect = 100;
 
+    private HashSet<MIDIChart.Note> playedNotes;
+
     private bool alreadyInitialized = false;
 
     public MIDIChart.Note HitNoteOnBeat(float beat)
@@ -27,7 +29,7 @@ public class LaserMIDITimingJudge : MonoBehaviour {
         if (index < 0) index = ~index;*/
         int index = nextNoteToJudge;
         while (index + 1 < notes.Length && Mathf.Abs(notes[index + 1].beginBeat - beat) <= Mathf.Abs(notes[index].beginBeat - beat)) ++index;
-		if (index < notes.Length && index >= nextNoteToJudge && Mathf.Abs(notes[index].beginBeat - beat) <= toleranceBeatOK /*&& !notes[index].played*/)
+		if (index < notes.Length && index >= nextNoteToJudge && Mathf.Abs(notes[index].beginBeat - beat) <= toleranceBeatOK && !playedNotes.Contains(notes[index]))
         {
             float diffBeat = Mathf.Abs(notes[index].beginBeat - beat);
             float accuracy = 1 - diffBeat / toleranceBeatOK;
@@ -57,7 +59,7 @@ public class LaserMIDITimingJudge : MonoBehaviour {
 				Feedback.fb = "Ok";
 			}
 
-            //notes[index].played = true;
+            playedNotes.Add(notes[index]);
             nextNoteToJudge = index + 1;
 			return notes[index];
 
@@ -83,6 +85,8 @@ public class LaserMIDITimingJudge : MonoBehaviour {
 
         notes = rawNotes.ToArray();
         nextNoteToJudge = 0;
+
+        playedNotes = new HashSet<MIDIChart.Note>();
     }
 
     void Start()
