@@ -84,7 +84,7 @@ public class ResultDisplayer : MonoBehaviour
             float lerpFactor = Time.deltaTime * 2;
 
             laserHarp.transform.localScale += (new Vector3(1, 0, 1) - laserHarp.transform.localScale) * lerpFactor;
-            laserFog.transform.localScale += (new Vector3(1, 0, 1) - laserFog.transform.localScale) * lerpFactor;
+            laserFog.transform.localScale += (new Vector3(0, 0, 0) - laserFog.transform.localScale) * lerpFactor;
 
             if (laserHarp.transform.localScale.y < 10e-3)
             {
@@ -124,6 +124,22 @@ public class ResultDisplayer : MonoBehaviour
         {
             canvasRenderer.gameObject.SetActive(true);
         }
+        
+        // And start showing the graph simultaneously
+        Vector3[] graphChildScales = new Vector3[graph.gameObject.transform.childCount];
+
+        for (int i = 0; i < graphChildScales.Length; i++)
+        {
+            graphChildScales[i] = graph.gameObject.transform.GetChild(i).transform.localScale;
+
+            graph.gameObject.transform.GetChild(i).transform.localScale = Vector3.zero;
+        }
+
+        graph.transform.localScale = new Vector3(0, 0, 0);
+
+        // TODO: There seems to be an unavoidable pop-in at the origin when scaling in the graph
+
+        graph.gameObject.SetActive(true);
 
         float alpha = 0;
 
@@ -146,32 +162,8 @@ public class ResultDisplayer : MonoBehaviour
                 canvasRenderer.SetAlpha(alpha);
             }
 
-            if (Mathf.Abs(1 - alpha) < 10e-3)
-                break;
-
-            yield return null;
-        }
-        
-        Vector3[] graphChildScales = new Vector3[graph.gameObject.transform.childCount];
-
-        for (int i = 0; i < graphChildScales.Length; i++)
-        {
-            graphChildScales[i] = graph.gameObject.transform.GetChild(i).transform.localScale;
-
-            graph.gameObject.transform.GetChild(i).transform.localScale = Vector3.zero;
-        }
-
-        // Avoids a weird pop-up of the graph before it scales in
-        yield return new WaitForEndOfFrame();
-
-        graph.gameObject.SetActive(true);
-
-        graph.transform.localScale = new Vector3(0, 0, 0);
-
-        // Make graph pop out
-        while (true)
-        {
-            float lerpFactor = Time.deltaTime * 3;
+            // Scale in graph at the same time
+            lerpFactor = Time.deltaTime * 3;
 
             graph.transform.localScale += (Vector3.one - graph.transform.localScale) * lerpFactor;
 
@@ -181,7 +173,8 @@ public class ResultDisplayer : MonoBehaviour
                 graph.gameObject.transform.GetChild(i).transform.localScale = graphChildScales[i];
             }
 
-            if (Mathf.Abs(1 - graph.transform.localScale.y) < 10e-4)
+            // Only stop when both are shown
+            if (Mathf.Abs(1 - alpha) < 10e-3 && Mathf.Abs(1 - graph.transform.localScale.y) < 10e-4)
             {
                 for (int i = 0; i < graphChildScales.Length; i++)
                 {
