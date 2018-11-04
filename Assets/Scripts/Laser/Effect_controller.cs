@@ -30,7 +30,7 @@ public class Effect_controller : MonoBehaviour
         if (ps.isPlaying)
         {
             // Playback objects may be destroyed while still touching the laser
-            if (touchObj == null || (isHolding & (startHoldTime + holdTolerance - Time.time) < 0))
+            if (touchObj == null || (isHolding && (startHoldTime + holdTolerance - Time.time) < 0))
             {
                 ps.Stop(true, ParticleSystemStopBehavior.StopEmitting);
 

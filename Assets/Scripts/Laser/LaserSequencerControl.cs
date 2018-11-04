@@ -83,7 +83,7 @@ public class LaserSequencerControl : MonoBehaviour
             lastPlayedNote = note;
         }
 
-        if (isHolding & (startHoldTime + holdTolerance - Time.time) < 0)
+        if (isHolding && (startHoldTime + holdTolerance - Time.time) < 0)
         {
             model.transform.localScale += (new Vector3(0, modelInitialScale.y, 0) - model.transform.localScale) * Time.deltaTime * 3;
         }
