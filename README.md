@@ -1,5 +1,6 @@
 # agi18
 AGI18 Harpmonics
+A project for the course Advanced Graphic and Interaction given at KTH.
 
 ## Midi Setup
 Suggested setup required for the instrument stage:
@@ -28,3 +29,11 @@ Suggested setup required for the instrument stage:
 
 Using MME as the Wave Output in VSTHost works for some people, a lower latency can be achieved with it.
 If there are no sounds presets available in Synth1 you need to set the path to at least one soundbank (see images below), there is at least one soundbank (soundbank00) included in the Synth1 zip file and you'll find it in the directory where Synth1 was unzipped.
+
+![The tiny plugin window in VSTHost](Images/tinywindow.png)
+
+![Synth1 GUI help](Images/synth1gui.png)
+
+![Synth1 options 1 of 2](Images/synth1opts1.png)
+
+![Synth1 options 2 of 2](Images/synth1opts2.png)
