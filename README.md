@@ -1,20 +1,20 @@
 # agi18
-AGI18 Harpmonics
+AGI18 Harpmonics  
 A project for the course Advanced Graphic and Interaction given at KTH.
 
 ## Midi Setup
 Suggested setup required for the instrument stage:
 
-1. Download loopMidi, install, start & hit + button to add a port and leave running
+1. Download loopMidi, install, start & hit + button to add a port and leave running  
 [website](https://www.tobias-erichsen.de/software/loopmidi.html)
 [download](http://www.tobias-erichsen.de/wp-content/uploads/2015/08/loopMIDISetup_1_0_13_24.zip)
 
-2. Download VSTHost and unzip at desired location
-[website](http://www.hermannseib.com/english/vsthost.htm)
+2. Download VSTHost and unzip at desired location  
+[website](http://www.hermannseib.com/english/vsthost.htm)  
 [download](http://www.hermannseib.com/programs/vsthostx64.zip)
 
-3. Download Synth1 VST plugin and unzip at the same location as where VSTHost was unzipped
-[website](http://www.geocities.jp/daichi1969/softsynth/)
+3. Download Synth1 VST plugin and unzip at the same location as where VSTHost was unzipped  
+[website](http://www.geocities.jp/daichi1969/softsynth/)  
 [download](http://www.geocities.jp/daichi1969/softsynth/Synth1V113beta3.zip)
 
 4. Launch VSTHost, hit menu -> Devices -> Midi -> Input and make sure `loopMIDI port` is selected, hit Devices -> Wave and set `Input Port = No Wave`, `OutputPort = DS:<Your Prefered Device>`, `Buffer = 500 + samples`
