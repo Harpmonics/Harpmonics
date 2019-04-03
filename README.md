@@ -6,7 +6,7 @@ A project for the course Advanced Graphic and Interaction given at KTH.
 Suggested setup required for the instrument stage:
 
 1. Download loopMidi, install, start & hit + button to add a port and leave running  
-[website](https://www.tobias-erichsen.de/software/loopmidi.html)
+[website](https://www.tobias-erichsen.de/software/loopmidi.html)  
 [download](http://www.tobias-erichsen.de/wp-content/uploads/2015/08/loopMIDISetup_1_0_13_24.zip)
 
 2. Download VSTHost and unzip at desired location  
