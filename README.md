@@ -14,8 +14,7 @@ Suggested setup required for the instrument stage:
 [download](http://www.hermannseib.com/programs/vsthostx64.zip)
 
 3. Download Synth1 VST plugin and unzip at the same location as where VSTHost was unzipped  
-[website](http://www.geocities.jp/daichi1969/softsynth/)  
-[download](http://www.geocities.jp/daichi1969/softsynth/Synth1V113beta3.zip)
+See 3rdPartySoftware for Synth1 zip
 
 4. Launch VSTHost, hit menu -> Devices -> Midi -> Input and make sure `loopMIDI port` is selected, hit Devices -> Wave and set `Input Port = No Wave`, `OutputPort = DS:<Your Prefered Device>`, `Buffer = 500 + samples`
 
