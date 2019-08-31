@@ -117,12 +117,12 @@ public class ResultDisplayer : MonoBehaviour
         controllerPointer.gameObject.GetComponent<VRTK.VRTK_StraightPointerRenderer>().enabled = true;
 
         // Show all miscellaneous objects
-        /*
+
         foreach (UnityEngine.UI.Text text in textObjects)
         {
             text.gameObject.SetActive(true);
         }
-        */
+
         foreach (CanvasRenderer canvasRenderer in canvasObjects)
         {
             canvasRenderer.gameObject.SetActive(true);
